@@ -72,7 +72,7 @@ function processDirectory(currentPath, relativePathToRoot) {
   
   const items = entries
     .filter(entry => !IGNORE_LIST.includes(entry.name) && !entry.name.startsWith('.'))
-    .filter(entry => entry.name !== 'index.html') // Don't list generated index.html
+    .filter(entry => entry.name !== 'index.html' && !entry.name.endsWith('.js') && !entry.name.endsWith('.json')) // Hide index.html, JS and JSON config files
     .map(entry => {
       const isDirectory = entry.isDirectory();
       if (isDirectory) {
