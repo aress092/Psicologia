@@ -198,123 +198,12 @@
         <button id="btnNext" class="btn-nav">Siguiente</button>
       </div>
     </div>
-  </div>
-
+  <script src="q_t1.js"></script>
+  <script src="q_t2.js"></script>
+  <script src="q_t3.js"></script>
+  <script src="q_t4.js"></script>
   <script>
-    const quizData = [
-      // TEMA 1: CONDICIONAMIENTO CLÁSICO
-      {
-        theme: "CC",
-        question: "¿Cuál es la diferencia fundamental entre la conducta operante y la respondiente?",
-        options: [
-          "La respondiente opera en el ambiente, mientras que la operante es automática.",
-          "La operante genera consecuencias ambientales, mientras que la respondiente es elicitada automáticamente por un estímulo.",
-          "Ambas dependen de las consecuencias, pero la respondiente es innata.",
-          "La operante es objeto del condicionamiento clásico y la respondiente del instrumental."
-        ],
-        correct: 1,
-        justification: "La operante (objeto del CI) opera en el ambiente para generar consecuencias y es controlada por estas. La respondiente (objeto del CC) consiste en respuestas automáticas elicitadas por estímulos antecedentes, independientes de las consecuencias."
-      },
-      {
-        theme: "CC",
-        question: "En el procedimiento de Respuesta Emocional Condicionada, ¿qué indica una Razón de Supresión con valor 0?",
-        options: [
-          "Ausencia total de condicionamiento.",
-          "Condicionamiento inhibitorio perfecto.",
-          "El animal responde más rápido por miedo.",
-          "Condicionamiento de miedo perfecto (supresión total)."
-        ],
-        correct: 3,
-        justification: "Una razón de supresión de 0 significa que la variable A (respuestas durante el EC) es 0. El animal se paraliza por completo, lo que demuestra un condicionamiento de miedo perfecto."
-      },
-      {
-        theme: "CC",
-        question: "¿En qué consiste el fenómeno de Bloqueo?",
-        options: [
-          "Un componente más saliente domina sobre otro menos intenso.",
-          "Un estímulo pierde su capacidad de generar la RC con el paso del tiempo.",
-          "El condicionamiento previo de un estímulo impide que un nuevo estímulo presentado conjuntamente se condicione.",
-          "Se da una contingencia negativa donde el EC predice la ausencia del EI."
-        ],
-        correct: 2,
-        justification: "El bloqueo ocurre cuando un EI es precedido por un EC compuesto (EC1+EC2) y el EC1 ya había precedido a ese EI anteriormente. Ese aprendizaje previo bloquea o impide el condicionamiento del novedoso EC2."
-      },
-      // TEMA 2: CONDICIONAMIENTO INSTRUMENTAL
-      {
-        theme: "CI",
-        question: "Según la Ley del Efecto de Thorndike, ¿qué asocian los organismos?",
-        options: [
-          "Una respuesta con sus consecuencias (R-C).",
-          "Dos estímulos externos (E-E).",
-          "Un estímulo del ambiente con la respuesta que emiten (E-R).",
-          "El reforzador primario con el reforzador secundario."
-        ],
-        correct: 2,
-        justification: "Thorndike propuso que se aprende una asociación E-R (Estímulo-Respuesta). Las consecuencias satisfactorias simplemente fortalecen esa asociación, pero no forman parte directa de ella."
-      },
-      {
-        theme: "CI",
-        question: "¿Qué programa de reforzamiento básico genera las mayores tasas de respuesta y es la base de las máquinas tragaperras?",
-        options: [
-          "Intervalo Fijo (IF).",
-          "Razón Variable (RV).",
-          "Razón Fija (RF).",
-          "Intervalo Variable (IV)."
-        ],
-        correct: 1,
-        justification: "El programa de Razón Variable (RV) refuerza tras un número aleatorio de respuestas, impidiendo saber cuándo llegará la recompensa. Esto elimina las pausas y fomenta una tasa de respuesta compulsiva muy alta y constante."
-      },
-      {
-        theme: "CI",
-        question: "En el condicionamiento instrumental, ¿cuál es la diferencia entre escape y evitación?",
-        options: [
-          "El escape reduce una recompensa, la evitación previene un castigo.",
-          "El escape elimina un estímulo aversivo ya presente; la evitación previene su ocurrencia.",
-          "El escape es condicionamiento clásico y la evitación instrumental.",
-          "El escape aumenta la conducta y la evitación la disminuye."
-        ],
-        correct: 1,
-        justification: "En el escape, el estímulo aversivo ya se está produciendo y la respuesta lo elimina. En la evitación, la respuesta se da ante una señal previa y logra impedir o prevenir que el estímulo aversivo llegue a aparecer."
-      },
-      // TEMA 3: EMOCIÓN
-      {
-        theme: "EM",
-        question: "¿Cuáles son los tres componentes básicos de la emoción?",
-        options: [
-          "Alegría, tristeza y miedo.",
-          "Motivación intrínseca, extrínseca y homeostasis.",
-          "Arousal (activación), comportamientos expresivos y experiencia cognitiva consciente.",
-          "Condicionamiento, generalización y extinción."
-        ],
-        correct: 2,
-        justification: "Las emociones son respuestas complejas compuestas por activación fisiológica (arousal), las conductas expresivas asociadas y la cognición o experiencia subjetiva de la situación."
-      },
-      // TEMA 4: MOTIVACIÓN y REGULACIÓN
-      {
-        theme: "MO",
-        question: "¿En qué consiste el Efecto de Sobrejustificación?",
-        options: [
-          "Excesivo uso de la supresión emocional.",
-          "Disminución de la motivación intrínseca tras ofrecer una recompensa externa por una actividad que ya se disfrutaba.",
-          "Un aumento del rendimiento debido al exceso de expectativas sociales.",
-          "Tendencia a justificar un castigo basándose en las reglas."
-        ],
-        correct: 1,
-        justification: "El efecto de sobrejustificación ocurre cuando la motivación extrínseca (recompensas) desplaza a la intrínseca. Si a alguien le gustaba dibujar y le empiezan a pagar por ello, al retirarle el pago es probable que deje de dibujar."
-      },
-      {
-        theme: "MO",
-        question: "Según el Modelo Procesual de Regulación Emocional de Gross (1999), ¿qué diferencia la supresión de la reevaluación cognitiva?",
-        options: [
-          "Ambas son iguales, pero la reevaluación se aplica solo a emociones positivas.",
-          "La reevaluación actúa tarde modificando la expresión, la supresión actúa temprano.",
-          "La reevaluación modifica el significado temprano antes de que surja la emoción, mientras que la supresión inhibe la respuesta expresiva una vez ya generada.",
-          "La supresión es una teoría biológica y la reevaluación es operante."
-        ],
-        correct: 2,
-        justification: "La reevaluación cognitiva es una estrategia centrada en el antecedente (actúa temprano cambiando la forma de ver la situación). La supresión es una estrategia centrada en la respuesta (actúa tarde intentando esconder o frenar la expresión facial/conductual)."
-      }
-    ];
+    const quizData = [...qT1, ...qT2, ...qT3, ...qT4];
 
     let currentQuestions = [];
     let currentIndex = 0;
