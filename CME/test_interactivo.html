@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Interactivo | Estudios de Psicología</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/style.css">
+  <style>
+    /* Estilos específicos para el test interactivo */
+    .test-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-top: 1rem;
+    }
+    
+    .theme-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    
+    .btn-theme {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-theme:hover, .btn-theme.active {
+      background: var(--primary-color);
+      border-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .question-block {
+      display: none;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .question-block.active {
+      display: block;
+    }
+
+    .question-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #e2e8f0;
+    }
+    
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-btn {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: #22c55e;
+      color: #fff;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #fff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .justification {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 8px;
+      background: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid #38bdf8;
+      display: none;
+      animation: slideIn 0.3s ease-out forwards;
+    }
+
+    .justification.show {
+      display: block;
+    }
+
+    .justification h4 {
+      color: #38bdf8;
+      margin-bottom: 0.5rem;
+    }
+
+    .test-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      align-items: center;
+      border-top: 1px solid var(--card-border);
+      padding-top: 1.5rem;
+    }
+
+    .btn-nav {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+    
+    .btn-nav:disabled {
+      background: #475569;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    .progress-text {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver al inicio
+    </a>
+    
+    <header>
+      <h1>Test Interactivo de Repaso</h1>
+      <p class="subtitle">Evalúa tus conocimientos de Aprendizaje y Afectividad</p>
+    </header>
+
+    <div class="theme-selector" id="themeSelector">
+      <button class="btn-theme active" data-theme="all">🔀 Mezclado</button>
+      <button class="btn-theme" data-theme="CC">T1. Condicionamiento Clásico</button>
+      <button class="btn-theme" data-theme="CI">T2. Condicionamiento Instrumental</button>
+      <button class="btn-theme" data-theme="EM">T3. Emoción</button>
+      <button class="btn-theme" data-theme="MO">T4. Motivación</button>
+    </div>
+
+    <div class="test-container">
+      <div id="quizContainer">
+        <!-- Preguntas dinámicas -->
+      </div>
+      
+      <div class="test-controls">
+        <button id="btnPrev" class="btn-nav" disabled>Anterior</button>
+        <span class="progress-text" id="progressText">Pregunta 1 de X</span>
+        <button id="btnNext" class="btn-nav">Siguiente</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      // TEMA 1: CONDICIONAMIENTO CLÁSICO
+      {
+        theme: "CC",
+        question: "¿Cuál es la diferencia fundamental entre la conducta operante y la respondiente?",
+        options: [
+          "La respondiente opera en el ambiente, mientras que la operante es automática.",
+          "La operante genera consecuencias ambientales, mientras que la respondiente es elicitada automáticamente por un estímulo.",
+          "Ambas dependen de las consecuencias, pero la respondiente es innata.",
+          "La operante es objeto del condicionamiento clásico y la respondiente del instrumental."
+        ],
+        correct: 1,
+        justification: "La operante (objeto del CI) opera en el ambiente para generar consecuencias y es controlada por estas. La respondiente (objeto del CC) consiste en respuestas automáticas elicitadas por estímulos antecedentes, independientes de las consecuencias."
+      },
+      {
+        theme: "CC",
+        question: "En el procedimiento de Respuesta Emocional Condicionada, ¿qué indica una Razón de Supresión con valor 0?",
+        options: [
+          "Ausencia total de condicionamiento.",
+          "Condicionamiento inhibitorio perfecto.",
+          "El animal responde más rápido por miedo.",
+          "Condicionamiento de miedo perfecto (supresión total)."
+        ],
+        correct: 3,
+        justification: "Una razón de supresión de 0 significa que la variable A (respuestas durante el EC) es 0. El animal se paraliza por completo, lo que demuestra un condicionamiento de miedo perfecto."
+      },
+      {
+        theme: "CC",
+        question: "¿En qué consiste el fenómeno de Bloqueo?",
+        options: [
+          "Un componente más saliente domina sobre otro menos intenso.",
+          "Un estímulo pierde su capacidad de generar la RC con el paso del tiempo.",
+          "El condicionamiento previo de un estímulo impide que un nuevo estímulo presentado conjuntamente se condicione.",
+          "Se da una contingencia negativa donde el EC predice la ausencia del EI."
+        ],
+        correct: 2,
+        justification: "El bloqueo ocurre cuando un EI es precedido por un EC compuesto (EC1+EC2) y el EC1 ya había precedido a ese EI anteriormente. Ese aprendizaje previo bloquea o impide el condicionamiento del novedoso EC2."
+      },
+      // TEMA 2: CONDICIONAMIENTO INSTRUMENTAL
+      {
+        theme: "CI",
+        question: "Según la Ley del Efecto de Thorndike, ¿qué asocian los organismos?",
+        options: [
+          "Una respuesta con sus consecuencias (R-C).",
+          "Dos estímulos externos (E-E).",
+          "Un estímulo del ambiente con la respuesta que emiten (E-R).",
+          "El reforzador primario con el reforzador secundario."
+        ],
+        correct: 2,
+        justification: "Thorndike propuso que se aprende una asociación E-R (Estímulo-Respuesta). Las consecuencias satisfactorias simplemente fortalecen esa asociación, pero no forman parte directa de ella."
+      },
+      {
+        theme: "CI",
+        question: "¿Qué programa de reforzamiento básico genera las mayores tasas de respuesta y es la base de las máquinas tragaperras?",
+        options: [
+          "Intervalo Fijo (IF).",
+          "Razón Variable (RV).",
+          "Razón Fija (RF).",
+          "Intervalo Variable (IV)."
+        ],
+        correct: 1,
+        justification: "El programa de Razón Variable (RV) refuerza tras un número aleatorio de respuestas, impidiendo saber cuándo llegará la recompensa. Esto elimina las pausas y fomenta una tasa de respuesta compulsiva muy alta y constante."
+      },
+      {
+        theme: "CI",
+        question: "En el condicionamiento instrumental, ¿cuál es la diferencia entre escape y evitación?",
+        options: [
+          "El escape reduce una recompensa, la evitación previene un castigo.",
+          "El escape elimina un estímulo aversivo ya presente; la evitación previene su ocurrencia.",
+          "El escape es condicionamiento clásico y la evitación instrumental.",
+          "El escape aumenta la conducta y la evitación la disminuye."
+        ],
+        correct: 1,
+        justification: "En el escape, el estímulo aversivo ya se está produciendo y la respuesta lo elimina. En la evitación, la respuesta se da ante una señal previa y logra impedir o prevenir que el estímulo aversivo llegue a aparecer."
+      },
+      // TEMA 3: EMOCIÓN
+      {
+        theme: "EM",
+        question: "¿Cuáles son los tres componentes básicos de la emoción?",
+        options: [
+          "Alegría, tristeza y miedo.",
+          "Motivación intrínseca, extrínseca y homeostasis.",
+          "Arousal (activación), comportamientos expresivos y experiencia cognitiva consciente.",
+          "Condicionamiento, generalización y extinción."
+        ],
+        correct: 2,
+        justification: "Las emociones son respuestas complejas compuestas por activación fisiológica (arousal), las conductas expresivas asociadas y la cognición o experiencia subjetiva de la situación."
+      },
+      // TEMA 4: MOTIVACIÓN y REGULACIÓN
+      {
+        theme: "MO",
+        question: "¿En qué consiste el Efecto de Sobrejustificación?",
+        options: [
+          "Excesivo uso de la supresión emocional.",
+          "Disminución de la motivación intrínseca tras ofrecer una recompensa externa por una actividad que ya se disfrutaba.",
+          "Un aumento del rendimiento debido al exceso de expectativas sociales.",
+          "Tendencia a justificar un castigo basándose en las reglas."
+        ],
+        correct: 1,
+        justification: "El efecto de sobrejustificación ocurre cuando la motivación extrínseca (recompensas) desplaza a la intrínseca. Si a alguien le gustaba dibujar y le empiezan a pagar por ello, al retirarle el pago es probable que deje de dibujar."
+      },
+      {
+        theme: "MO",
+        question: "Según el Modelo Procesual de Regulación Emocional de Gross (1999), ¿qué diferencia la supresión de la reevaluación cognitiva?",
+        options: [
+          "Ambas son iguales, pero la reevaluación se aplica solo a emociones positivas.",
+          "La reevaluación actúa tarde modificando la expresión, la supresión actúa temprano.",
+          "La reevaluación modifica el significado temprano antes de que surja la emoción, mientras que la supresión inhibe la respuesta expresiva una vez ya generada.",
+          "La supresión es una teoría biológica y la reevaluación es operante."
+        ],
+        correct: 2,
+        justification: "La reevaluación cognitiva es una estrategia centrada en el antecedente (actúa temprano cambiando la forma de ver la situación). La supresión es una estrategia centrada en la respuesta (actúa tarde intentando esconder o frenar la expresión facial/conductual)."
+      }
+    ];
+
+    let currentQuestions = [];
+    let currentIndex = 0;
+
+    // Elementos del DOM
+    const themeButtons = document.querySelectorAll('.btn-theme');
+    const quizContainer = document.getElementById('quizContainer');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const progressText = document.getElementById('progressText');
+
+    // Función para desordenar arrays (Mezclado)
+    function shuffleArray(array) {
+      let curId = array.length;
+      while (0 !== curId) {
+        let randId = Math.floor(Math.random() * curId);
+        curId -= 1;
+        let tmp = array[curId];
+        array[curId] = array[randId];
+        array[randId] = tmp;
+      }
+      return array;
+    }
+
+    // Inicializar test
+    function loadQuestions(theme) {
+      if (theme === 'all') {
+        currentQuestions = shuffleArray([...quizData]);
+      } else {
+        currentQuestions = quizData.filter(q => q.theme === theme);
+      }
+      
+      currentIndex = 0;
+      renderQuiz();
+    }
+
+    // Dibujar preguntas y botones
+    function renderQuiz() {
+      quizContainer.innerHTML = '';
+      
+      if (currentQuestions.length === 0) {
+        quizContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No hay preguntas para esta categoría.</p>';
+        updateControls();
+        return;
+      }
+
+      currentQuestions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = `question-block ${index === currentIndex ? 'active' : ''}`;
+        
+        let optionsHtml = '';
+        q.options.forEach((opt, optIndex) => {
+          optionsHtml += `<button class="option-btn" data-index="${index}" data-option="${optIndex}">${opt}</button>`;
+        });
+
+        div.innerHTML = `
+          <h3 class="question-title">${index + 1}. ${q.question}</h3>
+          <div class="options-grid">
+            ${optionsHtml}
+          </div>
+          <div class="justification" id="justification-${index}">
+            <h4>📚 Justificación</h4>
+            <p>${q.justification}</p>
+          </div>
+        `;
+        quizContainer.appendChild(div);
+      });
+
+      // Añadir listeners a las opciones
+      const options = document.querySelectorAll('.option-btn');
+      options.forEach(btn => {
+        btn.addEventListener('click', handleOptionClick);
+      });
+
+      updateControls();
+    }
+
+    // Manejar clic en una opción
+    function handleOptionClick(e) {
+      const btn = e.target;
+      const qIndex = parseInt(btn.getAttribute('data-index'));
+      const optIndex = parseInt(btn.getAttribute('data-option'));
+      const question = currentQuestions[qIndex];
+      
+      // Bloquear botones de esta pregunta
+      const parentGrid = btn.closest('.options-grid');
+      const allBtns = parentGrid.querySelectorAll('.option-btn');
+      
+      allBtns.forEach(b => b.disabled = true);
+
+      // Marcar colores
+      if (optIndex === question.correct) {
+        btn.classList.add('correct');
+      } else {
+        btn.classList.add('incorrect');
+        // Marcar también la correcta
+        allBtns[question.correct].classList.add('correct');
+      }
+
+      // Mostrar justificación
+      const justification = document.getElementById(`justification-${qIndex}`);
+      justification.classList.add('show');
+    }
+
+    // Actualizar botones de navegación
+    function updateControls() {
+      if (currentQuestions.length === 0) {
+        btnPrev.disabled = true;
+        btnNext.disabled = true;
+        progressText.textContent = '';
+        return;
+      }
+
+      progressText.textContent = `Pregunta ${currentIndex + 1} de ${currentQuestions.length}`;
+      btnPrev.disabled = currentIndex === 0;
+      
+      if (currentIndex === currentQuestions.length - 1) {
+        btnNext.textContent = "Finalizar";
+        btnNext.disabled = false;
+      } else {
+        btnNext.textContent = "Siguiente";
+        btnNext.disabled = false;
+      }
+    }
+
+    // Navegación
+    btnPrev.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        document.querySelectorAll('.question-block')[currentIndex].classList.remove('active');
+        currentIndex--;
+        document.querySelectorAll('.question-block')[currentIndex].classList.add('active');
+        updateControls();
+      }
+    });
+
+    btnNext.addEventListener('click', () => {
+      if (currentIndex < currentQuestions.length - 1) {
+        document.querySelectorAll('.question-block')[currentIndex].classList.remove('active');
+        currentIndex++;
+        document.querySelectorAll('.question-block')[currentIndex].classList.add('active');
+        updateControls();
+      } else {
+        alert("¡Has completado el test! Selecciona otro tema o vuelve a mezclar.");
+      }
+    });
+
+    // Manejar filtros de temas
+    themeButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        themeButtons.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        const theme = e.target.getAttribute('data-theme');
+        loadQuestions(theme);
+      });
+    });
+
+    // Cargar mezclado por defecto al iniciar
+    loadQuestions('all');
+
+  </script>
+</body>
+</html>
