@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -25,6 +25,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          
+      - name: Generate MD files for PDFs
+        run: node generate_mds.js
+        
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .notas/
+          git commit -m "Auto-generate MD files for new PDFs" || exit 0
+          git push
           
       - name: Build site
         run: node build.js
