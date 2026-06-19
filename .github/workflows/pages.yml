@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: "20"
           
+      - name: Install dependencies
+        run: npm install
+          
       - name: Generate MD files for PDFs
         run: node generate_mds.js
         

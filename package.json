@@ -1,0 +1,9 @@
+{
+  "name": "psicologia-website",
+  "version": "1.0.0",
+  "description": "Static site generation scripts",
+  "main": "build.js",
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
+  }
+}

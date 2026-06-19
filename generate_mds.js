@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const pdf = require('pdf-parse');
 
 const ROOT_DIR = __dirname;
 const IGNORE_LIST = ['.git', '.github', 'src', 'node_modules'];
@@ -15,7 +16,7 @@ function findPDFs(dir, pdfList) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 
   for (const entry of entries) {
-    if (IGNORE_LIST.includes(entry.name) || entry.name.startsWith('.') && entry.name !== '.notas') {
+    if (IGNORE_LIST.includes(entry.name) || (entry.name.startsWith('.') && entry.name !== '.notas')) {
       continue;
     }
 
@@ -24,31 +25,43 @@ function findPDFs(dir, pdfList) {
     if (entry.isDirectory()) {
       findPDFs(fullPath, pdfList);
     } else if (entry.name.toLowerCase().endsWith('.pdf')) {
-      pdfList.push(entry.name);
+      pdfList.push(fullPath);
     }
   }
 }
 
-const allPDFs = [];
-findPDFs(ROOT_DIR, allPDFs);
+async function generateMDs() {
+  const allPDFs = [];
+  findPDFs(ROOT_DIR, allPDFs);
 
-let generatedCount = 0;
+  let generatedCount = 0;
 
-allPDFs.forEach(pdf => {
-  const baseName = path.basename(pdf, path.extname(pdf));
-  const mdFilename = `${baseName}.md`;
-  const mdPath = path.join(NOTAS_DIR, mdFilename);
+  for (const pdfPath of allPDFs) {
+    const baseName = path.basename(pdfPath, path.extname(pdfPath));
+    const mdFilename = `${baseName}.md`;
+    const mdPath = path.join(NOTAS_DIR, mdFilename);
 
-  if (!fs.existsSync(mdPath)) {
-    const template = `# Notas de ${baseName}\n\nEscribe aquí tus apuntes o resúmenes relacionados con el documento **${pdf}**...\n`;
-    fs.writeFileSync(mdPath, template);
-    console.log(`Generated ${mdFilename}`);
-    generatedCount++;
+    if (!fs.existsSync(mdPath)) {
+      try {
+        console.log(`Extracting text from ${pdfPath}...`);
+        const dataBuffer = fs.readFileSync(pdfPath);
+        const data = await pdf(dataBuffer);
+        
+        const template = `# ${baseName}\n\n${data.text}\n`;
+        fs.writeFileSync(mdPath, template);
+        console.log(`Generated ${mdFilename} with extracted text.`);
+        generatedCount++;
+      } catch (error) {
+        console.error(`Failed to extract text from ${pdfPath}:`, error);
+      }
+    }
   }
-});
 
-if (generatedCount === 0) {
-  console.log('No new PDFs found or all PDFs already have their .md files.');
-} else {
-  console.log(`Successfully generated ${generatedCount} new .md files.`);
+  if (generatedCount === 0) {
+    console.log('No new PDFs found or all PDFs already have their .md files.');
+  } else {
+    console.log(`Successfully generated ${generatedCount} new .md files with extracted text.`);
+  }
 }
+
+generateMDs();
