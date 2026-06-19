@@ -1,0 +1,136 @@
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --text-muted: #94a3b8;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --card-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(225,39%,30%,0.3) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(339,49%,30%,0.3) 0, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 150px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(30, 41, 59, 0.85);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card-meta {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--text-color);
+}
+
+.back-link svg {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+}
+
+/* File specific icons */
+.file-pdf { color: #ef4444; }
+.file-html { color: #f97316; }
+.file-doc { color: #3b82f6; }
+.file-default { color: #a8a29e; }
+.folder-icon { color: #fbbf24; }
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+  h1 {
+    font-size: 2.2rem;
+  }
+}
