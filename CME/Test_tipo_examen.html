@@ -264,25 +264,40 @@
         <!-- Preguntas dinámicas -->
       </div>
       
-      <div class="test-controls">
+      <div id="resultsContainer" style="display: none; flex: 1; flex-direction: column; justify-content: center; align-items: center; text-align: center; animation: fadeIn 0.4s ease-out forwards;">
+        <!-- Resultados dinámicos -->
+      </div>
+
+      <div class="test-controls" id="testControls">
         <button id="btnPrev" class="btn-nav" disabled>Anterior</button>
         <span class="progress-text" id="progressText">Pregunta 1 de X</span>
         <button id="btnNext" class="btn-nav">Siguiente</button>
       </div>
     </div>
   <script src=".preguntas/q_t1.js"></script>
+  <script src=".preguntas/q_t1_v2.js"></script>
+  <script src=".preguntas/q_t1_v3.js"></script>
   <script src=".preguntas/q_t2.js"></script>
+  <script src=".preguntas/q_t2_v2.js"></script>
+  <script src=".preguntas/q_t2_v3.js"></script>
   <script src=".preguntas/q_t3.js"></script>
+  <script src=".preguntas/q_t3_v2.js"></script>
+  <script src=".preguntas/q_t3_v3.js"></script>
   <script src=".preguntas/q_t4.js"></script>
+  <script src=".preguntas/q_t4_v2.js"></script>
+  <script src=".preguntas/q_t4_v3.js"></script>
   <script>
-    const quizData = [...qT1, ...qT2, ...qT3, ...qT4];
+    const quizData = [...qT1, ...qT1_v2, ...qT1_v3, ...qT2, ...qT2_v2, ...qT2_v3, ...qT3, ...qT3_v2, ...qT3_v3, ...qT4, ...qT4_v2, ...qT4_v3];
 
     let currentQuestions = [];
     let currentIndex = 0;
+    let userAnswers = [];
 
     // Elementos del DOM
     const themeButtons = document.querySelectorAll('.btn-theme');
     const quizContainer = document.getElementById('quizContainer');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const testControls = document.getElementById('testControls');
     const btnPrev = document.getElementById('btnPrev');
     const btnNext = document.getElementById('btnNext');
     const progressText = document.getElementById('progressText');
@@ -303,12 +318,20 @@
     // Inicializar test
     function loadQuestions(theme) {
       if (theme === 'all') {
-        currentQuestions = shuffleArray([...quizData]);
+        // Coger 30 preguntas aleatorias de toda la base
+        currentQuestions = shuffleArray([...quizData]).slice(0, 30);
       } else {
-        currentQuestions = quizData.filter(q => q.theme === theme);
+        // Filtramos por tema y cogemos 30 aleatorias
+        currentQuestions = shuffleArray(quizData.filter(q => q.theme === theme)).slice(0, 30);
       }
       
       currentIndex = 0;
+      userAnswers = new Array(currentQuestions.length).fill(null);
+      
+      quizContainer.style.display = 'flex';
+      testControls.style.display = 'flex';
+      resultsContainer.style.display = 'none';
+
       renderQuiz();
     }
 
@@ -366,13 +389,15 @@
       
       allBtns.forEach(b => b.disabled = true);
 
-      // Marcar colores
+      // Marcar colores y registrar respuesta
       if (optIndex === question.correct) {
         btn.classList.add('correct');
+        userAnswers[qIndex] = true;
       } else {
         btn.classList.add('incorrect');
         // Marcar también la correcta
         allBtns[question.correct].classList.add('correct');
+        userAnswers[qIndex] = false;
       }
 
       // Mostrar justificación
@@ -411,6 +436,47 @@
       }
     });
 
+    function showResults() {
+      quizContainer.style.display = 'none';
+      testControls.style.display = 'none';
+      resultsContainer.style.display = 'flex';
+
+      let correct = 0;
+      let incorrect = 0;
+      let unanswered = 0;
+
+      userAnswers.forEach(ans => {
+        if (ans === true) correct++;
+        else if (ans === false) incorrect++;
+        else unanswered++;
+      });
+
+      // Calcular puntuación: Aciertos - (Fallos / 3)
+      let rawScore = correct - (incorrect / 3);
+      if (rawScore < 0) rawScore = 0; // No nota negativa
+
+      const totalQs = currentQuestions.length;
+      // Escalar sobre 3 puntos
+      let finalScore = (rawScore / totalQs) * 3;
+      if (isNaN(finalScore)) finalScore = 0;
+      
+      // Colorear nota final
+      let color = finalScore >= 1.5 ? '#2e4a36' : '#6b3030';
+
+      resultsContainer.innerHTML = `
+        <h2 style="font-family: 'Lora', serif; font-size: 2rem; color: var(--text-main); margin-bottom: 1rem;">Resultados Finales</h2>
+        <div style="background: #fbfaf9; border: 1px solid #e4e1dd; border-radius: 8px; padding: 2rem; width: 100%; max-width: 400px; margin: 0 auto;">
+          <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">✅ Acertadas: <strong style="color: #2e4a36;">${correct}</strong></p>
+          <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">❌ Falladas: <strong style="color: #6b3030;">${incorrect}</strong> <span style="font-size: 0.85rem; color: #6b3030;">(-${(incorrect/3).toFixed(2)})</span></p>
+          <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">⚪ En blanco: <strong>${unanswered}</strong></p>
+          <div style="border-top: 2px solid #e4e1dd; padding-top: 1.5rem;">
+            <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 0.5rem;">Tu Nota (sobre 3):</p>
+            <p style="font-size: 3.5rem; font-weight: 800; color: ${color}; margin: 0;">${finalScore.toFixed(2)}</p>
+          </div>
+        </div>
+      `;
+    }
+
     btnNext.addEventListener('click', () => {
       if (currentIndex < currentQuestions.length - 1) {
         document.querySelectorAll('.question-block')[currentIndex].classList.remove('active');
@@ -418,7 +484,7 @@
         document.querySelectorAll('.question-block')[currentIndex].classList.add('active');
         updateControls();
       } else {
-        alert("¡Has completado el test! Selecciona otro tema o vuelve a mezclar.");
+        showResults();
       }
     });
 
