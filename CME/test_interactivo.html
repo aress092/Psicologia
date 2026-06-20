@@ -10,11 +10,11 @@
     /* Estilos específicos para el test interactivo */
     .test-container {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      border: 1px solid #ebe8e4;
+      border-top: 8px solid #c9d4db; /* Soft blue top border for the test */
       border-radius: 16px;
-      padding: 2rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      box-shadow: 0 4px 15px var(--shadow-color);
       margin-top: 1rem;
     }
     
@@ -27,9 +27,9 @@
     }
     
     .btn-theme {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--card-border);
-      color: var(--text-color);
+      background: #ffffff;
+      border: 1px solid #dcd8d3;
+      color: var(--text-muted);
       padding: 0.75rem 1.5rem;
       border-radius: 8px;
       cursor: pointer;
@@ -37,11 +37,13 @@
       font-size: 1rem;
       font-weight: 500;
       transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
     }
     
     .btn-theme:hover, .btn-theme.active {
-      background: var(--primary-color);
-      border-color: var(--primary-hover);
+      background: #e3ebf0; /* Soft blue background for active/hover */
+      border-color: #c9d4db;
+      color: var(--text-main);
       transform: translateY(-2px);
     }
 
@@ -55,10 +57,11 @@
     }
 
     .question-title {
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.3rem;
+      font-family: 'Lora', serif;
+      font-weight: 500;
       margin-bottom: 1.5rem;
-      color: #e2e8f0;
+      color: var(--text-main);
     }
     
     .options-grid {
@@ -68,33 +71,34 @@
     }
 
     .option-btn {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      padding: 1rem;
+      background: #fbfaf9;
+      border: 1px solid #e4e1dd;
+      color: var(--text-main);
+      padding: 1rem 1.2rem;
       border-radius: 8px;
       cursor: pointer;
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 1.05rem;
       text-align: left;
       transition: all 0.2s ease;
     }
 
     .option-btn:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-color);
+      background: #f0efeb;
+      border-color: #d1ccc5;
     }
 
     .option-btn.correct {
-      background: rgba(34, 197, 94, 0.2);
-      border-color: #22c55e;
-      color: #fff;
+      background: #e6f0e9; /* Soft green */
+      border-color: #b2cbb9;
+      color: #2e4a36;
+      font-weight: 500;
     }
 
     .option-btn.incorrect {
-      background: rgba(239, 68, 68, 0.2);
-      border-color: #ef4444;
-      color: #fff;
+      background: #fae8e8; /* Soft red */
+      border-color: #e6b8b8;
+      color: #6b3030;
     }
 
     .option-btn:disabled {
@@ -105,8 +109,9 @@
       margin-top: 1.5rem;
       padding: 1.25rem;
       border-radius: 8px;
-      background: rgba(56, 189, 248, 0.1);
-      border-left: 4px solid #38bdf8;
+      background: #f0f4f8; /* Soft blue */
+      border-left: 4px solid #a8c1d9;
+      color: #4a5c6e;
       display: none;
       animation: slideIn 0.3s ease-out forwards;
     }
@@ -116,38 +121,41 @@
     }
 
     .justification h4 {
-      color: #38bdf8;
+      color: #385068;
       margin-bottom: 0.5rem;
+      font-family: 'Lora', serif;
     }
 
     .test-controls {
       display: flex;
       justify-content: space-between;
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       align-items: center;
-      border-top: 1px solid var(--card-border);
+      border-top: 1px solid #ebe8e4;
       padding-top: 1.5rem;
     }
 
     .btn-nav {
-      background: var(--primary-color);
-      color: white;
-      border: none;
+      background: #eef1f4;
+      color: #5c6b7a;
+      border: 1px solid #d5dfe8;
       padding: 0.75rem 1.5rem;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
-      font-weight: 600;
-      transition: background 0.2s;
+      font-weight: 500;
+      transition: all 0.2s ease;
     }
 
     .btn-nav:hover:not(:disabled) {
-      background: var(--primary-hover);
+      background: #d5dfe8;
+      color: #385068;
     }
     
     .btn-nav:disabled {
-      background: #475569;
-      color: #94a3b8;
+      background: #fcfcfc;
+      color: #c4c4c4;
+      border-color: #efefef;
       cursor: not-allowed;
     }
 

@@ -22,9 +22,10 @@ function generateHTML(title, isRoot, items, relativePathToRoot) {
     // If it's a file, link points to the file itself, opening in new tab
     const href = item.isDirectory ? `${item.name}/index.html` : item.name;
     const target = item.isDirectory ? '' : ' target="_blank" rel="noopener noreferrer"';
+    const cardClass = item.isDirectory ? 'folder-card' : 'file-card';
     
     return `
-      <a href="${href}" class="card"${target}>
+      <a href="${href}" class="card ${cardClass}"${target}>
         ${icon}
         <div class="card-title">${item.name}</div>
         <div class="card-meta">${item.isDirectory ? 'Carpeta' : 'Archivo'}</div>
