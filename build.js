@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const IGNORE_LIST = ['.git', '.github', 'src', 'node_modules', 'build.js', 'README.md', '.DS_Store'];
+const IGNORE_LIST = ['.git', '.github', 'src', 'node_modules', 'build.js', 'README.md', '.DS_Store', 'practica.html', 'practica.js'];
 const ROOT_DIR = __dirname;
 const SITE_TITLE = "Estudios de Psicología";
 
@@ -58,6 +58,12 @@ function generateHTML(title, isRoot, items, relativePathToRoot) {
       <p class="subtitle">${isRoot ? 'Selecciona una asignatura o tema' : 'Documentos y recursos'}</p>
     </header>
     <main class="grid">
+      ${isRoot ? `
+      <a href="practica.html" class="card folder-card highlight-card">
+        <div class="card-icon highlight-icon">🧠</div>
+        <div class="card-title">Practicar Desarrollo (IA)</div>
+        <div class="card-meta">Herramienta</div>
+      </a>` : ''}
       ${cardsHTML.length > 0 ? cardsHTML : '<p style="text-align: center; grid-column: 1/-1; color: var(--text-muted)">No hay elementos en esta carpeta.</p>'}
     </main>
   </div>

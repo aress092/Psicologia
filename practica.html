@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practicar Desarrollo | Estudios de Psicología</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#fcfbfa">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver al inicio
+    </a>
+    
+    <header class="practica-header">
+      <h1>🧠 Practicar Desarrollo (IA)</h1>
+      <p class="subtitle">Responde preguntas abiertas y recibe correcciones orientativas</p>
+    </header>
+
+    <main>
+      <!-- API Key Setup Panel -->
+      <div class="panel api-key-panel" id="apiKeyPanel">
+        <h2>Configuración</h2>
+        <p style="margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+          Para usar la corrección automática, introduce tu clave API de Google Gemini. Esta clave se guardará de forma segura en tu navegador y no se enviará a ningún servidor de terceros.
+        </p>
+        <div class="input-group">
+          <label for="apiKey">Clave API de Gemini:</label>
+          <input type="password" id="apiKey" placeholder="AIzaSy...">
+        </div>
+        <button class="btn" id="saveKeyBtn">Guardar Clave</button>
+      </div>
+
+      <!-- Upload Questions Panel -->
+      <div class="panel upload-panel" id="uploadPanel">
+        <h2>Subir Preguntas</h2>
+        <p style="margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+          Sube un archivo JSON con formato: <code>[{"pregunta": "...", "respuesta_ideal": "..."}]</code>
+        </p>
+        <div class="input-group">
+          <input type="file" id="fileInput" accept=".json,.js">
+        </div>
+      </div>
+
+      <!-- Practice Interface (hidden by default) -->
+      <div class="panel question-panel hidden" id="practicePanel">
+        <div style="text-align: right; margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;" id="questionCounter">
+          Pregunta 1 de X
+        </div>
+        
+        <div class="question-text" id="questionText">
+          ¿Cargando pregunta...?
+        </div>
+        
+        <div class="input-group">
+          <textarea id="userAnswer" placeholder="Escribe tu respuesta aquí con tus propias palabras..."></textarea>
+        </div>
+        
+        <div class="controls">
+          <button class="btn-secondary btn" id="prevBtn" disabled>Anterior</button>
+          <button class="btn" id="checkBtn">Corregir Respuesta <span class="loader hidden" id="loader"></span></button>
+          <button class="btn-secondary btn" id="nextBtn">Siguiente</button>
+        </div>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="panel result-panel hidden" id="resultPanel">
+        <h2>Resultado de la IA</h2>
+        <div class="result-content" id="resultContent">
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <script src="practica.js"></script>
+</body>
+</html>

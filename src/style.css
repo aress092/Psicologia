@@ -182,3 +182,133 @@ h1 {
     padding: 1.5rem 1rem;
   }
 }
+
+/* AI Practice Tool Styles */
+.highlight-card {
+  border-top: 8px solid #c2b5d4 !important; /* Soft purple */
+  background: #fdfcfd !important;
+}
+
+.highlight-icon {
+  filter: hue-rotate(240deg);
+}
+
+.practica-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.panel {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  margin-bottom: 2rem;
+  border: 1px solid #ebe8e4;
+}
+
+.panel h2 {
+  font-family: 'Lora', serif;
+  margin-bottom: 1rem;
+  color: #3b3937;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+input[type="password"], input[type="file"], textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #dcd8d3;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  background: #fcfbfa;
+}
+
+input[type="password"]:focus, textarea:focus {
+  outline: none;
+  border-color: #b5c7ba;
+  box-shadow: 0 0 0 3px rgba(181, 199, 186, 0.2);
+}
+
+textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.btn {
+  background: #4a4744;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #3b3937;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #dcd8d3;
+  color: #4a4744;
+}
+
+.btn-secondary:hover {
+  background: #c5c1bd;
+}
+
+.question-text {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  font-family: 'Lora', serif;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+.result-content {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: #f5f7f5;
+  border-left: 4px solid #b5c7ba;
+  border-radius: 0 8px 8px 0;
+  white-space: pre-wrap;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.loader {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
