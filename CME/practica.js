@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const apiKeyInput = document.getElementById('apiKey');
   const saveKeyBtn = document.getElementById('saveKeyBtn');
   
-  const fileInput = document.getElementById('fileInput');
   
   const practicePanel = document.getElementById('practicePanel');
   const questionCounter = document.getElementById('questionCounter');
@@ -39,55 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Handle File Upload
-  fileInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        let content = e.target.result;
-        // Basic cleanup if it's a JS file instead of pure JSON
-        if (file.name.endsWith('.js')) {
-          // Attempt to extract the array if it starts with 'const name = ['
-          const match = content.match(/\[\s*\{[\s\S]*\}\s*\]/);
-          if (match) {
-            content = match[0];
-          }
-        }
-        
-        // Convert JS object syntax to JSON if necessary (very basic regex)
-        // Note: It is highly recommended that the user uploads pure JSON
-        // but we try to parse it anyway.
-        // A safer robust way is to just expect pure JSON.
-        try {
-            questions = JSON.parse(content);
-        } catch(parseErr) {
-            // Unsafe fallback for simple JS object arrays (eval is safe here ONLY because it's the user's own local file in their own browser)
-            questions = eval('(' + content + ')');
-        }
-
-        if (!Array.isArray(questions) || questions.length === 0) {
-          throw new Error('El archivo no contiene un array de preguntas válido.');
-        }
-
-        // Format check
-        if (!questions[0].pregunta && !questions[0].question) {
-           throw new Error('El formato debe ser [{"pregunta": "...", "respuesta_ideal": "..."}]');
-        }
-
-        currentIndex = 0;
-        showQuestion();
-        practicePanel.classList.remove('hidden');
-        resultPanel.classList.add('hidden');
-      } catch (error) {
-        alert('Error al leer el archivo. Asegúrate de que el formato es correcto: ' + error.message);
-        console.error(error);
-      }
-    };
-    reader.readAsText(file);
-  });
+  // 2. Initialize with Predefined Questions
+  questions = typeof preguntas_desarrollo !== 'undefined' ? preguntas_desarrollo : [];
+  if (questions.length > 0) {
+    currentIndex = 0;
+    showQuestion();
+    practicePanel.classList.remove('hidden');
+    resultPanel.classList.add('hidden');
+  } else {
+    questionText.textContent = "No se han encontrado preguntas.";
+  }
 
   // 3. UI Navigation
   function showQuestion() {
