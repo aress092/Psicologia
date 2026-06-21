@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcial 2 | Estudios de Psicología</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../src/style.css">
+  <style>
+    /* Sobrescribir estilos globales para que todo encaje en 1 sola pantalla sin moverse */
+    body {
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 0.5rem;
+      padding: 0;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Contenedor del Test: Ocupa todo el espacio restante sin crecer */
+    .test-container {
+      background: var(--card-bg);
+      border: 1px solid #ebe8e4;
+      border-top: 8px solid #c9d4db;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px var(--shadow-color);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; /* Nada sale de aquí */
+    }
+
+    #quizContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; /* Previene que crezca */
+    }
+
+    .question-block {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    .question-block.active {
+      display: flex;
+    }
+
+    .question-title {
+      font-size: 1.1rem;
+      font-family: 'Lora', serif;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+      flex-shrink: 0;
+    }
+    
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .option-btn {
+      background: #fbfaf9;
+      border: 1px solid #e4e1dd;
+      color: var(--text-main);
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #f0efeb;
+      border-color: #d1ccc5;
+    }
+
+    .option-btn.correct {
+      background: #e6f0e9;
+      border-color: #b2cbb9;
+      color: #2e4a36;
+      font-weight: 500;
+    }
+
+    .option-btn.incorrect {
+      background: #fae8e8;
+      border-color: #e6b8b8;
+      color: #6b3030;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Justificación: Ocupa el espacio que sobra, y si es muy larga hace scroll INTERNO */
+    .justification {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      background: #f0f4f8;
+      border-left: 4px solid #a8c1d9;
+      color: #4a5c6e;
+      display: none;
+      flex: 1;
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    .justification.show {
+      display: block;
+    }
+
+    .justification h4 {
+      color: #385068;
+      margin-bottom: 0.25rem;
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+    }
+    
+    .justification p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* Controles de navegación: SIEMPRE fijos al fondo */
+    .test-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #ebe8e4;
+      flex-shrink: 0; /* Nunca se encoge ni se mueve */
+    }
+
+    .btn-nav {
+      background: #eef1f4;
+      color: #5c6b7a;
+      border: 1px solid #d5dfe8;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: #d5dfe8;
+      color: #385068;
+    }
+    
+    .btn-nav:disabled {
+      background: #fcfcfc;
+      color: #c4c4c4;
+      border-color: #efefef;
+      cursor: not-allowed;
+    }
+
+    .progress-text {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .back-link {
+      margin-bottom: 0.5rem;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.85rem;
+      align-self: flex-start;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver a Parciales
+    </a>
+    
+    <header>
+      <h1>Parcial 2</h1>
+      <p class="subtitle">Evaluación sin puntos en contra</p>
+    </header>
+
+    <div class="test-container">
+      <div id="quizContainer">
+        <!-- Preguntas dinámicas -->
+      </div>
+      
+      <div id="resultsContainer" style="display: none; flex: 1; flex-direction: column; justify-content: center; align-items: center; text-align: center; animation: fadeIn 0.4s ease-out forwards;">
+        <!-- Resultados dinámicos -->
+      </div>
+
+      <div class="test-controls" id="testControls">
+        <button id="btnPrev" class="btn-nav" disabled>Anterior</button>
+        <span class="progress-text" id="progressText">Pregunta 1 de X</span>
+        <button id="btnNext" class="btn-nav">Siguiente</button>
+      </div>
+    </div>
+  <script src="../.preguntas/q_parcial_2.js"></script>
+  <script>
+    const quizData = qParcial2;
+
+    let currentQuestions = [...quizData];
+    let currentIndex = 0;
+    let userAnswers = new Array(currentQuestions.length).fill(null);
+
+    // Elementos del DOM
+    const quizContainer = document.getElementById('quizContainer');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const testControls = document.getElementById('testControls');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const progressText = document.getElementById('progressText');
+
+    function renderQuiz() {
+      quizContainer.innerHTML = '';
+      
+      if (currentQuestions.length === 0) {
+        quizContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No hay preguntas para esta categoría.</p>';
+        updateControls();
+        return;
+      }
+
+      currentQuestions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = `question-block ${index === currentIndex ? 'active' : ''}`;
+        
+        let optionsHtml = '';
+        q.options.forEach((opt, optIndex) => {
+          optionsHtml += `<button class="option-btn" data-index="${index}" data-option="${optIndex}">${opt}</button>`;
+        });
+
+        div.innerHTML = `
+          <h3 class="question-title">${index + 1}. ${q.question}</h3>
+          <div class="options-grid">
+            ${optionsHtml}
+          </div>
+          <div class="justification" id="justification-${index}">
+            <h4>📚 Justificación</h4>
+            <p>${q.justification}</p>
+          </div>
+        `;
+        quizContainer.appendChild(div);
+      });
+
+      const options = document.querySelectorAll('.option-btn');
+      options.forEach(btn => {
+        btn.addEventListener('click', handleOptionClick);
+      });
+
+      updateControls();
+    }
+
+    function handleOptionClick(e) {
+      const btn = e.target;
+      const qIndex = parseInt(btn.getAttribute('data-index'));
+      const optIndex = parseInt(btn.getAttribute('data-option'));
+      const question = currentQuestions[qIndex];
+      
+      const parentGrid = btn.closest('.options-grid');
+      const allBtns = parentGrid.querySelectorAll('.option-btn');
+      
+      allBtns.forEach(b => b.disabled = true);
+
+      if (optIndex === question.correct) {
+        btn.classList.add('correct');
+        userAnswers[qIndex] = true;
+      } else {
+        btn.classList.add('incorrect');
+        allBtns[question.correct].classList.add('correct');
+        userAnswers[qIndex] = false;
+      }
+
+      const justification = document.getElementById(`justification-${qIndex}`);
+      justification.classList.add('show');
+    }
+
+    function updateControls() {
+      if (currentQuestions.length === 0) {
+        btnPrev.disabled = true;
+        btnNext.disabled = true;
+        progressText.textContent = '';
+        return;
+      }
+
+      progressText.textContent = `Pregunta ${currentIndex + 1} de ${currentQuestions.length}`;
+      btnPrev.disabled = currentIndex === 0;
+      
+      if (currentIndex === currentQuestions.length - 1) {
+        btnNext.textContent = "Finalizar";
+        btnNext.disabled = false;
+      } else {
+        btnNext.textContent = "Siguiente";
+        btnNext.disabled = false;
+      }
+    }
+
+    btnPrev.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        document.querySelectorAll('.question-block')[currentIndex].classList.remove('active');
+        currentIndex--;
+        document.querySelectorAll('.question-block')[currentIndex].classList.add('active');
+        updateControls();
+      }
+    });
+
+    function showResults() {
+      quizContainer.style.display = 'none';
+      testControls.style.display = 'none';
+      resultsContainer.style.display = 'flex';
+
+      let correct = 0;
+      let incorrect = 0;
+      let unanswered = 0;
+
+      userAnswers.forEach(ans => {
+        if (ans === true) correct++;
+        else if (ans === false) incorrect++;
+        else unanswered++;
+      });
+
+      // Puntuación sin restar
+      let rawScore = correct;
+
+      const totalQs = currentQuestions.length;
+      let finalScore = (rawScore / totalQs) * 10; // Nota sobre 10
+      if (isNaN(finalScore)) finalScore = 0;
+      
+      let color = finalScore >= 5 ? '#2e4a36' : '#6b3030';
+
+      resultsContainer.innerHTML = `
+        <h2 style="font-family: 'Lora', serif; font-size: 2rem; color: var(--text-main); margin-bottom: 1rem;">Resultados Finales</h2>
+        <div style="background: #fbfaf9; border: 1px solid #e4e1dd; border-radius: 8px; padding: 2rem; width: 100%; max-width: 400px; margin: 0 auto;">
+          <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">✅ Acertadas: <strong style="color: #2e4a36;">${correct}</strong></p>
+          <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">❌ Falladas: <strong style="color: #6b3030;">${incorrect}</strong> <span style="font-size: 0.85rem; color: var(--text-muted);">(No restan)</span></p>
+          <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">⚪ En blanco: <strong>${unanswered}</strong></p>
+          <div style="border-top: 2px solid #e4e1dd; padding-top: 1.5rem;">
+            <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 0.5rem;">Tu Nota (sobre 10):</p>
+            <p style="font-size: 3.5rem; font-weight: 800; color: ${color}; margin: 0;">${finalScore.toFixed(2)}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    btnNext.addEventListener('click', () => {
+      if (currentIndex < currentQuestions.length - 1) {
+        document.querySelectorAll('.question-block')[currentIndex].classList.remove('active');
+        currentIndex++;
+        document.querySelectorAll('.question-block')[currentIndex].classList.add('active');
+        updateControls();
+      } else {
+        showResults();
+      }
+    });
+
+    // Init
+    renderQuiz();
+
+  </script>
+</body>
+</html>
