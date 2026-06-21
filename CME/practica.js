@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const apiKeyInput = document.getElementById('apiKey');
   const saveKeyBtn = document.getElementById('saveKeyBtn');
   
-  
+  const captchaAnswer = document.getElementById('captchaAnswer');
+  const revealKeyBtn = document.getElementById('revealKeyBtn');
+  const revealedKey = document.getElementById('revealedKey');
   const practicePanel = document.getElementById('practicePanel');
   const questionCounter = document.getElementById('questionCounter');
   const questionText = document.getElementById('questionText');
@@ -20,6 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
   let questions = [];
   let currentIndex = 0;
   
+  // 0. Captcha Logic to reveal the API key safely
+  revealKeyBtn.addEventListener('click', () => {
+    if (parseInt(captchaAnswer.value) === 12) {
+      // Obfuscate the key slightly in code so simple bots don't grab it easily
+      const part1 = "AQ.Ab8RN6";
+      const part2 = "JvzineGfBNs-ygj";
+      const part3 = "otpP-EVHPS_lNAg3EytDebyS2ARbg";
+      revealedKey.textContent = part1 + part2 + part3;
+      revealedKey.classList.remove('hidden');
+    } else {
+      alert('Respuesta incorrecta. Pista: suma los dos números.');
+    }
+  });
+
   // 1. Manage API Key
   const storedKey = localStorage.getItem('gemini_api_key');
   if (storedKey) {
@@ -37,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Por favor, introduce una clave válida.');
     }
   });
+  
 
   // 2. Initialize with Predefined Questions
   questions = typeof preguntas_desarrollo !== 'undefined' ? preguntas_desarrollo : [];

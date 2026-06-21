@@ -23,16 +23,28 @@
     <main>
       <!-- API Key Setup Panel -->
       <div class="panel api-key-panel" id="apiKeyPanel">
-        <h2>Configuración</h2>
+        <h2>Configuración de la IA</h2>
+        
+        <div id="captchaSection" style="margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;">
+          <p style="margin-top: 0;"><strong>Clave para mis amigas:</strong> Resuelve esto para ver la clave:</p>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <label id="captchaQuestion">¿Cuánto es 5 + 7?</label>
+            <input type="number" id="captchaAnswer" style="width: 80px; padding: 5px;">
+            <button class="btn" id="revealKeyBtn" style="padding: 5px 15px;">Revelar</button>
+          </div>
+          <div id="revealedKey" class="hidden" style="margin-top: 15px; font-family: monospace; background: #e9ecef; padding: 10px; border-radius: 4px; user-select: all; word-break: break-all; font-weight: bold; text-align: center;"></div>
+        </div>
+        
         <p style="margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">
-          Para usar la corrección automática, introduce tu clave API de Google Gemini. Esta clave se guardará de forma segura en tu navegador y no se enviará a ningún servidor de terceros.
+          Copia la clave revelada arriba y pégala aquí abajo. Se guardará en tu navegador para que no tengas que meterla cada vez.
         </p>
         <div class="input-group">
           <label for="apiKey">Clave API de Gemini:</label>
-          <input type="password" id="apiKey" placeholder="AIzaSy...">
+          <input type="password" id="apiKey" placeholder="Pega aquí la clave...">
         </div>
-        <button class="btn" id="saveKeyBtn">Guardar Clave</button>
+        <button class="btn" id="saveKeyBtn">Guardar Clave y Empezar</button>
       </div>
+
 
 
 
