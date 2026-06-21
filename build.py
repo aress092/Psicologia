@@ -77,7 +77,7 @@ def process_directory(current_path, relative_path_to_root):
     for name in entries:
         if name in IGNORE_LIST or name.startswith('.'):
             continue
-        if name == 'index.html' or name.endswith('.js') or name.endswith('.json') or name.endswith('.py'):
+        if name == 'index.html' or name.endswith('.js') or name.endswith('.json') or name.endswith('.py') or name.endswith('.md'):
             continue
         
         full_path = os.path.join(current_path, name)
