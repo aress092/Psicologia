@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const apiKeyPanel = document.getElementById('apiKeyPanel');
   const apiKeyInput = document.getElementById('apiKey');
   const saveKeyBtn = document.getElementById('saveKeyBtn');
+  const clearKeyBtn = document.getElementById('clearKeyBtn');
   
   const captchaAnswer = document.getElementById('captchaAnswer');
   const revealKeyBtn = document.getElementById('revealKeyBtn');
@@ -52,6 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       alert('Por favor, introduce una clave válida.');
     }
+  });
+  
+
+  clearKeyBtn.addEventListener('click', () => {
+    localStorage.removeItem('gemini_api_key');
+    apiKeyInput.value = '';
+    apiKeyPanel.classList.remove('hidden');
+    alert('La clave ha sido borrada de tu navegador de forma segura.');
   });
   
 
