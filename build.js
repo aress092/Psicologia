@@ -58,7 +58,7 @@ function generateHTML(title, isRoot, items, relativePathToRoot) {
       <p class="subtitle">${isRoot ? 'Selecciona una asignatura o tema' : 'Documentos y recursos'}</p>
     </header>
     <main class="grid">
-      ${isRoot ? `
+      ${title === 'CME' ? `
       <a href="practica.html" class="card folder-card highlight-card">
         <div class="card-icon highlight-icon">🧠</div>
         <div class="card-title">Practicar Desarrollo (IA)</div>
