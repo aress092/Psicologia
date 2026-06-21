@@ -154,7 +154,9 @@ Mantén un tono animado, constructivo y pedagógico. Usa formato Markdown.
       });
 
       if (!response.ok) {
-        throw new Error('Error en la API: ' + response.statusText);
+        const errData = await response.json().catch(() => ({}));
+        const errMsg = errData.error && errData.error.message ? errData.error.message : response.statusText;
+        throw new Error(`Error en la API (${response.status}): ` + errMsg);
       }
 
       const data = await response.json();
