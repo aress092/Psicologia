@@ -138,7 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const prompt = `
 Eres un profesor experto y amable de psicología. Tienes que corregir la respuesta de un alumno a una pregunta abierta de desarrollo.
-NO pidas que la respuesta sea exacta palabra por palabra. Evalúa si el alumno ha entendido el concepto principal.
+NO pidas que la respuesta sea exacta palabra por palabra. El alumno puede estar redactando la teoría formal O bien puede estar proponiendo ejemplos prácticos suyos para demostrar que entiende el concepto.
+Evalúa si el alumno ha entendido el concepto principal y si sus ejemplos (si los ha puesto) son válidos y van acordes a la teoría.
 
 PREGUNTA: ${q.pregunta || q.question}
 RESPUESTA IDEAL/REFERENCIA: ${idealAnswer}
@@ -147,10 +148,10 @@ RESPUESTA DEL ALUMNO: ${answer}
 
 Instrucciones:
 1. Dile si va por buen camino o si ha fallado.
-2. Señala qué conceptos clave ha acertado.
-3. Señala qué información importante le ha faltado mencionar (si falta alguna).
+2. Si el alumno aporta un ejemplo, evalúa rigurosamente si es correcto y explícale por qué ilustra (o no) la teoría.
+3. Señala qué conceptos clave ha acertado y qué información teórica importante le ha faltado mencionar para tener la respuesta perfecta.
 4. Dale una nota orientativa sobre 10 al final.
-Mantén un tono animado y pedagógico. Usa formato Markdown.
+Mantén un tono animado, constructivo y pedagógico. Usa formato Markdown.
 `;
 
     checkBtn.disabled = true;
