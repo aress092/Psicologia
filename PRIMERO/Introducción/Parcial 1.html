@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parcial 1 — Introducción | PSICOLOGIA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../src/style.css?v=2" />
+  <style>
+    .quiz-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .quiz-header {
+      margin-bottom: 1.25rem;
+    }
+    .quiz-header h1 {
+      font-size: 1.75rem;
+      margin: 0.4rem 0 0.25rem;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      margin-bottom: 0.85rem;
+    }
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .pill {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      background: #fff;
+      color: #444;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+    .pill:hover {
+      border-color: #1b4965;
+      color: #1b4965;
+    }
+    .pill.active {
+      background: #1b4965;
+      border-color: #1b4965;
+      color: #fff;
+      font-weight: 500;
+    }
+    .score-pill {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      background: #f0f6fa;
+      color: #1b4965;
+      border: 1px solid #cfe0ec;
+    }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: #e9eef2;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #1b4965;
+      transition: width 0.2s ease;
+    }
+    .q-card {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+    .q-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #666;
+      margin-bottom: 0.6rem;
+    }
+    .q-text {
+      font-size: 1.08rem;
+      font-weight: 600;
+      line-height: 1.45;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+    .opts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.13);
+      background: #fcfbfa;
+      color: #222;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      cursor: pointer;
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-family: inherit;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .opt-btn:hover:not(:disabled) {
+      border-color: #1b4965;
+      background: #f4f9fc;
+    }
+    .opt-btn:disabled {
+      cursor: default;
+    }
+    .opt-btn.correct {
+      border-color: #1e7e34;
+      background: #edf7ef;
+      color: #155724;
+      font-weight: 500;
+    }
+    .opt-btn.wrong {
+      border-color: #c82333;
+      background: #fdf0f1;
+      color: #721c24;
+    }
+    .opt-btn.dimmed {
+      opacity: 0.6;
+    }
+    .opt-letter {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .feedback {
+      margin-top: 0.9rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      border: 1px solid;
+    }
+    .feedback.ok {
+      background: #edf7ef;
+      border-color: #b7dfb9;
+      color: #155724;
+    }
+    .feedback.ko {
+      background: #fdf0f1;
+      border-color: #f1b8be;
+      color: #721c24;
+    }
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .btn-primary {
+      background: #1b4965;
+      color: #fff;
+      border: 1px solid #1b4965;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    .btn-primary:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+    .btn-warn {
+      background: #fff8e7;
+      color: #8a5a00;
+      border: 1px solid #d99b26;
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-shell">
+    <a href="index.html" class="back-link">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver a Introducción
+    </a>
+
+    <header class="quiz-header">
+      <h1>Parcial 1</h1>
+      <p class="subtitle">40 preguntas de Historia de la Psicología y La Psicología como Ciencia (3 alternativas)</p>
+    </header>
+
+    <div class="toolbar">
+      <div id="filters" class="pill-group"></div>
+      <div class="pill-group" style="align-items:center;">
+        <span id="score-badge" class="score-pill">Aciertos: 0/0</span>
+        <button id="btn-shuffle" type="button" class="pill">Barajar</button>
+        <button id="btn-reset" type="button" class="pill">Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="progress-track">
+      <div id="progress-bar" class="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div id="stage"></div>
+
+    <div class="nav-bar">
+      <button id="btn-prev" type="button" class="pill">← Anterior</button>
+      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 40</span>
+      <div class="pill-group">
+        <button id="btn-mistakes" type="button" class="btn-warn" style="display:none;">Repasar fallos (0)</button>
+        <button id="btn-next" type="button" class="btn-primary">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      { id: 1, block: 'Historia', q: 'Actualmente la psicología se define como la ciencia de:', opts: ['El alma humana y sus manifestaciones espirituales.', 'La conducta y de los procesos mentales.', 'La introspección clínica y el inconsciente.'], ans: 1, exp: 'Empezó centrada en el alma, luego en la mente, después en la conducta y hoy integra conducta y procesos mentales.' },
+      { id: 2, block: 'Historia', q: '¿Qué hito protagonizó Wilhelm Wundt en 1879?', opts: ['Fundar la terapia centrada en la persona.', 'Publicar la teoría de la evolución aplicada a la mente.', 'Crear el primer laboratorio experimental de psicología.'], ans: 2, exp: 'Marcó el paso de la filosofía a la psicología experimental, estudiando la experiencia consciente.' },
+      { id: 3, block: 'Historia', q: 'El método de introspección utilizado por Wundt consiste en:', opts: ['Observar y describir la propia experiencia consciente.', 'Registrar únicamente conductas motoras externas.', 'Interpretar sueños y lapsus del paciente en terapia.'], ans: 0, exp: 'Se aplicaba de forma controlada sobre la experiencia consciente inmediata.' },
+      { id: 4, block: 'Historia', q: '¿Cuál fue una crítica principal al método introspectivo?', opts: ['Solo podía aplicarse a grupos animales en laboratorio.', 'Carecía de objetividad y generaba desacuerdos entre sujetos.', 'Excluía por completo el estudio de las sensaciones.'], ans: 1, exp: 'Además, no permitía abordar conductas animales ni infantiles.' },
+      { id: 5, block: 'Historia', q: 'El estructuralismo de Edward B. Titchener pretendía:', opts: ['Estudiar la utilidad adaptativa de la conducta en el entorno.', 'Analizar el inconsciente mediante asociación libre.', 'Descomponer la experiencia consciente en sus elementos básicos.'], ans: 2, exp: 'Pasaba de la experiencia compleja a elementos simples mediante introspección cualitativa.' },
+      { id: 6, block: 'Historia', q: 'Según el estructuralismo, ¿cuáles eran las formas de experiencia elemental?', opts: ['Sensaciones, imágenes y sentimientos.', 'Estímulos, respuestas y refuerzos.', 'Atención, memoria y lenguaje.'], ans: 0, exp: 'Titchener distinguía esos tres componentes básicos de la experiencia consciente.' },
+      { id: 7, block: 'Historia', q: 'El funcionalismo de William James estuvo influido por Darwin y se centró en:', opts: ['Descomponer la percepción en átomos mentales.', 'La función y utilidad de la mente y la conducta para adaptarse.', 'Bloquear el estudio de niños y diferencias individuales.'], ans: 1, exp: 'Su pregunta central era: ¿para qué sirve y por qué hacemos lo que hacemos?' },
+      { id: 8, block: 'Historia', q: '¿Cómo concebía William James la conciencia?', opts: ['Como una suma estática de elementos aislados.', 'Como una caja negra imposible de estudiar.', 'Como un flujo continuo y dinámico.'], ans: 2, exp: 'La llamó «corriente de la conciencia», en oposición al estructuralismo.' },
+      { id: 9, block: 'Historia', q: 'Mary Whiton Calkins destacó históricamente por:', opts: ['Ser la primera mujer presidenta de la APA.', 'Dirigir el experimento del pequeño Albert.', 'Formular las leyes del condicionamiento operante.'], ans: 0, exp: 'Presidió la APA en 1905 dentro de la tradición funcionalista.' },
+      { id: 10, block: 'Historia', q: 'El psicoanálisis de Sigmund Freud sostiene que la conducta está guiada por:', opts: ['Exclusivamente procesos lógicos y conscientes.', 'Deseos, motivos y conflictos fuera de la consciencia.', 'Reflejos condicionados aprendidos en el laboratorio.'], ans: 1, exp: 'Estudia el inconsciente a través de síntomas, sueños, lapsus y asociación libre.' },
+      { id: 11, block: 'Historia', q: '¿Por qué se critica al psicoanálisis desde la ciencia empírica?', opts: ['Porque reduce la mente a sensaciones elementales.', 'Porque solo utiliza muestras de animales en jaulas.', 'Porque no es falsable y se autoconfirma ante cualquier respuesta.'], ans: 2, exp: 'Si el paciente niega un conflicto, la teoría lo explica como negación o represión.' },
+      { id: 12, block: 'Historia', q: 'Según el conductismo de John B. Watson, la psicología debe estudiar:', opts: ['La conducta observable de forma objetiva y experimental.', 'Los sueños y conflictos energéticos inconscientes.', 'La autorrealización y el potencial humano.'], ans: 0, exp: 'Buscaba objetividad, medición y replicabilidad, apartando la introspección.' },
+      { id: 13, block: 'Historia', q: 'Una limitación importante del conductismo radical fue:', opts: ['Centrarse demasiado en el fenómeno Phi.', 'Tratar la mente como una caja negra ignorando procesos internos.', 'Carecer de control experimental en laboratorio.'], ans: 1, exp: 'Dejaba de lado la memoria, la atención, los pensamientos o los sueños.' },
+      { id: 14, block: 'Historia', q: '¿Qué autores corresponden respectivamente a la ley del efecto y al condicionamiento operante?', opts: ['Freud y Rogers.', 'Wertheimer y Köhler.', 'Thorndike y Skinner.'], ans: 2, exp: 'Thorndike propuso el conexionismo y la ley del efecto; Skinner estudió cómo las consecuencias modifican la conducta.' },
+      { id: 15, block: 'Historia', q: 'Sobre Pavlov y el experimento del pequeño Albert:', opts: ['Pavlov estudió los reflejos condicionados y Watson y Rayner al pequeño Albert.', 'Pavlov dirigió al pequeño Albert y Skinner los reflejos condicionados.', 'Ambos estudios pertenecen a la psicología humanista.'], ans: 0, exp: 'Los estudios de Pavlov sobre reflejos condicionados fueron un antecedente decisivo del conductismo.' },
+      { id: 16, block: 'Historia', q: 'La idea central de la psicología de la Gestalt es que:', opts: ['La experiencia se reduce a sensaciones independientes sin relación.', 'El sistema perceptivo organiza activamente la información como un todo.', 'Solo puede estudiarse la conducta motora visible.'], ans: 1, exp: '«El todo es más grande que la suma de todas las partes».' },
+      { id: 17, block: 'Historia', q: 'El fenómeno Phi y el aprendizaje por insight en chimpancés fueron estudiados por:', opts: ['Titchener y James.', 'Maslow y Rogers.', 'Wertheimer y Köhler.'], ans: 2, exp: 'Junto con Kurt Koffka, fueron los principales representantes de la Gestalt.' },
+      { id: 18, block: 'Historia', q: 'La psicología humanista de Maslow y Carl Rogers pone el foco en:', opts: ['El desarrollo personal, la autorrealización y la experiencia propia.', 'El procesamiento computacional de estímulos en la memoria.', 'La descomposición cuantitativa de umbrales sensoriales.'], ans: 0, exp: 'Maslow propuso la jerarquía de necesidades y Rogers la terapia centrada en la persona.' },
+      { id: 19, block: 'Historia', q: '¿Qué crítica recibió la corriente humanista?', opts: ['Ignorar por completo los procesos conscientes.', 'Usar muestras pequeñas, términos vagos y poca investigación empírica.', 'Reducir al ser humano a reflejos condicionados.'], ans: 1, exp: 'Además, hoy no se avala científicamente la pirámide de Maslow como jerarquía estricta.' },
+      { id: 20, block: 'Historia', q: 'La psicología cognitiva defiende que:', opts: ['Los procesos mentales no pueden estudiarse científicamente.', 'La conducta no aporta evidencia útil sobre la mente.', 'Los procesos mentales pueden estudiarse científicamente usando la conducta como evidencia.'], ans: 2, exp: 'Impulsada por Bruner y Miller e influida por la metáfora del ordenador y Alan Turing.' },
+
+      { id: 21, block: 'Ciencia', q: 'Los juicios de la intuición o sentido común se caracterizan por ser:', opts: ['Rápidos y automáticos, aunque frecuentemente sesgados.', 'Más precisos que cualquier medición sistemática.', 'Lentos, analíticos y libres de creencias previas.'], ans: 0, exp: 'Son útiles en lo cotidiano, pero pueden inducir errores como sesgos cognitivos.' },
+      { id: 22, block: 'Ciencia', q: 'La falacia de conjunción consiste en:', opts: ['Buscar solo datos que confirmen una hipótesis.', 'Creer que dos sucesos combinados son más probables que uno solo por separado.', 'Aceptar descripciones vagas como si fueran muy personales.'], ans: 1, exp: 'Ejemplo de Linda: es más probable que sea solo cajera a que sea cajera y feminista.' },
+      { id: 23, block: 'Ciencia', q: 'Buscar e interpretar únicamente datos que apoyan nuestras creencias previas se llama:', opts: ['Efecto Forer.', 'Reactividad.', 'Sesgo de confirmación.'], ans: 2, exp: 'Se ilustra con la tarea de la regla 2-4-6, donde se tiende a confirmar sin intentar refutar.' },
+      { id: 24, block: 'Ciencia', q: 'El efecto Forer o Barnum explica por qué:', opts: ['Aceptamos descripciones generales y vagas como si fueran específicas para nosotros.', 'Cambiamos nuestra conducta cuando sabemos que nos observan.', 'Recordamos peor las listas cuando hay una tarea distractora.'], ans: 0, exp: 'Es la base psicológica de los horóscopos y muchas pseudociencias.' },
+      { id: 25, block: 'Ciencia', q: '¿Qué es una definición operacional?', opts: ['Una teoría general que no necesita evidencia empírica.', 'La concreción exacta de cómo se manipula o mide una variable abstracta.', 'El resumen estadístico de una encuesta poblacional.'], ans: 1, exp: 'Por ejemplo, definir «rendimiento cognitivo» como el número de aciertos en una tarea.' },
+      { id: 26, block: 'Ciencia', q: 'La observación naturalista consiste en:', opts: ['Manipular una variable independiente en laboratorio.', 'Entrevistar a miles de personas mediante cuestionarios.', 'Observar la conducta en su entorno espontáneo sin intervenir.'], ans: 2, exp: 'Pertenece a los métodos descriptivos junto al estudio de caso y las encuestas.' },
+      { id: 27, block: 'Ciencia', q: '¿Qué dos riesgos son típicos de la observación naturalista?', opts: ['Reactividad del sujeto y sesgo del observador.', 'Efecto placebo y doble ciego.', 'Tercera variable y asignación aleatoria.'], ans: 0, exp: 'El sujeto puede cambiar su conducta al sentirse observado y las expectativas del evaluador pueden sesgar el registro.' },
+      { id: 28, block: 'Ciencia', q: '¿Cuál es el límite principal del estudio de caso?', opts: ['No aporta información detallada sobre el individuo.', 'Sus resultados no son representativos ni generalizables automáticamente.', 'Impide generar nuevas hipótesis de investigación.'], ans: 1, exp: 'Aporta mucha riqueza descriptiva, como el caso de Phineas Gage, pero no generaliza por sí solo.' },
+      { id: 29, block: 'Ciencia', q: 'En las encuestas, la deseabilidad social ocurre cuando los participantes:', opts: ['Responden exactamente al azar sin leer las preguntas.', 'Exigen conocer su grupo experimental antes de empezar.', 'Mienten o exageran sus respuestas para dar buena imagen.'], ans: 2, exp: 'Se suma al riesgo de muestras no representativas y preguntas sesgadas.' },
+      { id: 30, block: 'Ciencia', q: 'En el coeficiente de correlación de Pearson, el signo y el valor absoluto indican respectivamente:', opts: ['La dirección y la fuerza de la relación lineal.', 'La causalidad directa y el tamaño de la muestra.', 'La variable independiente y la variable dependiente.'], ans: 0, exp: 'Oscila entre -1 y +1; cuanto más cerca de |1|, más fuerte es la relación.' },
+      { id: 31, block: 'Ciencia', q: 'El valor p en estadística sirve para:', opts: ['Demostrar qué variable es la causa de la otra.', 'Valorar si el resultado es compatible con una correlación poblacional nula.', 'Garantizar que los participantes fueron asignados al azar.'], ans: 1, exp: 'Indica la significación estadística del resultado observado.' },
+      { id: 32, block: 'Ciencia', q: '¿Por qué correlación no implica causalidad?', opts: ['Porque el coeficiente de Pearson solo mide variables cualitativas.', 'Porque en los estudios correlacionales siempre falta el grupo experimental.', 'Por los problemas de direccionalidad y de tercera variable.'], ans: 2, exp: 'No sabemos si X causa Y, Y causa X, o si una variable oculta Z causa ambas.' },
+      { id: 33, block: 'Ciencia', q: 'Una ventaja clave del método correlacional es que permite:', opts: ['Predecir e investigar variables imposibles o poco éticas de manipular.', 'Establecer relaciones de causa y efecto sin ninguna duda.', 'Eliminar por completo las variables de confusión.'], ans: 0, exp: 'Es muy útil con variables como la altura o el consumo de sustancias.' },
+      { id: 34, block: 'Ciencia', q: 'En un experimento, la variable manipulada por el investigador y el efecto medido son:', opts: ['Variable de confusión y grupo de control.', 'Variable independiente y variable dependiente.', 'Variable dependiente y variable independiente.'], ans: 1, exp: 'La VI es la causa manipulada; la VD es el efecto que se mide después.' },
+      { id: 35, block: 'Ciencia', q: 'Una variable de confusión es aquella que:', opts: ['Se mantiene totalmente constante en todos los grupos.', 'Se introduce intencionadamente como tratamiento placebo.', 'Varía sistemáticamente entre condiciones y podría explicar cambios en la VD.'], ans: 2, exp: 'Amenaza la validez interna del experimento al mezclarse con el efecto de la VI.' },
+      { id: 36, block: 'Ciencia', q: '¿Qué diferencia al muestreo aleatorio de la asignación aleatoria?', opts: ['El muestreo permite generalizar a la población y la asignación garantiza la validez interna.', 'El muestreo crea grupos equivalentes y la asignación selecciona la población total.', 'Ambos términos se refieren al mismo procedimiento de enmascaramiento.'], ans: 0, exp: 'La asignación aleatoria reparte al azar a las condiciones eliminando diferencias previas.' },
+      { id: 37, block: 'Ciencia', q: 'El uso de un placebo en el grupo de control permite:', opts: ['Aumentar el tamaño muestral sin coste.', 'Controlar las expectativas del participante.', 'Evitar la necesidad de definir variables operacionales.'], ans: 1, exp: 'Tiene apariencia idéntica al tratamiento real, pero carece de principio activo.' },
+      { id: 38, block: 'Ciencia', q: '¿En qué consiste el procedimiento de doble ciego?', opts: ['El investigador conoce el grupo asignado pero el participante no.', 'Los participantes son evaluados dos veces antes del experimento.', 'Ni participantes ni investigadores saben quién está en cada condición.'], ans: 2, exp: 'Elimina tanto las expectativas del participante como el sesgo del investigador.' },
+      { id: 39, block: 'Ciencia', q: 'Un diseño cuasi-experimental no permite concluir causalidad de forma tajante porque:', opts: ['Compara grupos preexistentes sin asignación aleatoria.', 'No mide ninguna variable dependiente.', 'Solo utiliza encuestas de opinión.'], ans: 0, exp: 'Al no haber reparto al azar, pueden existir diferencias previas entre los grupos.' },
+      { id: 40, block: 'Ciencia', q: 'La replicación conceptual se diferencia de la directa en que:', opts: ['Repite el estudio calcando exactamente las condiciones originales.', 'Evalúa la misma hipótesis usando medidas, procedimientos o muestras distintas.', 'Solo se aplica en estudios de caso individuales.'], ans: 1, exp: 'La directa reproduce el experimento original tal cual; la conceptual cambia el modo de probar la misma hipótesis.' }
+    ];
+
+    let currentBlock = 'Todos';
+    let deck = [...QUESTIONS];
+    let idx = 0;
+    let answers = {};
+    let reviewMistakesMode = false;
+
+    const elFilters = document.getElementById('filters');
+    const elScore = document.getElementById('score-badge');
+    const elProgress = document.getElementById('progress-bar');
+    const elStage = document.getElementById('stage');
+    const elCounter = document.getElementById('counter');
+    const elBtnPrev = document.getElementById('btn-prev');
+    const elBtnNext = document.getElementById('btn-next');
+    const elBtnMistakes = document.getElementById('btn-mistakes');
+    const elBtnShuffle = document.getElementById('btn-shuffle');
+    const elBtnReset = document.getElementById('btn-reset');
+    const blocks = ['Todos', 'Historia', 'Ciencia'];
+
+    function getMistakes() {
+      return QUESTIONS.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.ans);
+    }
+
+    function updateStats() {
+      const ids = Object.keys(answers);
+      const correct = ids.filter(id => {
+        const q = QUESTIONS.find(x => x.id === Number(id));
+        return q && answers[id] === q.ans;
+      }).length;
+      elScore.textContent = `Aciertos: ${correct}/${ids.length}`;
+
+      const mistakes = getMistakes();
+      if (mistakes.length > 0 && !reviewMistakesMode) {
+        elBtnMistakes.style.display = 'inline-block';
+        elBtnMistakes.textContent = `Repasar fallos (${mistakes.length})`;
+      } else {
+        elBtnMistakes.style.display = 'none';
+      }
+    }
+
+    function renderFilters() {
+      elFilters.innerHTML = '';
+      blocks.forEach(b => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = b;
+        btn.className = (!reviewMistakesMode && currentBlock === b) ? 'pill active' : 'pill';
+        btn.onclick = () => {
+          reviewMistakesMode = false;
+          currentBlock = b;
+          deck = b === 'Todos' ? [...QUESTIONS] : QUESTIONS.filter(q => q.block === b);
+          idx = 0;
+          render();
+        };
+        elFilters.appendChild(btn);
+      });
+    }
+
+    function renderQuestion() {
+      const q = deck[idx];
+      const chosen = answers[q.id];
+      const isAnswered = chosen !== undefined;
+      const letters = ['a', 'b', 'c'];
+
+      elProgress.style.width = `${Math.round(((idx + 1) / deck.length) * 100)}%`;
+      elCounter.textContent = `${idx + 1} / ${deck.length}`;
+      elBtnPrev.disabled = idx === 0;
+      elBtnNext.textContent = idx === deck.length - 1 ? 'Ver resumen →' : 'Siguiente →';
+
+      const card = document.createElement('div');
+      card.className = 'q-card';
+
+      const meta = document.createElement('div');
+      meta.className = 'q-meta';
+      meta.innerHTML = `<span>Bloque: <strong>${q.block}</strong></span><span>Pregunta #${q.id}</span>`;
+      card.appendChild(meta);
+
+      const qText = document.createElement('div');
+      qText.className = 'q-text';
+      qText.textContent = q.q;
+      card.appendChild(qText);
+
+      const optsWrap = document.createElement('div');
+      optsWrap.className = 'opts';
+
+      q.opts.forEach((optText, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.disabled = isAnswered;
+        let cls = 'opt-btn';
+        if (isAnswered) {
+          if (i === q.ans) cls += ' correct';
+          else if (i === chosen) cls += ' wrong';
+          else cls += ' dimmed';
+        }
+        btn.className = cls;
+        btn.innerHTML = `<span class="opt-letter">${letters[i]})</span><span>${optText}</span>`;
+        btn.onclick = () => {
+          answers[q.id] = i;
+          render();
+        };
+        optsWrap.appendChild(btn);
+      });
+      card.appendChild(optsWrap);
+
+      if (isAnswered) {
+        const ok = chosen === q.ans;
+        const fb = document.createElement('div');
+        fb.className = `feedback ${ok ? 'ok' : 'ko'}`;
+        fb.innerHTML = `<strong>${ok ? 'Correcta.' : `Incorrecta (era la ${letters[q.ans]}).`}</strong> ${q.exp}`;
+        card.appendChild(fb);
+      }
+
+      elStage.innerHTML = '';
+      elStage.appendChild(card);
+    }
+
+    function renderSummary() {
+      const answeredInDeck = deck.filter(q => answers[q.id] !== undefined);
+      const correctInDeck = answeredInDeck.filter(q => answers[q.id] === q.ans).length;
+      const mistakesInDeck = answeredInDeck.filter(q => answers[q.id] !== q.ans);
+      const pct = answeredInDeck.length ? Math.round((correctInDeck / answeredInDeck.length) * 100) : 0;
+
+      elStage.innerHTML = `
+        <div class="q-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+            <strong>Resultado (${reviewMistakesMode ? 'Repaso de fallos' : currentBlock})</strong>
+            <span class="score-pill">${correctInDeck} / ${answeredInDeck.length} (${pct}%)</span>
+          </div>
+          <p style="font-size:0.9rem;color:#555;margin-bottom:0.9rem;">Respondidas: ${answeredInDeck.length} de ${deck.length}. Fallos en este bloque: ${mistakesInDeck.length}.</p>
+          <div class="pill-group">
+            ${mistakesInDeck.length > 0 ? `<button id="sum-mistakes" type="button" class="btn-warn">Repasar ${mistakesInDeck.length} fallo(s)</button>` : ''}
+            <button id="sum-restart" type="button" class="btn-primary">Volver al inicio</button>
+          </div>
+        </div>
+      `;
+      elCounter.textContent = `Fin (${deck.length})`;
+      elBtnNext.disabled = true;
+
+      const btnSumMistakes = document.getElementById('sum-mistakes');
+      if (btnSumMistakes) {
+        btnSumMistakes.onclick = () => {
+          reviewMistakesMode = true;
+          deck = mistakesInDeck;
+          mistakesInDeck.forEach(q => delete answers[q.id]);
+          idx = 0;
+          elBtnNext.disabled = false;
+          render();
+        };
+      }
+      document.getElementById('sum-restart').onclick = () => {
+        idx = 0;
+        elBtnNext.disabled = false;
+        render();
+      };
+    }
+
+    function render() {
+      elBtnNext.disabled = false;
+      renderFilters();
+      updateStats();
+      renderQuestion();
+    }
+
+    elBtnPrev.onclick = () => { if (idx > 0) { idx--; render(); } };
+    elBtnNext.onclick = () => { if (idx < deck.length - 1) { idx++; render(); } else { renderSummary(); } };
+    elBtnMistakes.onclick = () => {
+      const m = getMistakes();
+      if (!m.length) return;
+      reviewMistakesMode = true;
+      deck = [...m];
+      m.forEach(q => delete answers[q.id]);
+      idx = 0;
+      render();
+    };
+    elBtnShuffle.onclick = () => {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      idx = 0;
+      render();
+    };
+    elBtnReset.onclick = () => {
+      answers = {};
+      reviewMistakesMode = false;
+      deck = currentBlock === 'Todos' ? [...QUESTIONS] : QUESTIONS.filter(q => q.block === currentBlock);
+      idx = 0;
+      render();
+    };
+
+    render();
+  </script>
+</body>
+</html>
