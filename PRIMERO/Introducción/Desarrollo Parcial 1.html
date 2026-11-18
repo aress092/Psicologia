@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desarrollo Parcial 1 — Introducción | PSICOLOGIA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../src/style.css?v=2" />
+  <style>
+    .quiz-shell { max-width: 820px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+    .quiz-header { margin-bottom: 1.25rem; }
+    .quiz-header h1 { font-size: 1.75rem; margin: 0.4rem 0 0.25rem; }
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.08); margin-bottom: 0.85rem; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pill { padding: 0.35rem 0.75rem; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); background: #fff; color: #444; font-size: 0.85rem; cursor: pointer; font-family: inherit; transition: all 0.15s ease; }
+    .pill:hover { border-color: #1b4965; color: #1b4965; }
+    .pill.active { background: #1b4965; border-color: #1b4965; color: #fff; font-weight: 500; }
+    .score-pill { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; padding: 0.3rem 0.65rem; border-radius: 6px; background: #f0f6fa; color: #1b4965; border: 1px solid #cfe0ec; }
+    .progress-track { width: 100%; height: 6px; background: #e9eef2; border-radius: 999px; overflow: hidden; margin-bottom: 1rem; }
+    .progress-fill { height: 100%; background: #1b4965; transition: width 0.2s ease; }
+    .q-card { background: #fff; border: 1px solid rgba(0,0,0,0.09); border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+    .q-meta { display: flex; justify-content: space-between; font-size: 0.82rem; color: #666; margin-bottom: 0.6rem; }
+    .q-text { font-size: 1.08rem; font-weight: 600; line-height: 1.45; margin-bottom: 0.85rem; color: #1a1a1a; }
+    .dev-input { width: 100%; min-height: 120px; padding: 0.75rem; border-radius: 8px; border: 1px solid #cbd5e1; background: #fcfbfa; font-family: inherit; font-size: 0.95rem; line-height: 1.45; resize: vertical; }
+    .dev-input:focus { outline: none; border-color: #1b4965; box-shadow: 0 0 0 3px rgba(27,73,101,0.12); }
+    .actions-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .model-box { margin-top: 0.9rem; padding: 0.9rem 1rem; border-radius: 8px; background: #f0f6fa; border: 1px solid #cfe0ec; font-size: 0.92rem; line-height: 1.5; color: #162636; }
+    .model-box ul { margin: 0.45rem 0 0 1.2rem; }
+    .model-box li { margin-bottom: 0.25rem; }
+    .eval-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .btn-ok { background: #edf7ef; color: #155724; border: 1px solid #1e7e34; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 500; }
+    .btn-ko { background: #fdf0f1; color: #721c24; border: 1px solid #c82333; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 500; }
+    .btn-ok.selected { background: #1e7e34; color: #fff; }
+    .btn-ko.selected { background: #c82333; color: #fff; }
+    .nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; }
+    .btn-primary { background: #1b4965; color: #fff; border: 1px solid #1b4965; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.9rem; }
+    .btn-primary:disabled { opacity: 0.45; cursor: default; }
+    .btn-warn { background: #fff8e7; color: #8a5a00; border: 1px solid #d99b26; padding: 0.5rem 0.85rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; }
+  </style>
+</head>
+<body>
+  <div class="quiz-shell">
+    <a href="index.html" class="back-link">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver a Introducción
+    </a>
+
+    <header class="quiz-header">
+      <h1>Desarrollo — Parcial 1</h1>
+      <p class="subtitle">14 preguntas de desarrollo de Historia de la Psicología y La Psicología como Ciencia</p>
+    </header>
+
+    <div class="toolbar">
+      <div id="filters" class="pill-group"></div>
+      <div class="pill-group" style="align-items:center;">
+        <span id="score-badge" class="score-pill">Dominadas: 0/0</span>
+        <button id="btn-shuffle" type="button" class="pill">Barajar</button>
+        <button id="btn-reset" type="button" class="pill">Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="progress-track">
+      <div id="progress-bar" class="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div id="stage"></div>
+
+    <div class="nav-bar">
+      <button id="btn-prev" type="button" class="pill">← Anterior</button>
+      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 14</span>
+      <div class="pill-group">
+        <button id="btn-mistakes" type="button" class="btn-warn" style="display:none;">Repasar pendientes (0)</button>
+        <button id="btn-next" type="button" class="btn-primary">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      {
+        id: 1, block: 'Historia',
+        q: 'Explica la aportación de Wilhelm Wundt (1879) y compara su enfoque con el estructuralismo de Titchener, señalando las críticas a la introspección.',
+        model: 'Wundt fundó el primer laboratorio experimental de psicología (1879), marcando el paso de la filosofía a la psicología experimental centrada en la experiencia consciente mediante introspección controlada. Titchener (estructuralismo) siguió su línea intentando descomponer la experiencia compleja en elementos básicos (sensaciones, imágenes y sentimientos) con introspección más cualitativa.',
+        keys: ['Wundt (1879): primer laboratorio experimental y experiencia consciente.', 'Titchener (estructuralismo): descomponer en elementos básicos (sensaciones, imágenes, sentimientos).', 'Críticas a la introspección: falta de objetividad, desacuerdos entre informes y no estudia animales ni niños.']
+      },
+      {
+        id: 2, block: 'Historia',
+        q: '¿En qué consiste el funcionalismo, quiénes lo representan y qué papel juega la teoría de la evolución?',
+        model: 'Impulsado por William James y Mary Whiton Calkins (primera mujer presidenta de la APA en 1905) bajo influencia de Darwin. Estudia la función y utilidad adaptativa de los procesos mentales y la conducta («¿para qué sirve?»), concibiendo la conciencia como un flujo continuo (corriente de la conciencia) y abriendo la puerta al método comparativo.',
+        keys: ['Autores: William James y Mary Whiton Calkins (1905).', 'Influencia de Darwin: adaptación al ambiente y utilidad de los procesos mentales.', 'Corriente de la conciencia (flujo continuo) y apertura al método comparativo (niños, animales, diferencias individuales).']
+      },
+      {
+        id: 3, block: 'Historia',
+        q: 'Resume los principios del psicoanálisis de Freud y explica por qué no se considera una ciencia empírica.',
+        model: 'Freud propuso que la conducta está determinada por deseos, motivos y conflictos inconscientes, estudiados mediante síntomas, sueños, lapsus y asociación libre, desde una concepción energética y de homeostasis. No entra en las ciencias empíricas porque no es falsable: si el paciente niega un conflicto, la teoría alega negación o represión y se autoconfirma siempre.',
+        keys: ['Inconsciente, conflictos, sueños, lapsus, asociación libre y homeostasis.', 'Crítica científica: no es falsable.', 'Cualquier negación del paciente se interpreta como represión/negación (autoconfirmación).']
+      },
+      {
+        id: 4, block: 'Historia',
+        q: 'Explica el conductismo (Watson, Thorndike, Pavlov y Skinner) y su principal limitación.',
+        model: 'Watson propuso centrar la psicología en la conducta observable mediante el método experimental de laboratorio. Se apoyó en los reflejos condicionados de Pavlov (condicionamiento clásico), el conexionismo y la ley del efecto de Thorndike, el experimento del pequeño Albert (Watson y Rayner) y el condicionamiento operante de Skinner (caja experimental y efecto de las consecuencias). Su crítica es tratar la mente como «caja negra» dejando fuera memoria, atención o pensamientos.',
+        keys: ['Watson: conducta observable, objetividad y laboratorio; pequeño Albert.', 'Pavlov (CC), Thorndike (ley del efecto) y Skinner (CO, consecuencias).', 'Crítica: la mente como «caja negra» (ignora procesos mentales internos).']
+      },
+      {
+        id: 5, block: 'Historia',
+        q: 'Compara la psicología de la Gestalt con el estructuralismo de Titchener y cita sus autores y críticas.',
+        model: 'Mientras Titchener descomponía la experiencia en elementos aislados, la Gestalt sostiene que «el todo es más grande que la suma de todas las partes» y que el sistema perceptivo organiza activamente la información. Sus autores son Max Wertheimer (movimiento aparente, fenómeno Phi), Wolfgang Köhler (insight en chimpancés) y Kurt Koffka. Se le critica falta de precisión conceptual, escaso valor predictivo y dificultad de formalización.',
+        keys: ['El todo > suma de partes; organización activa (opuesto a elementos de Titchener).', 'Autores: Wertheimer (fenómeno Phi), Köhler (insight) y Koffka.', 'Críticas: falta de precisión conceptual, bajo valor predictivo y difícil formalización.']
+      },
+      {
+        id: 6, block: 'Historia',
+        q: '¿Qué propone la psicología humanista (Maslow y Rogers) y qué críticas ha recibido?',
+        model: 'Busca comprender el desarrollo y el potencial humano. Abraham Maslow propuso la autorrealización y su pirámide de necesidades; Carl Rogers centró su enfoque en la experiencia personal y la terapia centrada en la persona/cliente. Se ha criticado por muestras pequeñas poco significativas, falta de concreción conceptual, exclusión del inconsciente y escasa investigación empírica.',
+        keys: ['Maslow (autorrealización, pirámide) y Rogers (terapia centrada en la persona).', 'Críticas: muestras pequeñas, términos vagos, exclusión del inconsciente y poca investigación.', 'La jerarquía de Maslow no está avalada científicamente hoy (aunque se usa en empresa).']
+      },
+      {
+        id: 7, block: 'Historia',
+        q: 'Explica la revolución cognitiva: objeto de estudio, papel de la conducta y metáfora del ordenador.',
+        model: 'La psicología cognitiva (Bruner y Miller, 1960) devolvió los procesos mentales al centro de la investigación científica (adquisición, procesamiento, almacenamiento y uso de la información). No necesita observar directamente la mente: usa la conducta como evidencia experimental para contrastar hipótesis. Se apoya en la metáfora del ordenador y la máquina de Turing.',
+        keys: ['Estudio científico de procesos mentales usando la conducta como evidencia.', 'Autores: Jerome Bruner y George Miller (1960).', 'Metáfora del ordenador (procesamiento de información) y máquina de Turing.']
+      },
+      {
+        id: 8, block: 'Ciencia',
+        q: 'Diferencia entre intuición y ciencia, y explica la falacia de conjunción, el sesgo de confirmación y el efecto Forer.',
+        model: 'La intuición genera juicios rápidos basados en la experiencia, útiles pero sesgados; la ciencia exige evidencia empírica sistemática y definiciones operacionales. La falacia de conjunción consiste en creer que dos sucesos combinados son más probables que uno solo (ej. Linda). El sesgo de confirmación busca solo datos que apoyan creencias previas (regla 2-4-6). El efecto Forer hace aceptar descripciones vagas y generales como personales (horóscopos).',
+        keys: ['Intuición (rápida/sesgada) vs. ciencia (evidencia empírica, definición operacional).', 'Falacia de conjunción (Linda), sesgo de confirmación (regla 2-4-6).', 'Efecto Forer/Barnum: descripciones vagas aceptadas como específicas.']
+      },
+      {
+        id: 9, block: 'Ciencia',
+        q: 'Describe los tres métodos descriptivos (observación naturalista, estudio de caso y encuestas) con sus riesgos o límites.',
+        model: 'La observación naturalista registra la conducta en su entorno espontáneo sin intervenir, con riesgo de reactividad y sesgo del observador. El estudio de caso analiza en profundidad un individuo o situación (ej. Phineas Gage), aportando detalle e hipótesis pero sin ser generalizable. Las encuestas recogen datos de mucha gente rápido y barato, pero sufren riesgo de muestras no representativas, preguntas sesgadas y deseabilidad social.',
+        keys: ['Observación naturalista: entorno espontáneo; riesgos de reactividad y sesgo del observador.', 'Estudio de caso (Phineas Gage): gran detalle/hipótesis, pero no generalizable.', 'Encuestas: rápidas/económicas; riesgos de muestra, sesgo de redacción y deseabilidad social.']
+      },
+      {
+        id: 10, block: 'Ciencia',
+        q: 'Explica cómo se interpreta el coeficiente de correlación de Pearson (r) y el valor p.',
+        model: 'El coeficiente r oscila entre -1 y +1: el signo indica la dirección (positiva si suben/bajan juntas, negativa si van en sentido opuesto, cero si no hay relación lineal) y el valor absoluto indica la fuerza (más fuerte cuanto más cerca de |1|). El valor p evalúa si el resultado es compatible con una correlación poblacional nula (significación estadística).',
+        keys: ['Rango de r: -1 a +1.', 'Signo = dirección (+, -, 0); valor absoluto = fuerza (cerca de |1|).', 'Valor p: significación estadística frente a correlación nula.']
+      },
+      {
+        id: 11, block: 'Ciencia',
+        q: '¿Por qué correlación no implica causalidad y para qué sigue siendo útil el método correlacional?',
+        model: 'No implica causalidad por dos problemas: la direccionalidad (no se sabe si X causa Y o Y causa X) y la tercera variable (una variable oculta Z puede causar cambios en X e Y a la vez). Aun así, es útil para predecir y para investigar variables que no se pueden manipular (ej. altura) o no es ético manipular (ej. consumo de drogas).',
+        keys: ['Problema de direccionalidad (X->Y vs Y->X).', 'Problema de la tercera variable (Z oculta).', 'Utilidad: predecir y estudiar variables no manipulables o no éticas.']
+      },
+      {
+        id: 12, block: 'Ciencia',
+        q: 'Define Variable Independiente (VI), Variable Dependiente (VD), variable de confusión, grupo experimental y grupo de control.',
+        model: 'En un experimento, la VI es la causa manipulada por el investigador y la VD es el efecto medido tras la manipulación. Una variable de confusión es una variable ajena que varía sistemáticamente entre condiciones y podría explicar los cambios en la VD. El grupo experimental recibe la manipulación activa de la VI y el grupo de control sirve de línea base sin recibirla.',
+        keys: ['VI (causa manipulada) y VD (efecto medido).', 'Variable de confusión: varía entre condiciones y amenaza la validez.', 'Grupo experimental (con VI) vs. grupo de control (comparación).']
+      },
+      {
+        id: 13, block: 'Ciencia',
+        q: 'Explica las principales técnicas de control experimental: muestreo vs. asignación aleatoria, placebo y enmascaramiento (simple y doble ciego).',
+        model: 'El muestreo aleatorio afecta a la generalización a la población; la asignación aleatoria reparte al azar a los participantes entre condiciones, garantizando la validez interna al crear grupos equivalentes. El placebo controla las expectativas del participante con un tratamiento sin principio activo. En el ciego simple el participante no sabe su grupo; en el doble ciego tampoco lo sabe el investigador que evalúa.',
+        keys: ['Muestreo aleatorio (generalización) vs. asignación aleatoria (validez interna, grupos equivalentes).', 'Placebo: controla expectativas del participante.', 'Ciego simple (participante) vs. doble ciego (participante e investigador).']
+      },
+      {
+        id: 14, block: 'Ciencia',
+        q: 'Diferencia entre diseño experimental y cuasi-experimental, y entre replicación directa y conceptual.',
+        model: 'El diseño cuasi-experimental compara grupos preexistentes (ej. con o sin esquizofrenia) sin asignación aleatoria, por lo que no permite concluir causalidad de forma tajante. La replicación directa repite el experimento calcando las condiciones originales, mientras que la replicación conceptual evalúa la misma hipótesis con medidas, procedimientos o muestras distintas.',
+        keys: ['Cuasi-experimental: grupos preexistentes sin asignación aleatoria (no prueba causalidad tajante).', 'Replicación directa: calca las condiciones originales.', 'Replicación conceptual: misma hipótesis con medidas/procedimientos/muestras distintas.']
+      }
+    ];
+
+    let currentBlock = 'Todos';
+    let deck = [...QUESTIONS];
+    let idx = 0;
+    let drafts = {};
+    let revealed = {};
+    let statusMap = {}; // id -> 'ok' | 'ko'
+    let reviewMistakesMode = false;
+
+    const elFilters = document.getElementById('filters');
+    const elScore = document.getElementById('score-badge');
+    const elProgress = document.getElementById('progress-bar');
+    const elStage = document.getElementById('stage');
+    const elCounter = document.getElementById('counter');
+    const elBtnPrev = document.getElementById('btn-prev');
+    const elBtnNext = document.getElementById('btn-next');
+    const elBtnMistakes = document.getElementById('btn-mistakes');
+    const elBtnShuffle = document.getElementById('btn-shuffle');
+    const elBtnReset = document.getElementById('btn-reset');
+    const blocks = ['Todos', 'Historia', 'Ciencia'];
+
+    function getPending() {
+      return QUESTIONS.filter(q => statusMap[q.id] === 'ko');
+    }
+
+    function updateStats() {
+      const evaluated = Object.keys(statusMap);
+      const okCount = evaluated.filter(id => statusMap[id] === 'ok').length;
+      elScore.textContent = `Dominadas: ${okCount}/${evaluated.length}`;
+
+      const pending = getPending();
+      if (pending.length > 0 && !reviewMistakesMode) {
+        elBtnMistakes.style.display = 'inline-block';
+        elBtnMistakes.textContent = `Repasar pendientes (${pending.length})`;
+      } else {
+        elBtnMistakes.style.display = 'none';
+      }
+    }
+
+    function renderFilters() {
+      elFilters.innerHTML = '';
+      blocks.forEach(b => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = b;
+        btn.className = (!reviewMistakesMode && currentBlock === b) ? 'pill active' : 'pill';
+        btn.onclick = () => {
+          reviewMistakesMode = false;
+          currentBlock = b;
+          deck = b === 'Todos' ? [...QUESTIONS] : QUESTIONS.filter(q => q.block === b);
+          idx = 0;
+          render();
+        };
+        elFilters.appendChild(btn);
+      });
+    }
+
+    function renderQuestion() {
+      const q = deck[idx];
+      const isRev = !!revealed[q.id];
+      const st = statusMap[q.id];
+
+      elProgress.style.width = `${Math.round(((idx + 1) / deck.length) * 100)}%`;
+      elCounter.textContent = `${idx + 1} / ${deck.length}`;
+      elBtnPrev.disabled = idx === 0;
+      elBtnNext.textContent = idx === deck.length - 1 ? 'Ver resumen →' : 'Siguiente →';
+
+      const card = document.createElement('div');
+      card.className = 'q-card';
+
+      const meta = document.createElement('div');
+      meta.className = 'q-meta';
+      meta.innerHTML = `<span>Bloque: <strong>${q.block}</strong></span><span>Pregunta #${q.id}</span>`;
+      card.appendChild(meta);
+
+      const qText = document.createElement('div');
+      qText.className = 'q-text';
+      qText.textContent = q.q;
+      card.appendChild(qText);
+
+      const ta = document.createElement('textarea');
+      ta.className = 'dev-input';
+      ta.placeholder = 'Escribe aquí tu respuesta antes de comprobar...';
+      ta.value = drafts[q.id] || '';
+      ta.oninput = (e) => { drafts[q.id] = e.target.value; };
+      card.appendChild(ta);
+
+      const actRow = document.createElement('div');
+      actRow.className = 'actions-row';
+      const btnRev = document.createElement('button');
+      btnRev.type = 'button';
+      btnRev.className = 'btn-primary';
+      btnRev.textContent = isRev ? 'Ocultar respuesta modelo' : 'Ver respuesta modelo';
+      btnRev.onclick = () => {
+        revealed[q.id] = !revealed[q.id];
+        render();
+      };
+      actRow.appendChild(btnRev);
+      card.appendChild(actRow);
+
+      if (isRev) {
+        const box = document.createElement('div');
+        box.className = 'model-box';
+        const keysHtml = q.keys.map(k => `<li>${k}</li>`).join('');
+        box.innerHTML = `<strong>Respuesta modelo:</strong><p style="margin-top:0.35rem;">${q.model}</p><strong style="display:block;margin-top:0.6rem;">Puntos clave de examen:</strong><ul>${keysHtml}</ul>`;
+        card.appendChild(box);
+
+        const evalRow = document.createElement('div');
+        evalRow.className = 'eval-row';
+        const btnOk = document.createElement('button');
+        btnOk.type = 'button';
+        btnOk.className = `btn-ok ${st === 'ok' ? 'selected' : ''}`;
+        btnOk.textContent = 'La sabía ✓';
+        btnOk.onclick = () => { statusMap[q.id] = 'ok'; render(); };
+
+        const btnKo = document.createElement('button');
+        btnKo.type = 'button';
+        btnKo.className = `btn-ko ${st === 'ko' ? 'selected' : ''}`;
+        btnKo.textContent = 'A repasar ✗';
+        btnKo.onclick = () => { statusMap[q.id] = 'ko'; render(); };
+
+        evalRow.appendChild(btnOk);
+        evalRow.appendChild(btnKo);
+        card.appendChild(evalRow);
+      }
+
+      elStage.innerHTML = '';
+      elStage.appendChild(card);
+    }
+
+    function renderSummary() {
+      const evaluated = deck.filter(q => statusMap[q.id] !== undefined);
+      const okInDeck = evaluated.filter(q => statusMap[q.id] === 'ok').length;
+      const pendingInDeck = evaluated.filter(q => statusMap[q.id] === 'ko');
+      const pct = evaluated.length ? Math.round((okInDeck / evaluated.length) * 100) : 0;
+
+      elStage.innerHTML = `
+        <div class="q-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+            <strong>Resultado (${reviewMistakesMode ? 'Repaso' : currentBlock})</strong>
+            <span class="score-pill">${okInDeck} / ${evaluated.length} (${pct}%)</span>
+          </div>
+          <p style="font-size:0.9rem;color:#555;margin-bottom:0.9rem;">Autoevaluadas: ${evaluated.length} de ${deck.length}. Marcadas para repasar: ${pendingInDeck.length}.</p>
+          <div class="pill-group">
+            ${pendingInDeck.length > 0 ? `<button id="sum-mistakes" type="button" class="btn-warn">Repasar ${pendingInDeck.length} pendiente(s)</button>` : ''}
+            <button id="sum-restart" type="button" class="btn-primary">Volver al inicio</button>
+          </div>
+        </div>
+      `;
+      elCounter.textContent = `Fin (${deck.length})`;
+      elBtnNext.disabled = true;
+
+      const btnSumMistakes = document.getElementById('sum-mistakes');
+      if (btnSumMistakes) {
+        btnSumMistakes.onclick = () => {
+          reviewMistakesMode = true;
+          deck = pendingInDeck;
+          pendingInDeck.forEach(q => { delete statusMap[q.id]; revealed[q.id] = false; });
+          idx = 0;
+          elBtnNext.disabled = false;
+          render();
+        };
+      }
+      document.getElementById('sum-restart').onclick = () => {
+        idx = 0;
+        elBtnNext.disabled = false;
+        render();
+      };
+    }
+
+    function render() {
+      elBtnNext.disabled = false;
+      renderFilters();
+      updateStats();
+      renderQuestion();
+    }
+
+    elBtnPrev.onclick = () => { if (idx > 0) { idx--; render(); } };
+    elBtnNext.onclick = () => { if (idx < deck.length - 1) { idx++; render(); } else { renderSummary(); } };
+    elBtnMistakes.onclick = () => {
+      const p = getPending();
+      if (!p.length) return;
+      reviewMistakesMode = true;
+      deck = [...p];
+      p.forEach(q => { delete statusMap[q.id]; revealed[q.id] = false; });
+      idx = 0;
+      render();
+    };
+    elBtnShuffle.onclick = () => {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      idx = 0;
+      render();
+    };
+    elBtnReset.onclick = () => {
+      drafts = {};
+      revealed = {};
+      statusMap = {};
+      reviewMistakesMode = false;
+      deck = currentBlock === 'Todos' ? [...QUESTIONS] : QUESTIONS.filter(q => q.block === currentBlock);
+      idx = 0;
+      render();
+    };
+
+    render();
+  </script>
+</body>
+</html>

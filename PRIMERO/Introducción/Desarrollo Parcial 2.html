@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desarrollo Parcial 2 — Introducción | PSICOLOGIA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../src/style.css?v=2" />
+  <style>
+    .quiz-shell { max-width: 820px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+    .quiz-header { margin-bottom: 1.25rem; }
+    .quiz-header h1 { font-size: 1.75rem; margin: 0.4rem 0 0.25rem; }
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.08); margin-bottom: 0.85rem; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pill { padding: 0.35rem 0.75rem; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); background: #fff; color: #444; font-size: 0.85rem; cursor: pointer; font-family: inherit; transition: all 0.15s ease; }
+    .pill:hover { border-color: #1b4965; color: #1b4965; }
+    .pill.active { background: #1b4965; border-color: #1b4965; color: #fff; font-weight: 500; }
+    .score-pill { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; padding: 0.3rem 0.65rem; border-radius: 6px; background: #f0f6fa; color: #1b4965; border: 1px solid #cfe0ec; }
+    .progress-track { width: 100%; height: 6px; background: #e9eef2; border-radius: 999px; overflow: hidden; margin-bottom: 1rem; }
+    .progress-fill { height: 100%; background: #1b4965; transition: width 0.2s ease; }
+    .q-card { background: #fff; border: 1px solid rgba(0,0,0,0.09); border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+    .q-meta { display: flex; justify-content: space-between; font-size: 0.82rem; color: #666; margin-bottom: 0.6rem; }
+    .q-text { font-size: 1.08rem; font-weight: 600; line-height: 1.45; margin-bottom: 0.85rem; color: #1a1a1a; }
+    .dev-input { width: 100%; min-height: 120px; padding: 0.75rem; border-radius: 8px; border: 1px solid #cbd5e1; background: #fcfbfa; font-family: inherit; font-size: 0.95rem; line-height: 1.45; resize: vertical; }
+    .dev-input:focus { outline: none; border-color: #1b4965; box-shadow: 0 0 0 3px rgba(27,73,101,0.12); }
+    .actions-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .model-box { margin-top: 0.9rem; padding: 0.9rem 1rem; border-radius: 8px; background: #f0f6fa; border: 1px solid #cfe0ec; font-size: 0.92rem; line-height: 1.5; color: #162636; }
+    .model-box ul { margin: 0.45rem 0 0 1.2rem; }
+    .model-box li { margin-bottom: 0.25rem; }
+    .eval-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .btn-ok { background: #edf7ef; color: #155724; border: 1px solid #1e7e34; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 500; }
+    .btn-ko { background: #fdf0f1; color: #721c24; border: 1px solid #c82333; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 500; }
+    .btn-ok.selected { background: #1e7e34; color: #fff; }
+    .btn-ko.selected { background: #c82333; color: #fff; }
+    .nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; }
+    .btn-primary { background: #1b4965; color: #fff; border: 1px solid #1b4965; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.9rem; }
+    .btn-primary:disabled { opacity: 0.45; cursor: default; }
+    .btn-warn { background: #fff8e7; color: #8a5a00; border: 1px solid #d99b26; padding: 0.5rem 0.85rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; }
+  </style>
+</head>
+<body>
+  <div class="quiz-shell">
+    <a href="index.html" class="back-link">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver a Introducción
+    </a>
+
+    <header class="quiz-header">
+      <h1>Desarrollo — Parcial 2</h1>
+      <p class="subtitle">18 preguntas de desarrollo de Sensación y Percepción, Atención y Memoria</p>
+    </header>
+
+    <div class="toolbar">
+      <div id="filters" class="pill-group"></div>
+      <div class="pill-group" style="align-items:center;">
+        <span id="score-badge" class="score-pill">Dominadas: 0/0</span>
+        <button id="btn-shuffle" type="button" class="pill">Barajar</button>
+        <button id="btn-reset" type="button" class="pill">Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="progress-track">
+      <div id="progress-bar" class="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div id="stage"></div>
+
+    <div class="nav-bar">
+      <button id="btn-prev" type="button" class="pill">← Anterior</button>
+      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 18</span>
+      <div class="pill-group">
+        <button id="btn-mistakes" type="button" class="btn-warn" style="display:none;">Repasar pendientes (0)</button>
+        <button id="btn-next" type="button" class="btn-primary">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      {
+        id: 1, block: 'Percepción',
+        q: 'Explica la diferencia entre sensación y percepción (procesamiento bottom-up vs. top-down) y pon el ejemplo de la prosopagnosia.',
+        model: 'La sensación es el procesamiento de abajo a arriba (bottom-up), donde los receptores captan y transmiten estímulos físicos; la percepción es de arriba a abajo (top-down), donde el cerebro organiza, interpreta y da sentido a esos datos usando expectativas y contexto. La prosopagnosia (incapacidad de reconocer rostros familiares pese a ver bien sus rasgos, ligada al giro fusiforme FFA) demuestra que se puede sentir sin percibir/reconocer.',
+        keys: ['Sensación = bottom-up; Percepción = top-down (organización e interpretación).', 'Prosopagnosia: sensación visual preservada pero fallo al reconocer rostros.', 'Área implicada: giro fusiforme (FFA).']
+      },
+      {
+        id: 2, block: 'Percepción',
+        q: 'Define umbral absoluto, umbral diferencial y Ley de Weber.',
+        model: 'El umbral absoluto es la cantidad mínima de energía física que puede detectarse el 50 % de las veces. El umbral diferencial es el cambio más pequeño entre dos estímulos detectable el 50 % de las veces. La Ley de Weber establece que el incremento de intensidad necesario para notar un cambio es proporcional a la intensidad del estímulo inicial.',
+        keys: ['Umbral absoluto: mínima energía detectada el 50 % de las veces.', 'Umbral diferencial: mínimo cambio detectable el 50 % de las veces.', 'Ley de Weber: el incremento es proporcional a la intensidad inicial.']
+      },
+      {
+        id: 3, block: 'Percepción',
+        q: 'Compara los bastones y los conos en cuanto a cantidad, ubicación, iluminación, color y agudeza visual.',
+        model: 'Los bastones (~120 millones por ojo) están en la periferia de la retina, funcionan con poca luz, dan visión acromática (sin color) y baja agudeza visual. Los conos (~6 millones por ojo) se concentran en la fóvea y retina central, funcionan con luz brillante, permiten la visión en color y ofrecen alta agudeza visual.',
+        keys: ['Bastones: ~120 M, periferia, poca luz, acromática, baja agudeza.', 'Conos: ~6 M, fóvea/retina central, luz brillante, cromática, alta agudeza.']
+      },
+      {
+        id: 4, block: 'Percepción',
+        q: 'Explica las teorías de la visión del color (tricromática, proceso oponente y teoría compuesta).',
+        model: 'La teoría tricromática propone tres tipos de conos (azul, verde y rojo) cuyos patrones de activación generan los colores, aunque no explica las postimágenes ni por qué no vemos mezclas rojo-verdosas o azul-amarillentas. La teoría del proceso oponente propone tres pares antagónicos (rojo-verde, azul-amarillo, negro-blanco) en células posteriores donde activar uno inhibe al opuesto. La teoría compuesta integra ambas: conos tricromáticos seguidos de células oponentes.',
+        keys: ['Tricromática: 3 conos (azul, verde, rojo) + dificultad de postimágenes/mezclas.', 'Proceso oponente: 3 pares (rojo-verde, azul-amarillo, negro-blanco) con inhibición.', 'Teoría compuesta: conos tricromáticos + procesamiento posterior oponente.']
+      },
+      {
+        id: 5, block: 'Percepción',
+        q: 'Describe el recorrido de la vía visual desde la retina hasta la corteza, explicando qué áreas modulares procesan cada característica y el problema de la integración (binding problem).',
+        model: 'De bastones y conos la señal pasa a células bipolares y ganglionares, sale por el nervio óptico (punto ciego), cruza parcialmente en el quiasma óptico (hemicampo izquierdo a corteza derecha y viceversa), pasa por el tálamo y llega a la corteza occipital. Por módulos: V1 (bordes/contraste), V2-V3 (formas complejas), V4 (color), MT/V5 (movimiento), FFA (rostros) y LOC (objetos). El binding problem explica cómo se integran mediante organización espacial, interacción entre áreas y atención.',
+        keys: ['Vía: receptores -> bipolares -> ganglionares -> nervio óptico -> quiasma (contralateral) -> tálamo -> corteza visual.', 'Módulos: V1, V4 (color), MT/V5 (movimiento), FFA (rostros), LOC (objetos).', 'Binding problem: organización espacial, interacciones entre áreas y atención.']
+      },
+      {
+        id: 6, block: 'Percepción',
+        q: 'Explica la percepción de la profundidad diferenciando señales binoculares y monoculares, y menciona las constancias perceptivas.',
+        model: 'Las señales binoculares requieren ambos ojos: disparidad retiniana (~6 cm entre ojos, visión 3D) y convergencia ocular (giro hacia dentro en objetos cercanos). Las monoculares bastan con un ojo: perspectiva lineal, tamaño relativo, gradiente de textura y superposición. Las constancias perceptivas (tamaño, forma y color) permiten percibir los objetos estables aunque cambie su proyección retiniana o iluminación (como ilustran la ilusión de Shepard o Adelson).',
+        keys: ['Binoculares: disparidad retiniana y convergencia ocular.', 'Monoculares: perspectiva lineal, tamaño relativo, gradiente de textura, superposición.', 'Constancias: tamaño, forma y color.']
+      },
+      {
+        id: 7, block: 'Atención',
+        q: 'Define ceguera por inatención y ceguera al cambio, y explica qué ocurre en la escucha dicótica (shadowing).',
+        model: 'La ceguera por inatención es no percibir un estímulo inesperado pero visible cuando la atención está ocupada en otra tarea (Monkey Business Illusion, Simons). La ceguera al cambio es la dificultad para detectar cambios en una escena visual tras una breve interrupción. En escucha dicótica se repite un mensaje atendido y del oído no atendido apenas se recuerda contenido semántico, pero sí cambios físicos (tono, voz) y excepciones como el propio nombre (efecto cóctel party).',
+        keys: ['Ceguera por inatención (Simons) y ceguera al cambio (interrupción visual).', 'Shadowing: se recuerda el canal atendido; del no atendido solo cambios físicos.', 'Excepciones: propio nombre (efecto cóctel party) y continuidad semántica.']
+      },
+      {
+        id: 8, block: 'Atención',
+        q: 'Compara los tres modelos de filtro atencional: Broadbent, Treisman y Deutsch y Deutsch.',
+        model: 'Broadbent (1958, filtro rígido): selección temprana por rasgos físicos que bloquea por completo el canal no atendido antes del análisis semántico. Treisman (1964, filtro atenuado): selección temprana que atenúa el canal no atendido sin bloquearlo, permitiendo reconocer estímulos con umbral bajo (como el propio nombre). Deutsch y Deutsch (1963, filtro tardío): todos los estímulos reciben análisis semántico y se selecciona después el más relevante.',
+        keys: ['Broadbent: temprano y bloqueo total por rasgos físicos.', 'Treisman: temprano con atenuación (explica propio nombre).', 'Deutsch y Deutsch: tardío (selección tras análisis semántico completo).']
+      },
+      {
+        id: 9, block: 'Atención',
+        q: 'Explica la teoría de la carga perceptiva de Lavie y el modelo de capacidad de Kahneman sobre atención dividida.',
+        model: 'Según Lavie (1995; Forster y Lavie, 2008), la capacidad atencional es limitada: con baja carga perceptiva sobran recursos que procesan involuntariamente los distractores (más distracción), mientras que con alta carga se agotan los recursos y se reduce la distracción. Kahneman (1973) plantea que la atención dividida reparte una capacidad limitada que varía con el arousal y las prioridades; si la demanda supera la capacidad hay interferencia, que disminuye con la práctica.',
+        keys: ['Lavie: baja carga -> sobran recursos -> mayor distracción; alta carga -> menor distracción.', 'Kahneman: recursos limitados modulados por arousal/prioridades.', 'Interferencia cuando demanda > capacidad; la práctica reduce el consumo de recursos.']
+      },
+      {
+        id: 10, block: 'Atención',
+        q: 'Explica la orientación espacial (endógena vs. exógena) y las conclusiones del paradigma de cueing espacial de Posner.',
+        model: 'La orientación endógena es voluntaria, guiada por metas/expectativas mediante señales centrales (ej. flecha). La exógena es involuntaria, capturada por estímulos salientes mediante señales periféricas (ej. destello). En el paradigma de Posner, TR válido < TR inválido, demostrando: (1) orientación encubierta sin mover los ojos, (2) que atender facilita y acelera el procesamiento y (3) la existencia de mecanismos voluntarios e involuntarios.',
+        keys: ['Endógena (voluntaria, señal central) vs. exógena (involuntaria, señal periférica).', 'Posner: TR válido < TR inválido.', 'Conclusiones: orientación encubierta, facilitación del procesamiento y doble mecanismo.']
+      },
+      {
+        id: 11, block: 'Atención',
+        q: 'Describe la teoría de integración de características de Anne Treisman, el efecto Stroop y las tres redes atencionales de Posner.',
+        model: 'Treisman distingue búsqueda de característica distintiva (pop-out: preatencional, en paralelo, TR independiente del nº de distractores) y búsqueda por conjunción (requiere atención focalizada serial para integrar rasgos, TR crece linealmente). El efecto Stroop muestra la interferencia entre un proceso automático (leer la palabra) y uno controlado (nombrar el color de la tinta). Las tres redes de Posner son: alerta, orientación y control ejecutivo.',
+        keys: ['Treisman: pop-out (paralelo, TR plano) vs. conjunción (serial, TR lineal).', 'Stroop: conflicto automático (leer) vs. controlado (color de tinta).', 'Tres redes de Posner: Alerta, Orientación y Control ejecutivo.']
+      },
+      {
+        id: 12, block: 'Memoria',
+        q: 'Diferencia amnesia retrógrada y anterógrada, y explica qué demuestran los casos de Clive Wearing y H. M.',
+        model: 'La amnesia retrógrada impide recordar hechos previos a la lesión, mientras que la anterógrada impide consolidar nuevos recuerdos duraderos en la MLP tras la lesión. Clive Wearing y H. M. (extirpación bilateral temporal medial / hipocampo) sufrían amnesia declarativa grave pero conservaban intacta la memoria implícita/procedimental (tocar el piano o mejorar en el dibujo en espejo sin recordar haberlo hecho), demostrando disociación entre sistemas.',
+        keys: ['Retrógrada (previo) vs. anterógrada (nuevos recuerdos).', 'Clive Wearing (piano) y H. M. (hipocampo, dibujo en espejo).', 'Disociación: explícita/declarativa alterada frente a implícita/procedimental preservada.']
+      },
+      {
+        id: 13, block: 'Memoria',
+        q: 'Explica el modelo multialmacén de Atkinson y Shiffrin (con la modificación de Baddeley) y el experimento de Sperling.',
+        model: 'Atkinson y Shiffrin (1968) proponen tres almacenes: Memoria Sensorial (MS) -> MCP <-> MLP; Baddeley (2001) sustituye la MCP pasiva por la Memoria de Trabajo activa. En la memoria icónica (< 1 s), Sperling comparó informe completo (~4,5 letras) frente a informe parcial mediante un tono que señalaba qué fila reportar (~100 % de la fila), demostrando que toda la matriz estuvo brevemente en MS antes de desvanecerse.',
+        keys: ['Atkinson y Shiffrin: MS -> MCP <-> MLP; Baddeley: Memoria de Trabajo activa.', 'Sperling: informe completo (~4,5) vs. informe parcial (~100 % con tono).', 'Conclusión: la memoria icónica (< 1 s) retiene toda la información brevemente.']
+      },
+      {
+        id: 14, block: 'Memoria',
+        q: 'Caracteriza la MCP (capacidad, duración y tarea de Brown-Peterson) y explica el efecto de posición serial.',
+        model: 'La MCP tiene capacidad limitada de 7 ± 2 chunks (5–9 unidades, test de span) y duración < 30 segundos sin repaso activo, como demuestra la tarea distractora de Brown-Peterson (contar hacia atrás impide el repaso y el recuerdo decae en segundos). En recuerdo libre aparece el efecto de posición serial: efecto de primacía (los primeros ítems pasan a MLP por mayor repaso) y efecto de recencia (los últimos siguen activos en MCP).',
+        keys: ['Capacidad: 7 ± 2 chunks; Duración: < 30 s sin repaso (Brown-Peterson).', 'Primacía: primeros ítems pasan a MLP.', 'Recencia: últimos ítems permanecen en MCP.']
+      },
+      {
+        id: 15, block: 'Memoria',
+        q: 'Clasifica los tipos de Memoria a Largo Plazo (MLP) explícita e implícita con ejemplos.',
+        model: 'La MLP explícita o declarativa (recuperación consciente) se divide en episódica (vivencias autobiográficas en tiempo y lugar) y semántica (conocimientos generales del mundo y lenguaje). La MLP implícita o no declarativa (automática e inconsciente) incluye la memoria procedimental (habilidades motoras y rutinas), el condicionamiento clásico (respuestas asociativas) y el priming (facilitación por exposición previa).',
+        keys: ['Explícita (consciente): episódica y semántica.', 'Implícita (inconsciente): procedimental, condicionamiento clásico y priming.']
+      },
+      {
+        id: 16, block: 'Memoria',
+        q: 'Explica los niveles de procesamiento de Craik y Lockhart y compara la repetición de mantenimiento con la elaborativa.',
+        model: 'Craik y Lockhart (1972) proponen que el recuerdo depende de la profundidad de análisis: estructural (físico/visual, ~25 %) < fonológico (sonido, ~55 %) < semántico (significado y conexión previa, ~80 %, mejor recuerdo). La repetición de mantenimiento sostiene superficialmente la información en MCP, mientras que la repetición elaborativa la conecta con conocimientos previos en MLP creando más pistas de recuperación.',
+        keys: ['Niveles: estructural (~25 %) < fonológico (~55 %) < semántico (~80 %).', 'Repetición de mantenimiento (MCP) vs. elaborativa (conecta con MLP y genera pistas).']
+      },
+      {
+        id: 17, block: 'Memoria',
+        q: 'Explica el principio de especificidad de codificación (incluyendo Godden y Baddeley) y las tres formas de acceso a la memoria.',
+        model: 'El principio de especificidad de codificación señala que se recuerda mejor cuando las claves de recuperación coinciden con las de codificación, ya sea por contexto ambiental (Godden y Baddeley, 1975: buzos en playa vs. bajo el agua), estado fisiológico o estado de ánimo. Las formas de acceso son: recuerdo (sin pistas externas), reconocimiento (con pistas o alternativas) y reaprendizaje (ahorro de tiempo/ensayos).',
+        keys: ['Especificidad de codificación: contexto ambiental (Godden y Baddeley), estado y estado de ánimo.', 'Acceso: recuerdo (sin pistas), reconocimiento (con pistas) y reaprendizaje (ahorro).']
+      },
+      {
+        id: 18, block: 'Memoria',
+        q: 'Describe la curva del olvido de Ebbinghaus, las causas del olvido y las distorsiones reconstructivas (Bartlett y Loftus).',
+        model: 'Ebbinghaus mostró una pérdida muy rápida al inicio (~50 % en 1 hora) que luego se estabiliza (~2 días). El olvido se debe a fallo de codificación («pseudo-olvido» por falta de atención, ej. penny de Nickerson y Adams) o fallo de recuperación: interferencia proactiva (lo antiguo dificulta lo nuevo) y retroactiva (lo nuevo dificulta lo antiguo), o falta de pistas (punta de la lengua). Además, la memoria es reconstructiva: Bartlett (1932, esquemas en «La guerra de los fantasmas»: reducción, normalización y adiciones) y Loftus (efecto de desinformación en testigos: «estrellaron» vs. «golpearon» y cristales rotos; atribución de fuente).',
+        keys: ['Curva de Ebbinghaus (~50 % en 1 h); fallo de codificación (Nickerson y Adams).', 'Interferencia proactiva vs. retroactiva; dependiente de pistas (punta de la lengua).', 'Reconstrucción: esquemas (Bartlett), error de fuente y desinformación (Loftus).']
+      }
+    ];
+
+    let currentBlock = 'Todos';
+    let deck = [...QUESTIONS];
+    let idx = 0;
+    let drafts = {};
+    let revealed = {};
+    let statusMap = {};
+    let reviewMistakesMode = false;
+
+    const elFilters = document.getElementById('filters');
+    const elScore = document.getElementById('score-badge');
+    const elProgress = document.getElementById('progress-bar');
+    const elStage = document.getElementById('stage');
+    const elCounter = document.getElementById('counter');
+    const elBtnPrev = document.getElementById('btn-prev');
+    const elBtnNext = document.getElementById('btn-next');
+    const elBtnMistakes = document.getElementById('btn-mistakes');
+    const elBtnShuffle = document.getElementById('btn-shuffle');
+    const elBtnReset = document.getElementById('btn-reset');
+    const blocks = ['Todos', 'Percepción', 'Atención', 'Memoria'];
+
+    function getPending() {
+      return QUESTIONS.filter(q => statusMap[q.id] === 'ko');
+    }
+
+    function updateStats() {
+      const evaluated = Object.keys(statusMap);
+      const okCount = evaluated.filter(id => statusMap[id] === 'ok').length;
+      elScore.textContent = `Dominadas: ${okCount}/${evaluated.length}`;
+
+      const pending = getPending();
+      if (pending.length > 0 && !reviewMistakesMode) {
+        elBtnMistakes.style.display = 'inline-block';
+        elBtnMistakes.textContent = `Repasar pendientes (${pending.length})`;
+      } else {
+        elBtnMistakes.style.display = 'none';
+      }
+    }
+
+    function renderFilters() {
+      elFilters.innerHTML = '';
+      blocks.forEach(b => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = b;
+        btn.className = (!reviewMistakesMode && currentBlock === b) ? 'pill active' : 'pill';
+        btn.onclick = () => {
+          reviewMistakesMode = false;
+          currentBlock = b;
+          deck = b === 'Todos' ? [...QUESTIONS] : QUESTIONS.filter(q => q.block === b);
+          idx = 0;
+          render();
+        };
+        elFilters.appendChild(btn);
+      });
+    }
+
+    function renderQuestion() {
+      const q = deck[idx];
+      const isRev = !!revealed[q.id];
+      const st = statusMap[q.id];
+
+      elProgress.style.width = `${Math.round(((idx + 1) / deck.length) * 100)}%`;
+      elCounter.textContent = `${idx + 1} / ${deck.length}`;
+      elBtnPrev.disabled = idx === 0;
+      elBtnNext.textContent = idx === deck.length - 1 ? 'Ver resumen →' : 'Siguiente →';
+
+      const card = document.createElement('div');
+      card.className = 'q-card';
+
+      const meta = document.createElement('div');
+      meta.className = 'q-meta';
+      meta.innerHTML = `<span>Bloque: <strong>${q.block}</strong></span><span>Pregunta #${q.id}</span>`;
+      card.appendChild(meta);
+
+      const qText = document.createElement('div');
+      qText.className = 'q-text';
+      qText.textContent = q.q;
+      card.appendChild(qText);
+
+      const ta = document.createElement('textarea');
+      ta.className = 'dev-input';
+      ta.placeholder = 'Escribe aquí tu respuesta antes de comprobar...';
+      ta.value = drafts[q.id] || '';
+      ta.oninput = (e) => { drafts[q.id] = e.target.value; };
+      card.appendChild(ta);
+
+      const actRow = document.createElement('div');
+      actRow.className = 'actions-row';
+      const btnRev = document.createElement('button');
+      btnRev.type = 'button';
+      btnRev.className = 'btn-primary';
+      btnRev.textContent = isRev ? 'Ocultar respuesta modelo' : 'Ver respuesta modelo';
+      btnRev.onclick = () => {
+        revealed[q.id] = !revealed[q.id];
+        render();
+      };
+      actRow.appendChild(btnRev);
+      card.appendChild(actRow);
+
+      if (isRev) {
+        const box = document.createElement('div');
+        box.className = 'model-box';
+        const keysHtml = q.keys.map(k => `<li>${k}</li>`).join('');
+        box.innerHTML = `<strong>Respuesta modelo:</strong><p style="margin-top:0.35rem;">${q.model}</p><strong style="display:block;margin-top:0.6rem;">Puntos clave de examen:</strong><ul>${keysHtml}</ul>`;
+        card.appendChild(box);
+
+        const evalRow = document.createElement('div');
+        evalRow.className = 'eval-row';
+        const btnOk = document.createElement('button');
+        btnOk.type = 'button';
+        btnOk.className = `btn-ok ${st === 'ok' ? 'selected' : ''}`;
+        btnOk.textContent = 'La sabía ✓';
+        btnOk.onclick = () => { statusMap[q.id] = 'ok'; render(); };
+
+        const btnKo = document.createElement('button');
+        btnKo.type = 'button';
+        btnKo.className = `btn-ko ${st === 'ko' ? 'selected' : ''}`;
+        btnKo.textContent = 'A repasar ✗';
+        btnKo.onclick = () => { statusMap[q.id] = 'ko'; render(); };
+
+        evalRow.appendChild(btnOk);
+        evalRow.appendChild(btnKo);
+        card.appendChild(evalRow);
+      }
+
+      elStage.innerHTML = '';
+      elStage.appendChild(card);
+    }
+
+    function renderSummary() {
+      const evaluated = deck.filter(q => statusMap[q.id] !== undefined);
+      const okInDeck = evaluated.filter(q => statusMap[q.id] === 'ok').length;
+      const pendingInDeck = evaluated.filter(q => statusMap[q.id] === 'ko');
+      const pct = evaluated.length ? Math.round((okInDeck / evaluated.length) * 100) : 0;
+
+      elStage.innerHTML = `
+        <div class="q-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+            <strong>Resultado (${reviewMistakesMode ? 'Repaso' : currentBlock})</strong>
+            <span class="score-pill">${okInDeck} / ${evaluated.length} (${pct}%)</span>
+          </div>
+          <p style="font-size:0.9rem;color:#555;margin-bottom:0.9rem;">Autoevaluadas: ${evaluated.length} de ${deck.length}. Marcadas para repasar: ${pendingInDeck.length}.</p>
+          <div class="pill-group">
+            ${pendingInDeck.length > 0 ? `<button id="sum-mistakes" type="button" class="btn-warn">Repasar ${pendingInDeck.length} pendiente(s)</button>` : ''}
+            <button id="sum-restart" type="button" class="btn-primary">Volver al inicio</button>
+          </div>
+        </div>
+      `;
+      elCounter.textContent = `Fin (${deck.length})`;
+      elBtnNext.disabled = true;
+
+      const btnSumMistakes = document.getElementById('sum-mistakes');
+      if (btnSumMistakes) {
+        btnSumMistakes.onclick = () => {
+          reviewMistakesMode = true;
+          deck = pendingInDeck;
+          pendingInDeck.forEach(q => { delete statusMap[q.id]; revealed[q.id] = false; });
+          idx = 0;
+          elBtnNext.disabled = false;
+          render();
+        };
+      }
+      document.getElementById('sum-restart').onclick = () => {
+        idx = 0;
+        elBtnNext.disabled = false;
+        render();
+      };
+    }
+
+    function render() {
+      elBtnNext.disabled = false;
+      renderFilters();
+      updateStats();
+      renderQuestion();
+    }
+
+    elBtnPrev.onclick = () => { if (idx > 0) { idx--; render(); } };
+    elBtnNext.onclick = () => { if (idx < deck.length - 1) { idx++; render(); } else { renderSummary(); } };
+    elBtnMistakes.onclick = () => {
+      const p = getPending();
+      if (!p.length) return;
+      reviewMistakesMode = true;
+      deck = [...p];
+      p.forEach(q => { delete statusMap[q.id]; revealed[q.id] = false; });
+      idx = 0;
+      render();
+    };
+    elBtnShuffle.onclick = () => {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      idx = 0;
+      render();
+    };
+    elBtnReset.onclick = () => {
+      drafts = {};
+      revealed = {};
+      statusMap = {};
+      reviewMistakesMode = false;
+      deck = currentBlock === 'Todos' ? [...QUESTIONS] : QUESTIONS.filter(q => q.block === currentBlock);
+      idx = 0;
+      render();
+    };
+
+    render();
+  </script>
+</body>
+</html>
