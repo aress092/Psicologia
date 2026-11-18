@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const IGNORE_LIST = ['.git', '.github', 'src', 'node_modules', 'build.js', 'README.md', '.DS_Store', 'practica.html', 'practica.js'];
+const IGNORE_LIST = ['.git', '.github', 'src', 'node_modules', 'build.js', 'README.md', '.DS_Store', 'practica.html', 'practica.js', 'introducción'];
 const ROOT_DIR = __dirname;
 const SITE_TITLE = "Estudios de Psicología";
 
