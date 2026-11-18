@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Tipo Examen — Introducción | Estudios de Psicología</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../src/style.css" />
+  <style>
+    .quiz-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .quiz-header {
+      margin-bottom: 1.25rem;
+    }
+    .quiz-header h1 {
+      font-size: 1.75rem;
+      margin: 0.4rem 0 0.25rem;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      margin-bottom: 0.85rem;
+    }
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .pill {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      background: #fff;
+      color: #444;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+    .pill:hover {
+      border-color: #1b4965;
+      color: #1b4965;
+    }
+    .pill.active {
+      background: #1b4965;
+      border-color: #1b4965;
+      color: #fff;
+      font-weight: 500;
+    }
+    .score-pill {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      background: #f0f6fa;
+      color: #1b4965;
+      border: 1px solid #cfe0ec;
+    }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: #e9eef2;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #1b4965;
+      transition: width 0.2s ease;
+    }
+    .q-card {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+    .q-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #666;
+      margin-bottom: 0.6rem;
+    }
+    .q-text {
+      font-size: 1.08rem;
+      font-weight: 600;
+      line-height: 1.45;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+    .opts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.13);
+      background: #fcfbfa;
+      color: #222;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      cursor: pointer;
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-family: inherit;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .opt-btn:hover:not(:disabled) {
+      border-color: #1b4965;
+      background: #f4f9fc;
+    }
+    .opt-btn:disabled {
+      cursor: default;
+    }
+    .opt-btn.correct {
+      border-color: #1e7e34;
+      background: #edf7ef;
+      color: #155724;
+      font-weight: 500;
+    }
+    .opt-btn.wrong {
+      border-color: #c82333;
+      background: #fdf0f1;
+      color: #721c24;
+    }
+    .opt-btn.dimmed {
+      opacity: 0.6;
+    }
+    .opt-letter {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .feedback {
+      margin-top: 0.9rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      border: 1px solid;
+    }
+    .feedback.ok {
+      background: #edf7ef;
+      border-color: #b7dfb9;
+      color: #155724;
+    }
+    .feedback.ko {
+      background: #fdf0f1;
+      border-color: #f1b8be;
+      color: #721c24;
+    }
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .btn-primary {
+      background: #1b4965;
+      color: #fff;
+      border: 1px solid #1b4965;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    .btn-primary:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+    .btn-warn {
+      background: #fff8e7;
+      color: #8a5a00;
+      border: 1px solid #d99b26;
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-shell">
+    <a href="index.html" class="back-link">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver a Introducción
+    </a>
+
+    <header class="quiz-header">
+      <h1>Test de Parcial — Introducción</h1>
+      <p class="subtitle">50 preguntas de Sensación y Percepción, Atención y Memoria (3 alternativas)</p>
+    </header>
+
+    <div class="toolbar">
+      <div id="filters" class="pill-group"></div>
+      <div class="pill-group" style="align-items:center;">
+        <span id="score-badge" class="score-pill">Aciertos: 0/0</span>
+        <button id="btn-shuffle" type="button" class="pill">Barajar</button>
+        <button id="btn-reset" type="button" class="pill">Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="progress-track">
+      <div id="progress-bar" class="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div id="stage"></div>
+
+    <div class="nav-bar">
+      <button id="btn-prev" type="button" class="pill">← Anterior</button>
+      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 50</span>
+      <div class="pill-group">
+        <button id="btn-mistakes" type="button" class="btn-warn" style="display:none;">Repasar fallos (0)</button>
+        <button id="btn-next" type="button" class="btn-primary">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      { id: 1, block: 'Percepción', q: 'La prosopagnosia se caracteriza por:', opts: ['La incapacidad para detectar cambios de brillo y color en el entorno.', 'La incapacidad para percibir y reconocer rostros familiares.', 'La pérdida de la visión nocturna por lesión en los bastones.'], ans: 1, exp: 'Ejemplo clásico de diferencia entre sensación y percepción (asociada al giro fusiforme, FFA).' },
+      { id: 2, block: 'Percepción', q: '¿Qué diferencia al procesamiento bottom-up del top-down?', opts: ['El bottom-up corresponde a la sensación (de abajo a arriba) y el top-down a la percepción (interpreta con contexto y experiencia).', 'El bottom-up depende de las expectativas y el top-down de los receptores sensoriales.', 'Ambos términos significan lo mismo y se usan para la transducción.'], ans: 0, exp: 'Sensación = entrada sensorial (bottom-up); Percepción = organización e interpretación (top-down).' },
+      { id: 3, block: 'Percepción', q: 'El umbral absoluto se define como:', opts: ['El cambio de estimulación más pequeño detectable el 50 % de las veces.', 'La intensidad máxima que soporta un receptor sin dañarse.', 'La cantidad mínima de energía física detectada como estimulación el 50 % de las veces.'], ans: 2, exp: 'El cambio más pequeño entre dos estímulos es el umbral diferencial.' },
+      { id: 4, block: 'Percepción', q: 'Según la Ley de Weber:', opts: ['El incremento necesario para notar un cambio es siempre una constante fija.', 'El incremento de intensidad necesario para provocar un cambio de sensación es proporcional a la intensidad inicial.', 'La sensibilidad aumenta cuando se reduce la longitud de onda.'], ans: 1, exp: 'A mayor intensidad inicial, mayor incremento hace falta para notar la diferencia.' },
+      { id: 5, block: 'Percepción', q: 'En las ondas de luz, la longitud de onda y la amplitud determinan respectivamente:', opts: ['El brillo y el color.', 'El color (400–700 nm) y el brillo.', 'La agudeza visual y la profundidad.'], ans: 1, exp: 'Longitud de onda = color (700 nm rojo, 400 nm violeta); Amplitud = brillo.' },
+      { id: 6, block: 'Percepción', q: '¿Qué es la transducción?', opts: ['El cruce de fibras visuales en el quiasma óptico.', 'La conversión de energía física en señales neuronales en las células receptoras.', 'La corrección automática de la perspectiva en la corteza occipital.'], ans: 1, exp: 'El cerebro solo procesa señales neuronales, no energía física directa.' },
+      { id: 7, block: 'Percepción', q: '¿Cuál describe correctamente a los bastones frente a los conos?', opts: ['Bastones (~120 M): periferia, poca luz, visión acromática y baja agudeza.', 'Bastones (~6 M): fóvea, visión en color y alta agudeza visual.', 'Conos (~120 M): responsables de la visión nocturna en blanco y negro.'], ans: 0, exp: 'Conos (~6 M) están en fóvea/retina central, dan color y alta agudeza.' },
+      { id: 8, block: 'Percepción', q: '¿Qué estructura del ojo enfoca la luz sobre la retina?', opts: ['La córnea.', 'La pupila.', 'El cristalino.'], ans: 2, exp: 'Córnea: membrana protectora frontal; Pupila: abertura del iris; Cristalino: enfoca en la retina.' },
+      { id: 9, block: 'Percepción', q: 'Una dificultad clásica de la teoría tricromática es que:', opts: ['No contempla conos sensibles al azul, verde y rojo.', 'No explica las postimágenes de colores complementarios ni por qué no vemos mezclas azul-amarillentas o rojo-verdosas.', 'Solo funciona en condiciones de visión nocturna.'], ans: 1, exp: 'Por eso se combina con la teoría del proceso oponente (teoría compuesta).' },
+      { id: 10, block: 'Percepción', q: 'Según la teoría del proceso oponente:', opts: ['Existen tres sistemas (rojo–verde, azul–amarillo, negro–blanco) donde estimular un color inhibe al opuesto.', 'Los colores se perciben solo por activación de los tres conos sin inhibición.', 'Cada área cortical procesa un único color de forma aislada.'], ans: 0, exp: 'Ocurre en células ganglionares, tálamo y corteza visual tras los conos.' },
+      { id: 11, block: 'Percepción', q: 'El punto ciego del ojo es:', opts: ['La zona de la fóvea con mayor densidad de conos.', 'La zona de la retina sin fotorreceptores por donde sale el nervio óptico.', 'El área del tálamo donde se cruzan las fibras visuales.'], ans: 1, exp: 'Al no haber bastones ni conos ahí, no se detecta luz en ese punto.' },
+      { id: 12, block: 'Percepción', q: 'Tras el cruce parcial de fibras en el quiasma óptico:', opts: ['La corteza visual derecha procesa el hemicampo visual derecho.', 'La corteza visual derecha procesa el hemicampo visual izquierdo y la izquierda el derecho.', 'Toda la información llega sin cruzarse a la corteza izquierda.'], ans: 1, exp: 'El procesamiento de los hemicampos visuales es contralateral.' },
+      { id: 13, block: 'Percepción', q: 'Hubel y Wiesel descubrieron:', opts: ['Las células detectoras de características (líneas horizontales, verticales, etc.).', 'La ilusión de las mesas de perspectiva.', 'El fenómeno de la ceguera al cambio.'], ans: 0, exp: 'Neuronas especializadas en rasgos concretos del campo visual.' },
+      { id: 14, block: 'Percepción', q: 'En el procesamiento modular, ¿qué procesan MT/V5 y el área LOC?', opts: ['MT/V5 el color y LOC únicamente rostros.', 'MT/V5 el movimiento y su dirección; LOC el reconocimiento de objetos.', 'V1 el movimiento y MT/V5 los bordes básicos.'], ans: 1, exp: 'V1: bordes/contraste; V4: color; MT/V5: movimiento; FFA: rostros; LOC: objetos.' },
+      { id: 15, block: 'Percepción', q: 'En el problema de la integración (binding problem), ¿qué mecanismos intervienen?', opts: ['Solo convergencia ocular y disparidad retiniana.', 'Organización espacial, interacciones entre áreas visuales y atención.', 'Exclusivamente la transducción en células bipolares.'], ans: 1, exp: 'Estos tres mecanismos combinan las características procesadas en paralelo.' },
+      { id: 16, block: 'Percepción', q: 'El efecto Margaret Thatcher demuestra que:', opts: ['El reconocimiento facial depende de mecanismos especializados en la configuración global de la cara (peor invertida).', 'Reconocemos mejor los rostros invertidos que los normales.', 'El giro fusiforme solo se activa ante objetos geométricos.'], ans: 0, exp: 'Invertida cuesta detectar rasgos grotescos porque se rompe la configuración global.' },
+      { id: 17, block: 'Percepción', q: 'En el efecto contextual de Bruner y Minturn (1955):', opts: ['Un mismo símbolo ambiguo se percibe como «B» entre letras y como «13» entre números.', 'Dos líneas idénticas parecen distintas por perspectiva lineal.', 'Una figura alterna entre copa y dos caras.'], ans: 0, exp: 'El contexto inmediato guía la interpretación top-down del estímulo.' },
+      { id: 18, block: 'Percepción', q: 'Completar mentalmente las partes que faltan en una figura corresponde al principio Gestalt de:', opts: ['Proximidad.', 'Continuidad.', 'Cierre.'], ans: 2, exp: 'Cierre = completar figuras incompletas.' },
+      { id: 19, block: 'Percepción', q: '¿Cuáles son señales binoculares de profundidad (requieren ambos ojos)?', opts: ['Perspectiva lineal y superposición.', 'Disparidad retiniana (~6 cm) y convergencia ocular.', 'Gradiente de textura y tamaño relativo.'], ans: 1, exp: 'Perspectiva lineal, tamaño relativo, textura y superposición son monoculares.' },
+      { id: 20, block: 'Percepción', q: 'La ilusión de Adelson sobre luminosidad muestra que:', opts: ['El brillo percibido depende solo de la luz física que llega a la retina.', 'El brillo percibido depende del contexto y de inferencias sobre iluminación (sombra).', 'La constancia de tamaño impide percibir sombras.'], ans: 1, exp: 'El sistema visual compensa la sombra al estimar la claridad de la superficie.' },
+
+      { id: 21, block: 'Atención', q: 'La ceguera por inatención (Monkey Business Illusion, Simons) consiste en:', opts: ['Dificultad para recordar palabras tras una tarea distractora.', 'Incapacidad para percibir un estímulo inesperado pero visible cuando la atención está ocupada en otra tarea.', 'Pérdida temporal de agudeza tras un destello periférico.'], ans: 1, exp: 'Los recursos absorbidos por la tarea principal impiden detectar el estímulo inesperado.' },
+      { id: 22, block: 'Atención', q: 'La ceguera al cambio ocurre con mayor facilidad cuando:', opts: ['Hay una breve interrupción visual (parpadeo/corte) que dificulta detectar la modificación sin una pista.', 'Se presentan dos mensajes auditivos simultáneos.', 'La carga perceptiva de la tarea principal es nula.'], ans: 0, exp: 'Una pista atencional hacia la zona modificada facilita detectar el cambio.' },
+      { id: 23, block: 'Atención', q: 'En escucha dicótica (shadowing), ¿qué suele captar el sujeto del oído NO atendido?', opts: ['Todo el significado semántico con exactitud.', 'Cambios físicos (tono, voz hombre/mujer) y excepciones relevantes como su propio nombre (efecto cóctel party).', 'Absolutamente nada, ni siquiera cambios de voz.'], ans: 1, exp: 'Se recuerda poco contenido semántico, pero sí rasgos físicos y el propio nombre.' },
+      { id: 24, block: 'Atención', q: 'Según el modelo de filtro rígido de Broadbent (1958):', opts: ['La selección es temprana (rasgos físicos) y el mensaje no atendido se bloquea por completo antes del análisis semántico.', 'Todos los mensajes se analizan semánticamente antes de filtrarse.', 'El filtro atenúa el mensaje no atendido dejando pasar palabras frecuentes.'], ans: 0, exp: 'Broadbent = selección temprana y bloqueo total del canal no atendido.' },
+      { id: 25, block: 'Atención', q: '¿Qué propone el modelo de filtro atenuado de Treisman (1964)?', opts: ['Que la selección ocurre tras la respuesta motora.', 'Que el filtro atenúa el mensaje no atendido sin bloquearlo, permitiendo reconocer estímulos con umbral bajo (ej. propio nombre).', 'Que la capacidad atencional es infinita en tareas auditivas.'], ans: 1, exp: 'Treisman explica así el efecto cóctel party sin descartar la selección temprana.' },
+      { id: 26, block: 'Atención', q: 'En el modelo de filtro tardío de Deutsch y Deutsch (1963):', opts: ['Solo el canal atendido recibe análisis semántico.', 'Todos los estímulos reciben análisis semántico y el filtro selecciona después lo más relevante para conciencia y respuesta.', 'La selección se basa exclusivamente en el oído de entrada.'], ans: 1, exp: 'Selección tardía = el filtrado ocurre después del procesamiento semántico completo.' },
+      { id: 27, block: 'Atención', q: 'Según Lavie (1995; Forster y Lavie, 2008), ¿cuándo hay MAYOR distracción por distractores?', opts: ['Con alta carga perceptiva, porque la tarea agota los recursos.', 'Con baja carga perceptiva, porque sobran recursos que procesan involuntariamente los distractores.', 'La carga perceptiva no influye en los distractores.'], ans: 1, exp: 'Baja carga = recursos sobrantes van a distractores; alta carga = menor distracción.' },
+      { id: 28, block: 'Atención', q: 'En el modelo de capacidad de Kahneman (1973) sobre atención dividida:', opts: ['La capacidad es fija e independiente del arousal.', 'La capacidad es limitada, varía con el arousal, y si la demanda supera la capacidad hay interferencia (que baja con la práctica).', 'Dos tareas nunca interfieren si son de modalidades distintas.'], ans: 1, exp: 'La práctica automatiza procesos y reduce el consumo de recursos.' },
+      { id: 29, block: 'Atención', q: 'La orientación espacial exógena (involuntaria) se induce típicamente con:', opts: ['Señales periféricas salientes o repentinas (como un destello).', 'Señales centrales simbólicas (como una flecha).', 'Instrucciones verbales sobre expectativas.'], ans: 0, exp: 'Endógena = voluntaria (flecha central); Exógena = involuntaria (destello periférico).' },
+      { id: 30, block: 'Atención', q: 'En el paradigma de cueing espacial de Posner:', opts: ['TR en ensayos válidos > TR en ensayos inválidos.', 'TR en ensayos válidos < TR en ensayos inválidos, demostrando orientación encubierta sin mover los ojos.', 'Solo funciona moviendo físicamente los ojos hacia la pista.'], ans: 1, exp: 'Atender previamente acelera y facilita el procesamiento perceptivo en esa ubicación.' },
+      { id: 31, block: 'Atención', q: 'Según Anne Treisman, en una búsqueda por conjunción de características:', opts: ['El objetivo «salta a la vista» (pop-out) en paralelo y el TR es plano.', 'Requiere atención focalizada y serial para integrar rasgos, y el TR aumenta linealmente con el número de elementos.', 'No interviene la atención en ninguna fase.'], ans: 1, exp: 'Característica distintiva = paralelo/TR plano; Conjunción = serial/TR creciente.' },
+      { id: 32, block: 'Atención', q: 'El efecto Stroop ilustra:', opts: ['El conflicto entre un proceso automático (leer la palabra) y un proceso controlado (nombrar el color de la tinta).', 'La ventaja de la memoria icónica sobre la ecoica.', 'El fenómeno de la punta de la lengua.'], ans: 0, exp: 'La lectura automatizada interfiere con la tarea controlada de decir el color.' },
+      { id: 33, block: 'Atención', q: 'Según Posner, las tres redes atencionales son:', opts: ['Codificación, almacenamiento y recuperación.', 'Alerta, orientación y control ejecutivo.', 'Selección temprana, atenuación y filtro tardío.'], ans: 1, exp: 'Alerta (vigilancia), Orientación (selección espacial/fuente) y Control ejecutivo (conflictos).' },
+
+      { id: 34, block: 'Memoria', q: 'La amnesia anterógrada consiste en:', opts: ['Pérdida de recuerdos previos a la lesión.', 'Incapacidad para consolidar nuevos recuerdos duraderos en la MLP tras la lesión.', 'Incapacidad exclusiva para aprender habilidades motoras.'], ans: 1, exp: 'Retrógrada = hacia atrás (lo previo); Anterógrada = hacia delante (nuevos recuerdos).' },
+      { id: 35, block: 'Memoria', q: 'Los casos de Clive Wearing y H. M. demuestran una disociación porque presentaban:', opts: ['Memoria declarativa intacta y pérdida procedimental.', 'Amnesia declarativa severa, pero memoria procedimental preservada (tocar piano / dibujo en espejo).', 'Pérdida exclusiva de la memoria icónica.'], ans: 1, exp: 'Disociación entre memoria explícita (alterada) e implícita/procedimental (intacta).' },
+      { id: 36, block: 'Memoria', q: '¿Qué aportó Baddeley (2001) al modelo multialmacén de Atkinson y Shiffrin (1968)?', opts: ['Eliminó la Memoria Sensorial.', 'Sustituyó la MCP pasiva por la Memoria de Trabajo, un sistema activo que mantiene y manipula información.', 'Limitó la MLP a 7 elementos.'], ans: 1, exp: 'La Memoria de Trabajo enfatiza el procesamiento activo temporal.' },
+      { id: 37, block: 'Memoria', q: 'En el experimento de Sperling sobre memoria icónica (< 1 s):', opts: ['En informe parcial (tono indica qué fila reportar) se recuerda ~100 % de la fila, probando que toda la matriz estuvo disponible brevemente.', 'En informe completo se recuerda el 100 % de las 12 letras.', 'La memoria icónica dura más de 30 segundos sin repaso.'], ans: 0, exp: 'En informe completo solo se reportan ~4,5 letras por el rápido decaimiento.' },
+      { id: 38, block: 'Memoria', q: 'La Memoria a Corto Plazo (MCP) se caracteriza por:', opts: ['Capacidad ilimitada y duración de días.', 'Capacidad de 7 ± 2 chunks (5–9 unidades) y duración < 30 s sin repaso (tarea de Brown-Peterson).', 'Almacenar solo información procedimental inconsciente.'], ans: 1, exp: 'Contar hacia atrás en Brown-Peterson impide el repaso y el recuerdo decae en segundos.' },
+      { id: 39, block: 'Memoria', q: 'En el efecto de posición serial en recuerdo libre:', opts: ['Primacía = primeros ítems pasan a MLP; Recencia = últimos ítems siguen en MCP.', 'Primacía = MCP; Recencia = memoria icónica.', 'Los ítems centrales son los mejor recordados.'], ans: 0, exp: 'Una tarea distractora final elimina el efecto de recencia, pero no el de primacía.' },
+      { id: 40, block: 'Memoria', q: 'Dentro de la MLP explícita (declarativa), la memoria semántica almacena:', opts: ['Experiencias autobiográficas en tiempo y lugar concretos.', 'Conocimientos generales del mundo, conceptos, lenguaje y hechos sin referencia autobiográfica.', 'Hábitos motores como montar en bicicleta.'], ans: 1, exp: 'Episódica = vivencias personales; Semántica = conocimiento general.' },
+      { id: 41, block: 'Memoria', q: '¿Cuál pertenece a la memoria implícita (no declarativa)?', opts: ['Memoria episódica.', 'Memoria semántica.', 'Memoria procedimental, condicionamiento clásico y priming.'], ans: 2, exp: 'Se expresa de forma automática e inconsciente.' },
+      { id: 42, block: 'Memoria', q: 'Según los niveles de procesamiento (Craik y Lockhart, 1972), ¿qué nivel logra mejor recuerdo?', opts: ['Estructural (~25 %).', 'Fonológico (~55 %).', 'Semántico (~80 %).'], ans: 2, exp: 'Analizar el significado y conectarlo con lo previo deja una huella más profunda.' },
+      { id: 43, block: 'Memoria', q: '¿Qué diferencia la repetición de mantenimiento de la elaborativa?', opts: ['Mantenimiento sostiene en MCP; elaborativa conecta con conocimientos en MLP creando más pistas.', 'Mantenimiento produce mejor recuerdo a largo plazo.', 'No existe diferencia funcional entre ambas.'], ans: 0, exp: 'Solo la repetición elaborativa consolida eficazmente en la MLP.' },
+      { id: 44, block: 'Memoria', q: 'El experimento de los buzos de Godden y Baddeley (1975) apoya la especificidad de codificación porque:', opts: ['Recordaron igual independientemente del entorno.', 'Recordaron más palabras cuando coincidía el contexto ambiental (playa–playa o agua–agua).', 'Solo recordaron palabras aprendidas bajo el agua.'], ans: 1, exp: 'Las claves contextuales presentes al codificar facilitan la recuperación.' },
+      { id: 45, block: 'Memoria', q: '¿En qué consiste el reaprendizaje como forma de acceso?', opts: ['Recuperar sin pistas externas.', 'Elegir entre alternativas presentadas.', 'Medir el ahorro de tiempo o ensayos necesarios para volver a aprender algo olvidado.'], ans: 2, exp: 'Recuerdo = sin pistas; Reconocimiento = con pistas; Reaprendizaje = ahorro.' },
+      { id: 46, block: 'Memoria', q: 'Según la curva del olvido de Ebbinghaus:', opts: ['El olvido es lineal y constante con los años.', 'La pérdida es muy rápida al inicio (~50 % en la primera hora) y luego se estabiliza (~2 días).', 'En la primera hora no se olvida nada.'], ans: 1, exp: 'La mayor caída ocurre justo después del aprendizaje.' },
+      { id: 47, block: 'Memoria', q: 'El estudio de Nickerson y Adams (1979) sobre una moneda (penny) ejemplifica:', opts: ['Fallo de codificación («pseudo-olvido» por falta de atención).', 'Interferencia retroactiva.', 'Amnesia retrógrada orgánica.'], ans: 0, exp: 'No se olvida lo que nunca se llegó a codificar con detalle.' },
+      { id: 48, block: 'Memoria', q: 'Si aprender un número nuevo te dificulta recordar tu número antiguo, es:', opts: ['Interferencia proactiva.', 'Interferencia retroactiva.', 'Repetición elaborativa.'], ans: 1, exp: 'Proactiva = lo antiguo estorba a lo nuevo; Retroactiva = lo nuevo estorba a lo antiguo.' },
+      { id: 49, block: 'Memoria', q: 'El fenómeno de la «punta de la lengua» es un ejemplo de:', opts: ['Fallo de recuperación dependiente de pistas (cues).', 'Amnesia anterógrada.', 'Procesamiento preatencional en paralelo.'], ans: 0, exp: 'La información está almacenada en la MLP, pero faltan las claves adecuadas.' },
+      { id: 50, block: 'Memoria', q: 'Bartlett (1932, «La guerra de los fantasmas») y Elizabeth Loftus demuestran que la memoria es reconstructiva porque:', opts: ['Graba los recuerdos de forma literal como una cámara.', 'Los esquemas culturales (reducción, normalización, adiciones) y la desinformación («estrellaron» vs «golpearon») distorsionan el recuerdo.', 'Solo se distorsiona si hay lesión en el hipocampo.'], ans: 1, exp: 'Reconstruimos el pasado integrando esquemas previos e información posterior.' }
+    ];
+
+    let currentBlock = 'Todos';
+    let deck = [...QUESTIONS];
+    let idx = 0;
+    let answers = {};
+    let reviewMistakesMode = false;
+
+    const elFilters = document.getElementById('filters');
+    const elScore = document.getElementById('score-badge');
+    const elProgress = document.getElementById('progress-bar');
+    const elStage = document.getElementById('stage');
+    const elCounter = document.getElementById('counter');
+    const elBtnPrev = document.getElementById('btn-prev');
+    const elBtnNext = document.getElementById('btn-next');
+    const elBtnMistakes = document.getElementById('btn-mistakes');
+    const elBtnShuffle = document.getElementById('btn-shuffle');
+    const elBtnReset = document.getElementById('btn-reset');
+    const blocks = ['Todos', 'Percepción', 'Atención', 'Memoria'];
+
+    function getMistakes() {
+      return QUESTIONS.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.ans);
+    }
+
+    function updateStats() {
+      const ids = Object.keys(answers);
+      const correct = ids.filter(id => {
+        const q = QUESTIONS.find(x => x.id === Number(id));
+        return q && answers[id] === q.ans;
+      }).length;
+      elScore.textContent = `Aciertos: ${correct}/${ids.length}`;
+
+      const mistakes = getMistakes();
+      if (mistakes.length > 0 && !reviewMistakesMode) {
+        elBtnMistakes.style.display = 'inline-block';
+        elBtnMistakes.textContent = `Repasar fallos (${mistakes.length})`;
+      } else {
+        elBtnMistakes.style.display = 'none';
+      }
+    }
+
+    function renderFilters() {
+      elFilters.innerHTML = '';
+      blocks.forEach(b => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = b;
+        btn.className = (!reviewMistakesMode && currentBlock === b) ? 'pill active' : 'pill';
+        btn.onclick = () => {
+          reviewMistakesMode = false;
+          currentBlock = b;
+          deck = b === 'Todos' ? [...QUESTIONS] : QUESTIONS.filter(q => q.block === b);
+          idx = 0;
+          render();
+        };
+        elFilters.appendChild(btn);
+      });
+    }
+
+    function renderQuestion() {
+      const q = deck[idx];
+      const chosen = answers[q.id];
+      const isAnswered = chosen !== undefined;
+      const letters = ['a', 'b', 'c'];
+
+      elProgress.style.width = `${Math.round(((idx + 1) / deck.length) * 100)}%`;
+      elCounter.textContent = `${idx + 1} / ${deck.length}`;
+      elBtnPrev.disabled = idx === 0;
+      elBtnNext.textContent = idx === deck.length - 1 ? 'Ver resumen →' : 'Siguiente →';
+
+      const card = document.createElement('div');
+      card.className = 'q-card';
+
+      const meta = document.createElement('div');
+      meta.className = 'q-meta';
+      meta.innerHTML = `<span>Bloque: <strong>${q.block}</strong></span><span>Pregunta #${q.id}</span>`;
+      card.appendChild(meta);
+
+      const qText = document.createElement('div');
+      qText.className = 'q-text';
+      qText.textContent = q.q;
+      card.appendChild(qText);
+
+      const optsWrap = document.createElement('div');
+      optsWrap.className = 'opts';
+
+      q.opts.forEach((optText, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.disabled = isAnswered;
+        let cls = 'opt-btn';
+        if (isAnswered) {
+          if (i === q.ans) cls += ' correct';
+          else if (i === chosen) cls += ' wrong';
+          else cls += ' dimmed';
+        }
+        btn.className = cls;
+        btn.innerHTML = `<span class="opt-letter">${letters[i]})</span><span>${optText}</span>`;
+        btn.onclick = () => {
+          answers[q.id] = i;
+          render();
+        };
+        optsWrap.appendChild(btn);
+      });
+      card.appendChild(optsWrap);
+
+      if (isAnswered) {
+        const ok = chosen === q.ans;
+        const fb = document.createElement('div');
+        fb.className = `feedback ${ok ? 'ok' : 'ko'}`;
+        fb.innerHTML = `<strong>${ok ? 'Correcta.' : `Incorrecta (era la ${letters[q.ans]}).`}</strong> ${q.exp}`;
+        card.appendChild(fb);
+      }
+
+      elStage.innerHTML = '';
+      elStage.appendChild(card);
+    }
+
+    function renderSummary() {
+      const answeredInDeck = deck.filter(q => answers[q.id] !== undefined);
+      const correctInDeck = answeredInDeck.filter(q => answers[q.id] === q.ans).length;
+      const mistakesInDeck = answeredInDeck.filter(q => answers[q.id] !== q.ans);
+      const pct = answeredInDeck.length ? Math.round((correctInDeck / answeredInDeck.length) * 100) : 0;
+
+      elStage.innerHTML = `
+        <div class="q-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+            <strong>Resultado (${reviewMistakesMode ? 'Repaso de fallos' : currentBlock})</strong>
+            <span class="score-pill">${correctInDeck} / ${answeredInDeck.length} (${pct}%)</span>
+          </div>
+          <p style="font-size:0.9rem;color:#555;margin-bottom:0.9rem;">Respondidas: ${answeredInDeck.length} de ${deck.length}. Fallos en este bloque: ${mistakesInDeck.length}.</p>
+          <div class="pill-group">
+            ${mistakesInDeck.length > 0 ? `<button id="sum-mistakes" type="button" class="btn-warn">Repasar ${mistakesInDeck.length} fallo(s)</button>` : ''}
+            <button id="sum-restart" type="button" class="btn-primary">Volver al inicio</button>
+          </div>
+        </div>
+      `;
+      elCounter.textContent = `Fin (${deck.length})`;
+      elBtnNext.disabled = true;
+
+      const btnSumMistakes = document.getElementById('sum-mistakes');
+      if (btnSumMistakes) {
+        btnSumMistakes.onclick = () => {
+          reviewMistakesMode = true;
+          deck = mistakesInDeck;
+          mistakesInDeck.forEach(q => delete answers[q.id]);
+          idx = 0;
+          elBtnNext.disabled = false;
+          render();
+        };
+      }
+      document.getElementById('sum-restart').onclick = () => {
+        idx = 0;
+        elBtnNext.disabled = false;
+        render();
+      };
+    }
+
+    function render() {
+      elBtnNext.disabled = false;
+      renderFilters();
+      updateStats();
+      renderQuestion();
+    }
+
+    elBtnPrev.onclick = () => { if (idx > 0) { idx--; render(); } };
+    elBtnNext.onclick = () => { if (idx < deck.length - 1) { idx++; render(); } else { renderSummary(); } };
+    elBtnMistakes.onclick = () => {
+      const m = getMistakes();
+      if (!m.length) return;
+      reviewMistakesMode = true;
+      deck = [...m];
+      m.forEach(q => delete answers[q.id]);
+      idx = 0;
+      render();
+    };
+    elBtnShuffle.onclick = () => {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      idx = 0;
+      render();
+    };
+    elBtnReset.onclick = () => {
+      answers = {};
+      reviewMistakesMode = false;
+      deck = currentBlock === 'Todos' ? [...QUESTIONS] : QUESTIONS.filter(q => q.block === currentBlock);
+      idx = 0;
+      render();
+    };
+
+    render();
+  </script>
+</body>
+</html>

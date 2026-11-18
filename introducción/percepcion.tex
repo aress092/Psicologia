@@ -1,0 +1,509 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Codificación e idioma ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% --- Márgenes y diseño de página ---
+\usepackage[margin=2.1cm,top=2.3cm,bottom=2.2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+
+% --- Colores y cajas ---
+\usepackage[table]{xcolor}
+\definecolor{Primary}{HTML}{1B4965}
+\definecolor{Accent}{HTML}{2A6F97}
+\definecolor{SoftBg}{HTML}{F0F6FA}
+\definecolor{WarmBg}{HTML}{FFF8E7}
+\definecolor{WarmBorder}{HTML}{D99B26}
+\definecolor{Muted}{HTML}{5C6B73}
+\definecolor{RowAlt}{HTML}{F5F9FC}
+
+\usepackage[most]{tcolorbox}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[colorlinks=true,linkcolor=Accent,urlcolor=Accent]{hyperref}
+
+% --- Cabeceras y pies de página ---
+\setlength{\headheight}{22pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{Muted}\textsc{Sensación, Percepción, Atención y Memoria}}
+\fancyhead[R]{\small\color{Muted}Apuntes de Parcial}
+\fancyfoot[C]{\small\color{Muted}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{Primary!25}\leaders\hrule height \headrulewidth\hfill}}
+
+% --- Estilo de secciones ---
+\titleformat{\section}
+  {\Large\bfseries\color{Primary}}
+  {\thesection.}{0.5em}{}
+  [\vspace{0.15em}{\color{Accent!60}\titlerule[1pt]}]
+
+\titleformat{\subsection}
+  {\large\bfseries\color{Accent}}
+  {\thesubsection}{0.5em}{}
+
+% --- Estilo de listas ---
+\setlist[itemize]{leftmargin=1.4em, itemsep=0.3em, topsep=0.25em}
+
+% --- Cajas personalizadas ---
+\newtcolorbox{cajaClave}[1][]{
+  colback=SoftBg,
+  colframe=Accent,
+  coltitle=white,
+  boxrule=0.8pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{cajaIdea}[1][]{
+  colback=WarmBg,
+  colframe=WarmBorder,
+  coltitle=white,
+  boxrule=0.8pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  fonttitle=\bfseries,
+  #1
+}
+
+\begin{document}
+
+% --- Portada / Cabecera ---
+\begin{tcolorbox}[
+  colback=Primary,
+  colframe=Primary,
+  arc=4pt,
+  left=14pt, right=14pt, top=12pt, bottom=12pt,
+  boxrule=0pt
+]
+  {\color{white}\Huge\bfseries Sensación, Percepción, Atención y Memoria}\\[0.35em]
+  {\color{SoftBg}\large Introducción a la Psicología \textbullet\ Apuntes de Parcial}
+\end{tcolorbox}
+
+\vspace{0.6em}
+\begin{tcolorbox}[colback=SoftBg,colframe=Primary,arc=3pt,left=10pt,right=10pt,top=6pt,bottom=6pt,boxrule=0.8pt]
+  {\large\bfseries\color{Primary} Bloque I: Sensación y Percepción}
+\end{tcolorbox}
+
+\vspace{0.3em}
+\noindent La forma que tenemos para relacionarnos con el entorno es a través de la \textbf{sensación} y la \textbf{percepción}.
+
+\begin{itemize}
+  \item \textbf{Prosopagnosia}: trastorno neurológico caracterizado por la incapacidad para percibir y reconocer rostros familiares (ejemplo de la diferencia entre sensación y percepción).
+  \item \textbf{Giro fusiforme (FFA)}: área cerebral especializada en el reconocimiento de las caras.
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Continuo Sensación--Percepción}
+
+\begin{itemize}
+  \item \textbf{Sensación}: procesamiento de abajo a arriba (\emph{bottom-up}); vista, oído, olfato, etc.\ reciben y transmiten estímulos externos.
+  \item \textbf{Percepción}: procesamiento de arriba a abajo (\emph{top-down}); el cerebro organiza, interpreta y contextualiza la información sensorial para construir una representación significativa del entorno.
+  \item \textbf{Umbral absoluto}: cantidad mínima de energía que puede ser detectada como estimulación el 50\,\% de las veces.
+  \item \textbf{Umbral diferencial}: cambio de estimulación más pequeño que puede ser detectado el 50\,\% de las veces.
+  \item \textbf{Ley de Weber}: el incremento en la intensidad del estímulo necesario para provocar un cambio de sensación es proporcional a la intensidad del estímulo inicial.
+\end{itemize}
+
+\begin{cajaClave}[title={Flujo del procesamiento visual}]
+\centering
+\textbf{Escena} $\rightarrow$ \textbf{Procesamiento retiniano} (bastones y conos $\rightarrow$ células bipolares $\rightarrow$ células ganglionares) $\rightarrow$ \textbf{Detección de características} (bordes, líneas, ángulos) $\rightarrow$ \textbf{Procesamiento en paralelo} (color, movimiento, forma, profundidad) $\rightarrow$ \textbf{Reconocimiento} (interpretación a partir de imágenes almacenadas).
+\end{cajaClave}
+
+% ---------------------------------------------------------
+\section{Sistema visual: características de las ondas de luz}
+
+\begin{itemize}
+  \item \textbf{Ondas de luz}: estímulos físicos percibidos por los ojos.
+  \item \textbf{Longitud de onda}: distancia entre dos crestas consecutivas; determina el \textbf{color}. Rango visible: \textbf{400 a 700 nm}.
+  \begin{itemize}
+    \item $700\text{ nm} \rightarrow$ rojo; $400\text{ nm} \rightarrow$ violeta (rojo -- naranja -- amarillo -- verde -- azul -- índigo -- violeta).
+  \end{itemize}
+  \item \textbf{Amplitud de onda}: altura de la onda en su cresta; determina el \textbf{brillo}.
+  \begin{itemize}
+    \item Mayor amplitud $\rightarrow$ mayor brillo \quad|\quad Menor amplitud $\rightarrow$ menor brillo.
+  \end{itemize}
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Cómo funcionan los ojos y estructura de la retina}
+
+El cerebro no puede procesar energías físicas como las ondas de luz; en nuestros ojos hay células receptoras especializadas en la \textbf{transducción} (conversión de energía física en señales neuronales que el cerebro puede entender).
+
+\subsection*{Anatomía básica del ojo}
+\begin{itemize}
+  \item \textbf{Córnea}: membrana transparente y protectora que cubre la parte frontal del ojo.
+  \item \textbf{Pupila}: pequeña abertura en el iris por la que entra la luz al ojo.
+  \item \textbf{Cristalino}: parte transparente del ojo dentro de la pupila que enfoca la luz en la retina.
+  \item \textbf{Retina}: revestimiento del ojo que contiene las células receptoras sensibles a la luz.
+\end{itemize}
+
+\subsection*{Fotorreceptores: bastones y conos}
+\begin{itemize}
+  \item \textbf{Bastones}: células receptoras en la retina responsables de la visión nocturna y acromática.
+  \item \textbf{Conos}: células receptoras en la retina responsables de la visión con luz brillante y el color.
+\end{itemize}
+
+\begin{center}
+\rowcolors{2}{RowAlt}{white}
+\begin{tabular}{@{} >{\bfseries}l l l @{}}
+\toprule
+\rowcolor{Primary}
+\color{white}Característica & \color{white}\textbf{Bastones} & \color{white}\textbf{Conos} \\
+\midrule
+Cantidad por ojo & 120 millones & 6 millones \\
+Ubicación & Periferia de la retina & Fóvea y retina central \\
+Luz & Poca luz & Luz brillante \\
+Color & Acromática (sin color) & Cromática (en color) \\
+Agudeza visual & Baja agudeza visual & Alta agudeza visual \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ---------------------------------------------------------
+\section{Teorías de la visión del color}
+
+Combinación de la teoría tricromática y la teoría del proceso oponente:
+
+\begin{itemize}
+  \item \textbf{Teoría tricromática}: tres tipos de conos, cada uno sensible a diferentes rangos de longitudes de onda (\textbf{azul, verde y rojo}); los colores percibidos resultan de distintos patrones de activación de los tres tipos de conos.
+  \begin{itemize}
+    \item \emph{Dificultades}: no podemos producir una mezcla aditiva que se perciba como azul-amarillenta o rojo-verdosa; tampoco explica las imágenes residuales de colores complementarios (fenómeno de la \textbf{postimagen}).
+  \end{itemize}
+  \item \textbf{Teoría del proceso oponente}: tres sistemas de células de proceso oponente (\textbf{rojo--verde}, \textbf{azul--amarillo} y \textbf{negro--blanco}) que procesan la información del color tras los conos. Los colores en cada sistema se oponen entre sí (si uno es estimulado, el otro es inhibido). Se han encontrado células ganglionares, del tálamo y de la corteza visual que responden así.
+  \item \textbf{Teoría compuesta}: la información del color es procesada por los conos según la teoría tricromática, pero en las células posteriores al receptor se procesa según la teoría del proceso oponente.
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Procesamiento en la retina y vía visual}
+
+\begin{itemize}
+  \item \textbf{Células bipolares}: neuronas que conectan los receptores en la retina con las células ganglionares.
+  \item \textbf{Células ganglionares}: neuronas que conectan las células bipolares de los ojos con el encéfalo.
+  \item \textbf{Punto ciego}: zona de la retina sin fotorreceptores por donde sale el nervio óptico.
+  \item \textbf{Vía visual y quiasma óptico}: la información viaja desde el \textbf{nervio óptico}, pasando por el \textbf{tálamo}, hasta la corteza visual (\textbf{lóbulo occipital}). Por la óptica del ojo, el hemicampo izquierdo se proyecta en la parte derecha de las retinas y el derecho en la izquierda; en el \textbf{quiasma óptico} parte de las fibras se cruzan, de modo que:
+  \begin{itemize}
+    \item \textbf{Corteza visual derecha} $\rightarrow$ procesa el \textbf{hemicampo visual izquierdo}.
+    \item \textbf{Corteza visual izquierda} $\rightarrow$ procesa el \textbf{hemicampo visual derecho}.
+  \end{itemize}
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Procesamiento visual: modularidad e integración}
+
+\begin{itemize}
+  \item \textbf{Hubel y Wiesel}: descubrieron \textbf{células detectoras de características}, especializadas en detectar elementos particulares del campo visual (líneas horizontales o verticales) y otras más complejas (movimiento, profundidad, color).
+  \item \textbf{Procesamiento en paralelo}: pacientes con lesiones cerebrales muestran sistemas parcialmente especializados (movimiento, forma, profundidad, color) que procesan en paralelo y luego se integran para percibir un objeto único.
+\end{itemize}
+
+\begin{center}
+\rowcolors{2}{RowAlt}{white}
+\begin{tabular}{@{} >{\bfseries}l l @{}}
+\toprule
+\rowcolor{Primary}
+\color{white}Área cerebral (módulo) & \color{white}\textbf{Función / Característica procesada} \\
+\midrule
+V1 (Corteza visual primaria) & Bordes, orientación de líneas, contraste básico \\
+V2 y V3 & Formas complejas y combinación de bordes \\
+V4 & Color y detalles finos de forma \\
+MT / V5 & Movimiento y dirección del movimiento \\
+Giro fusiforme (FFA) & Reconocimiento de rostros \\
+Área LOC & Reconocimiento de objetos \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{cajaClave}[title={El problema de la integración (\emph{binding problem})}]
+¿Cómo combina el cerebro las características visuales procesadas por diferentes áreas para percibir un objeto unitario?\\
+\textbf{Mecanismos implicados}: (1) organización espacial de la información, (2) interacciones entre áreas visuales, y (3) atención.
+\end{cajaClave}
+
+% ---------------------------------------------------------
+\section{Interpretación perceptiva: expectativas y contexto}
+
+\begin{itemize}
+  \item \textbf{Set perceptivo}: predisposición a interpretar los estímulos de una determinada manera, influida por expectativas, experiencias previas y contexto cultural. Una misma información sensorial puede dar lugar a diferentes interpretaciones (ej.: figuras ambiguas como \emph{pato--conejo}).
+  \item \textbf{Efecto Margaret Thatcher}: en un rostro invertido cuesta detectar alteraciones en sus rasgos, pero en posición normal se perciben como grotescas. Muestra que el reconocimiento facial depende de mecanismos especializados en la configuración global de la cara (peor invertida) y de nuestras expectativas sobre cómo debe verse un rostro.
+  \item \textbf{Efecto contextual (Bruner y Minturn, 1955)}: uso del contexto actual de la información sensorial para determinar su significado (un mismo símbolo ambiguo se percibe como \textbf{B} entre letras y como \textbf{13} entre números).
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Percepción de la forma o Gestalt}
+
+Tendencia a organizar las piezas de información en un conjunto ordenado o \textbf{Gestalt} (organización de la información visual).
+
+\begin{itemize}
+  \item \textbf{Figura--fondo}: el sistema perceptivo organiza la imagen en \textbf{figura} (objeto al que prestamos atención) y \textbf{fondo} (contexto sobre el que destaca).
+  \begin{itemize}
+    \item \textbf{Vaso de Rubin}: ilusión de ambigüedad figura--fondo; la percepción es reversible al variar la atención.
+  \end{itemize}
+  \item \textbf{Principios de organización perceptiva de la Gestalt}:
+  \begin{itemize}
+    \item \textbf{Proximidad}: agrupamos los elementos que están cerca entre sí.
+    \item \textbf{Semejanza}: agrupamos elementos con características visuales similares.
+    \item \textbf{Continuidad}: percibimos líneas y trayectorias continuas, no fragmentos aislados.
+    \item \textbf{Cierre}: completamos mentalmente las partes que faltan de una figura.
+  \end{itemize}
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Percepción de la profundidad}
+
+Capacidad para estimar distancias y posiciones relativas de los objetos y percibir un mundo 3D a partir de imágenes retinianas 2D.
+
+\begin{itemize}
+  \item \textbf{Ilusión de las mesas de Roger Shepard}: dos mesas idénticas parecen distintas porque el sistema visual interpreta la escena en 3D y corrige automáticamente la perspectiva, alterando la forma percibida.
+\end{itemize}
+
+\subsection*{Señales binoculares (requieren ambos ojos)}
+\begin{itemize}
+  \item \textbf{Disparidad retiniana}: diferencia entre las imágenes de ambas retinas por la separación ocular ($\approx 6\text{ cm}$). Es mayor en objetos cercanos y menor en lejanos; genera \textbf{visión estereoscópica} (3D).
+  \item \textbf{Convergencia ocular}: al mirar objetos próximos, ambos ojos giran hacia dentro; el grado de convergencia aporta información sobre la distancia.
+\end{itemize}
+
+\subsection*{Señales monoculares (basta un solo ojo)}
+\begin{itemize}
+  \item \textbf{Perspectiva lineal}: las líneas paralelas parecen converger al alejarse; los objetos cercanos al punto de convergencia se perciben más lejanos.
+  \item \textbf{Tamaño relativo}: entre objetos de tamaño real semejante, el que proyecta una imagen retiniana menor se percibe más lejano.
+  \item \textbf{Gradiente de textura}: en una superficie con elementos repetidos, los cercanos se perciben más grandes y separados, y los lejanos más pequeños y densos.
+  \item \textbf{Superposición}: cuando un objeto oculta parcialmente a otro, el primero se percibe más cercano y el segundo más lejano.
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Constancias perceptivas y luminosidad}
+
+\begin{itemize}
+  \item \textbf{Constancia perceptiva}: capacidad para percibir los objetos como relativamente estables aunque cambie la imagen retiniana:
+  \begin{itemize}
+    \item \textbf{Constancia de tamaño}: un coche que se aleja proyecta una imagen retiniana menor, pero se sigue percibiendo del mismo tamaño.
+    \item \textbf{Constancia de forma}: una puerta al abrirse cambia su proyección retiniana, pero se sigue percibiendo rectangular.
+    \item \textbf{Constancia de color}: una manzana roja sigue viéndose roja bajo luz solar o luz artificial amarillenta, aunque la luz reflejada cambie.
+  \end{itemize}
+  \item \textbf{Percepción de la luminosidad (Ilusión de Adelson)}: el brillo percibido depende del contexto y de inferencias sobre la iluminación (sombra).
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Conclusiones: la percepción como proceso activo}
+
+\begin{cajaIdea}[title={La percepción no es una copia pasiva de la realidad}]
+\begin{itemize}
+  \item \textbf{Organiza la información sensorial}: construye objetos y escenas coherentes.
+  \item \textbf{Depende del contexto y de la experiencia}: expectativas y conocimientos previos influyen en lo que percibimos.
+  \item \textbf{Interpreta la información disponible}: usa claves para estimar profundidad, tamaño y claridad.
+  \item \textbf{Es un proceso activo y constructivo}: permite interpretar el entorno de forma rápida y eficaz.
+\end{itemize}
+\vspace{0.25em}
+\textbf{Idea clave}: las ilusiones perceptivas revelan cómo funciona nuestro sistema perceptivo.
+\end{cajaIdea}
+
+% =========================================================
+\newpage
+\begin{tcolorbox}[
+  colback=Primary,
+  colframe=Primary,
+  arc=4pt,
+  left=14pt, right=14pt, top=10pt, bottom=10pt,
+  boxrule=0pt
+]
+  {\color{white}\LARGE\bfseries Bloque II: Atención}
+\end{tcolorbox}
+\setcounter{section}{0}
+
+% ---------------------------------------------------------
+\section{Atención selectiva y fenómenos asociados}
+
+\begin{itemize}
+  \item \textbf{Atención selectiva}: mecanismo que permite centrarse en los estímulos o tareas relevantes ignorando los distractores.
+  \item \textbf{Ceguera por inatención}: incapacidad para percibir un estímulo inesperado pero visible cuando la atención está ocupada en otra tarea (\textit{Monkey Business Illusion}, Daniel Simons).
+  \item \textbf{Ceguera al cambio}: dificultad para detectar modificaciones en una escena visual, especialmente tras una breve interrupción visual; una pista dirigida a la zona facilita la detección.
+  \item \textbf{Escucha dicótica (\textit{shadowing})}: se presentan dos mensajes simultáneos (uno por cada oído) y el sujeto repite en voz alta el mensaje atendido.
+  \begin{itemize}
+    \item Se recuerda bien el mensaje atendido; del no atendido apenas se recuerda contenido semántico, pero sí \textbf{cambios físicos} (tono, voz hombre/mujer).
+    \item \textbf{Excepciones}: el \textbf{propio nombre} (\textit{efecto cóctel party}) o cambios que mantienen la continuidad semántica captan la atención.
+  \end{itemize}
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Modelos de filtro y carga perceptiva}
+
+\begin{center}
+\begin{tabular}{@{}p{3.1cm}p{2.9cm}p{3.4cm}p{5.0cm}@{}}
+\toprule
+\textbf{Modelo} & \textbf{Autor(es)} & \textbf{Selección} & \textbf{Qué ocurre con lo no atendido} \\
+\midrule
+\textbf{Filtro rígido} & Broadbent (1958) & Temprana (por rasgos físicos) & Se bloquea por completo antes del análisis semántico. \\
+\textbf{Filtro atenuado} & Treisman (1964) & Temprana (con atenuación) & Se atenúa; estímulos con umbral bajo (propio nombre) pueden reconocerse. \\
+\textbf{Filtro tardío} & Deutsch y Deutsch (1963) & Tardía (tras análisis semántico) & Todo se analiza semánticamente; se selecciona lo más relevante para conciencia y respuesta. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{cajaClave}[title={Teoría de la carga perceptiva (Lavie, 1995; Forster y Lavie, 2008)}]
+La capacidad atencional es \textbf{limitada} y se consume automáticamente en el procesamiento de los estímulos:
+\begin{itemize}
+  \item \textbf{Baja carga perceptiva}: sobran recursos que procesan involuntariamente los distractores $\rightarrow$ \textbf{mayor distracción}.
+  \item \textbf{Alta carga perceptiva}: la tarea principal agota los recursos $\rightarrow$ \textbf{menor distracción}.
+\end{itemize}
+\end{cajaClave}
+
+% ---------------------------------------------------------
+\section{Atención dividida y modelo de recursos}
+
+\begin{itemize}
+  \item \textbf{Atención dividida}: distribución de recursos atencionales entre dos o más tareas realizadas simultáneamente.
+  \item \textbf{Modelo de capacidad de Kahneman (1973)}:
+  \begin{itemize}
+    \item La capacidad atencional es limitada y varía según el nivel de \textbf{activación (\textit{arousal})}, las demandas de la tarea y las prioridades.
+    \item Si la demanda total supera la capacidad disponible aparece \textbf{interferencia} (ej. recordar 7 dígitos frente a 2 mientras se responde a otra tarea).
+    \item La \textbf{práctica} automatiza procesos, reduce los recursos exigidos y disminuye la interferencia.
+  \end{itemize}
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Orientación espacial, búsqueda visual y redes atencionales}
+
+\subsection*{Orientación espacial y paradigma de Posner}
+\begin{itemize}
+  \item \textbf{Orientación endógena (voluntaria)}: guiada por metas/expectativas mediante señales \textbf{centrales} (ej. flecha).
+  \item \textbf{Orientación exógena (involuntaria)}: capturada automáticamente por estímulos salientes mediante señales \textbf{periféricas} (ej. destello).
+  \item \textbf{Paradigma de \textit{cueing} espacial de Posner}: \textbf{TR ensayo válido < TR ensayo inválido}. Demuestra: (1) \textbf{orientación encubierta} (sin mover los ojos), (2) atender facilita y acelera el procesamiento, y (3) existen mecanismos voluntarios e involuntarios.
+\end{itemize}
+
+\subsection*{Teoría de integración de características (Anne Treisman)}
+\begin{itemize}
+  \item \textbf{Característica distintiva (\textit{pop-out})}: búsqueda preatencional, automática y en paralelo; el \textbf{TR es casi plano / independiente} del número de distractores.
+  \item \textbf{Conjunción de características}: requiere \textbf{atención focalizada y serial} para integrar rasgos de un mismo objeto; el \textbf{TR aumenta linealmente} con el número de elementos.
+\end{itemize}
+
+\subsection*{Procesamiento automático vs. controlado y efecto Stroop}
+\begin{itemize}
+  \item \textbf{Procesamiento automático}: poca intención y bajo consumo de recursos en tareas muy practicadas (ej. leer).
+  \item \textbf{Procesamiento controlado}: consciente, voluntario y costoso en recursos (ej. aprender una tarea nueva).
+  \item \textbf{Efecto Stroop}: interferencia entre la lectura automatizada de la palabra y la tarea controlada de nombrar el color de la tinta.
+\end{itemize}
+
+\begin{cajaIdea}[title={Tres redes atencionales (Posner)}]
+\begin{enumerate}
+  \item \textbf{Alerta}: vigilancia y disposición general para responder.
+  \item \textbf{Orientación}: selección de la localización espacial o fuente sensorial relevante.
+  \item \textbf{Control ejecutivo}: resolución de conflictos entre respuestas e inhibición de distractores.
+\end{enumerate}
+\end{cajaIdea}
+
+% =========================================================
+\newpage
+\begin{tcolorbox}[
+  colback=Primary,
+  colframe=Primary,
+  arc=4pt,
+  left=14pt, right=14pt, top=10pt, bottom=10pt,
+  boxrule=0pt
+]
+  {\color{white}\LARGE\bfseries Bloque III: Memoria}
+\end{tcolorbox}
+\setcounter{section}{0}
+
+% ---------------------------------------------------------
+\section{Amnesias y modelo multialmacén}
+
+\begin{itemize}
+  \item \textbf{Amnesia retrógrada}: incapacidad para recordar información previa a la lesión o trastorno.
+  \item \textbf{Amnesia anterógrada}: incapacidad para consolidar nuevos recuerdos duraderos en la MLP tras la lesión.
+  \item \textbf{Disociación entre sistemas (evidencia clínica)}:
+  \begin{itemize}
+    \item \textbf{Clive Wearing}: amnesia declarativa severa (episódica y semántica), pero \textbf{memoria procedimental intacta} (toca el piano automáticamente sin recordar haberlo hecho).
+    \item \textbf{H. M.} (extirpación bilateral temporal medial / hipocampo): amnesia anterógrada declarativa grave, pero aprendizaje \textbf{procedimental preservado} (mejora en el \textbf{dibujo en espejo} aunque no recuerda haber hecho la tarea).
+  \end{itemize}
+  \item \textbf{Modelo multialmacén (Atkinson y Shiffrin, 1968)}: \textbf{Memoria Sensorial (MS)} $\rightarrow$ \textbf{MCP} $\leftrightarrow$ \textbf{MLP}.
+  \item \textbf{Modificación de Baddeley (2001)}: sustituye la MCP pasiva por la \textbf{Memoria de Trabajo}, un sistema activo que mantiene y manipula temporalmente la información.
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Almacenes temporales: MS y MCP}
+
+\begin{itemize}
+  \item \textbf{Memoria Sensorial (MS) / Memoria Icónica}: duración \textbf{< 1 segundo}, alta capacidad y decaimiento muy rápido.
+  \begin{itemize}
+    \item \textbf{Integración temporal}: integra dos patrones separados por menos de 1\,s en uno significativo.
+    \item \textbf{Experimento de Sperling}: en \textbf{informe completo} solo se reportan $\approx$4,5 letras, pero en \textbf{informe parcial} (tono auditivo que indica qué fila reportar) se recuerda \textbf{$\approx$100\,\%} de la fila $\rightarrow$ toda la matriz estuvo brevemente en la memoria icónica antes de desvanecerse.
+  \end{itemize}
+  \item \textbf{Memoria a Corto Plazo (MCP) / Memoria de Trabajo}:
+  \begin{itemize}
+    \item \textbf{Capacidad}: \textbf{$7 \pm 2$ \textit{chunks}} (5--9 unidades significativas; test de \textit{span} de memoria).
+    \item \textbf{Duración}: \textbf{< 30 segundos} sin repaso activo (\textbf{tarea distractora de Brown-Peterson}: contar hacia atrás impide el repaso y el recuerdo decae en segundos).
+  \end{itemize}
+  \item \textbf{Efecto de posición serial (recuerdo libre)}:
+  \begin{itemize}
+    \item \textbf{Efecto de primacía}: los primeros ítems se recuerdan bien porque pasan a la \textbf{MLP} (mayor atención y repaso).
+    \item \textbf{Efecto de recencia}: los últimos ítems se recuerdan bien porque siguen activos en la \textbf{MCP}.
+  \end{itemize}
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Memoria a Largo Plazo (MLP): Tipos}
+
+Almacenamiento duradero con capacidad esencialmente ilimitada:
+
+\begin{center}
+\begin{tabular}{@{}p{4.0cm}p{3.6cm}p{6.8cm}@{}}
+\toprule
+\textbf{Sistema} & \textbf{Subtipo} & \textbf{Características} \\
+\midrule
+\textbf{Explícita (Declarativa)} \newline \textit{(recuperación consciente)} & \textbf{Episódica} & Experiencias y vivencias autobiográficas situadas en tiempo y lugar. \\
+ & \textbf{Semántica} & Conocimientos generales del mundo, conceptos, lenguaje y hechos. \\
+\midrule
+\textbf{Implícita (No declarativa)} \newline \textit{(automática, inconsciente)} & \textbf{Procedimental} & Habilidades motoras y rutinas (preservada en H. M. y Clive Wearing). \\
+ & \textbf{Condicionamiento clásico} & Respuestas emocionales o fisiológicas aprendidas por asociación. \\
+ & \textbf{Priming} & Facilitación del procesamiento por exposición previa (\textit{repetition priming}). \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ---------------------------------------------------------
+\section{Procesos: codificación, almacenamiento y recuperación}
+
+\begin{itemize}
+  \item \textbf{Tres procesos esenciales}: codificación, almacenamiento y recuperación.
+  \item \textbf{Codificación}:
+  \begin{itemize}
+    \item \textbf{Procesamiento automático} (incidental, sin esfuerzo) vs. \textbf{esforzado} (consciente, requiere atención).
+    \item \textbf{Niveles de procesamiento (Craik y Lockhart, 1972)}: \textit{estructural} (físico/visual, $\approx$25\,\%) < \textit{fonológico} (sonido/rima, $\approx$55\,\%) < \textbf{semántico} (significado y relación con conocimientos previos, $\approx$80\,\%, \textbf{mejor recuerdo}).
+    \item \textbf{Repetición de mantenimiento} (sostiene en MCP) vs. \textbf{repetición elaborativa} (conecta con MLP y genera más pistas).
+  \end{itemize}
+  \item \textbf{Recuperación}:
+  \begin{itemize}
+    \item \textbf{Principio de especificidad de codificación}: se recuerda mejor cuando las claves de recuperación coinciden con las de codificación: \textit{contexto ambiental} (\textbf{Godden y Baddeley, 1975}: buzos recuerdan mejor en el mismo medio playa/agua), \textit{dependiente del estado} (fisiológico) y \textit{dependiente del estado de ánimo} (emocional).
+    \item \textbf{Formas de acceso}: \textbf{recuerdo} (sin pistas externas), \textbf{reconocimiento} (con pistas o alternativas) y \textbf{reaprendizaje} (ahorro de tiempo/ensayos).
+  \end{itemize}
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Olvido y distorsiones reconstructivas}
+
+\begin{itemize}
+  \item \textbf{Curva del olvido (Ebbinghaus)}: pérdida muy rápida al inicio (\textbf{$\approx$50\,\% en la primera hora}) y estabilización posterior ($\approx$2 días).
+  \item \textbf{Causas del olvido}:
+  \begin{itemize}
+    \item \textbf{Fallo de codificación («pseudo-olvido»)}: nunca se codificó por falta de atención (ej. detalles del \textit{penny}, Nickerson y Adams, 1979).
+    \item \textbf{Fallo de recuperación — Interferencia}: \textit{proactiva} (lo antiguo dificulta recordar lo nuevo) y \textit{retroactiva} (lo nuevo dificulta recordar lo antiguo).
+    \item \textbf{Fallo de recuperación — Dependiente de pistas (\textit{cues})}: la información existe pero faltan claves para acceder a ella (ej. \textbf{fenómeno de la punta de la lengua}).
+  \end{itemize}
+\end{itemize}
+
+\begin{cajaIdea}[title={Naturaleza reconstructiva y distorsiones de la memoria}]
+\begin{itemize}
+  \item \textbf{Esquemas (Bartlett, 1932)} — \textit{«La guerra de los fantasmas»}: el recuerdo se reconstruye mediante \textbf{reducción}, \textbf{normalización cultural} y \textbf{adiciones}.
+  \item \textbf{Memorias falsas} (\textit{imagination inflation}, \textit{observation inflation}) y \textbf{error de atribución de fuente} (\textit{source misattribution}).
+  \item \textbf{Efecto de desinformación (Elizabeth Loftus)}: información engañosa posterior altera el testimonio ocular (ej. el verbo \textit{«estrellaron»} frente a \textit{«golpearon»} eleva la velocidad estimada y genera falsos recuerdos de \textbf{cristales rotos}).
+\end{itemize}
+\end{cajaIdea}
+
+\end{document}
