@@ -47,7 +47,7 @@
 
     <header class="quiz-header">
       <h1>Desarrollo — Parcial 2</h1>
-      <p class="subtitle">18 preguntas de desarrollo de Sensación y Percepción, Atención y Memoria</p>
+      <p class="subtitle">24 preguntas cortas de Sensación y Percepción, Atención y Memoria</p>
     </header>
 
     <div class="toolbar">
@@ -67,7 +67,7 @@
 
     <div class="nav-bar">
       <button id="btn-prev" type="button" class="pill">← Anterior</button>
-      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 18</span>
+      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 24</span>
       <div class="pill-group">
         <button id="btn-mistakes" type="button" class="btn-warn" style="display:none;">Repasar pendientes (0)</button>
         <button id="btn-next" type="button" class="btn-primary">Siguiente →</button>
@@ -79,111 +79,147 @@
     const QUESTIONS = [
       {
         id: 1, block: 'Percepción',
-        q: 'Explica la diferencia entre sensación y percepción (procesamiento bottom-up vs. top-down) y pon el ejemplo de la prosopagnosia.',
-        model: 'La sensación es el procesamiento de abajo a arriba (bottom-up), donde los receptores captan y transmiten estímulos físicos; la percepción es de arriba a abajo (top-down), donde el cerebro organiza, interpreta y da sentido a esos datos usando expectativas y contexto. La prosopagnosia (incapacidad de reconocer rostros familiares pese a ver bien sus rasgos, ligada al giro fusiforme FFA) demuestra que se puede sentir sin percibir/reconocer.',
-        keys: ['Sensación = bottom-up; Percepción = top-down (organización e interpretación).', 'Prosopagnosia: sensación visual preservada pero fallo al reconocer rostros.', 'Área implicada: giro fusiforme (FFA).']
+        q: 'Diferencia sensación (bottom-up) de percepción (top-down) y pon el ejemplo de la prosopagnosia.',
+        model: 'La sensación capta estímulos de abajo a arriba; la percepción organiza e interpreta esos datos de arriba a abajo con experiencia y contexto. La prosopagnosia (incapacidad de reconocer rostros pese a ver bien, ligada al giro fusiforme FFA) muestra que puede haber sensación sin percepción.',
+        keys: ['Sensación = bottom-up; Percepción = top-down.', 'Prosopagnosia (FFA): ve el rostro pero no lo reconoce.']
       },
       {
         id: 2, block: 'Percepción',
         q: 'Define umbral absoluto, umbral diferencial y Ley de Weber.',
-        model: 'El umbral absoluto es la cantidad mínima de energía física que puede detectarse el 50 % de las veces. El umbral diferencial es el cambio más pequeño entre dos estímulos detectable el 50 % de las veces. La Ley de Weber establece que el incremento de intensidad necesario para notar un cambio es proporcional a la intensidad del estímulo inicial.',
-        keys: ['Umbral absoluto: mínima energía detectada el 50 % de las veces.', 'Umbral diferencial: mínimo cambio detectable el 50 % de las veces.', 'Ley de Weber: el incremento es proporcional a la intensidad inicial.']
+        model: 'Umbral absoluto: mínima energía detectada el 50 % de las veces. Umbral diferencial: mínimo cambio entre dos estímulos detectado el 50 % de las veces. Ley de Weber: el incremento necesario para notar un cambio es proporcional a la intensidad inicial.',
+        keys: ['Absoluto (mínimo, 50 %) y diferencial (cambio, 50 %).', 'Ley de Weber: incremento proporcional al estímulo inicial.']
       },
       {
         id: 3, block: 'Percepción',
-        q: 'Compara los bastones y los conos en cuanto a cantidad, ubicación, iluminación, color y agudeza visual.',
-        model: 'Los bastones (~120 millones por ojo) están en la periferia de la retina, funcionan con poca luz, dan visión acromática (sin color) y baja agudeza visual. Los conos (~6 millones por ojo) se concentran en la fóvea y retina central, funcionan con luz brillante, permiten la visión en color y ofrecen alta agudeza visual.',
-        keys: ['Bastones: ~120 M, periferia, poca luz, acromática, baja agudeza.', 'Conos: ~6 M, fóvea/retina central, luz brillante, cromática, alta agudeza.']
+        q: '¿Qué es la transducción y qué determinan la longitud y amplitud de la onda de luz?',
+        model: 'La transducción convierte energía física en señales neuronales en los receptores. En la luz, la longitud de onda (400–700 nm) determina el color y la amplitud determina el brillo.',
+        keys: ['Transducción: energía física -> señal neuronal.', 'Longitud = color (400–700 nm); Amplitud = brillo.']
       },
       {
         id: 4, block: 'Percepción',
-        q: 'Explica las teorías de la visión del color (tricromática, proceso oponente y teoría compuesta).',
-        model: 'La teoría tricromática propone tres tipos de conos (azul, verde y rojo) cuyos patrones de activación generan los colores, aunque no explica las postimágenes ni por qué no vemos mezclas rojo-verdosas o azul-amarillentas. La teoría del proceso oponente propone tres pares antagónicos (rojo-verde, azul-amarillo, negro-blanco) en células posteriores donde activar uno inhibe al opuesto. La teoría compuesta integra ambas: conos tricromáticos seguidos de células oponentes.',
-        keys: ['Tricromática: 3 conos (azul, verde, rojo) + dificultad de postimágenes/mezclas.', 'Proceso oponente: 3 pares (rojo-verde, azul-amarillo, negro-blanco) con inhibición.', 'Teoría compuesta: conos tricromáticos + procesamiento posterior oponente.']
+        q: 'Compara bastones y conos en ubicación, luz, color y agudeza.',
+        model: 'Bastones (~120 M): periferia retiniana, poca luz, visión acromática y baja agudeza. Conos (~6 M): fóvea y retina central, luz brillante, visión en color y alta agudeza.',
+        keys: ['Bastones: periferia, poca luz, sin color, baja agudeza.', 'Conos: fóvea, luz brillante, color, alta agudeza.']
       },
       {
         id: 5, block: 'Percepción',
-        q: 'Describe el recorrido de la vía visual desde la retina hasta la corteza, explicando qué áreas modulares procesan cada característica y el problema de la integración (binding problem).',
-        model: 'De bastones y conos la señal pasa a células bipolares y ganglionares, sale por el nervio óptico (punto ciego), cruza parcialmente en el quiasma óptico (hemicampo izquierdo a corteza derecha y viceversa), pasa por el tálamo y llega a la corteza occipital. Por módulos: V1 (bordes/contraste), V2-V3 (formas complejas), V4 (color), MT/V5 (movimiento), FFA (rostros) y LOC (objetos). El binding problem explica cómo se integran mediante organización espacial, interacción entre áreas y atención.',
-        keys: ['Vía: receptores -> bipolares -> ganglionares -> nervio óptico -> quiasma (contralateral) -> tálamo -> corteza visual.', 'Módulos: V1, V4 (color), MT/V5 (movimiento), FFA (rostros), LOC (objetos).', 'Binding problem: organización espacial, interacciones entre áreas y atención.']
+        q: 'Explica la teoría tricromática, la del proceso oponente y la teoría compuesta del color.',
+        model: 'La tricromática propone 3 conos (azul, verde, rojo), pero no explica las postimágenes ni ciertas mezclas imposibles. El proceso oponente plantea 3 pares antagónicos (rojo-verde, azul-amarillo, negro-blanco) con inhibición mutua. La compuesta combina conos tricromáticos seguidos de células oponentes.',
+        keys: ['Tricromática (3 conos) + proceso oponente (3 pares con inhibición).', 'Compuesta: combina ambas fases.']
       },
       {
         id: 6, block: 'Percepción',
-        q: 'Explica la percepción de la profundidad diferenciando señales binoculares y monoculares, y menciona las constancias perceptivas.',
-        model: 'Las señales binoculares requieren ambos ojos: disparidad retiniana (~6 cm entre ojos, visión 3D) y convergencia ocular (giro hacia dentro en objetos cercanos). Las monoculares bastan con un ojo: perspectiva lineal, tamaño relativo, gradiente de textura y superposición. Las constancias perceptivas (tamaño, forma y color) permiten percibir los objetos estables aunque cambie su proyección retiniana o iluminación (como ilustran la ilusión de Shepard o Adelson).',
-        keys: ['Binoculares: disparidad retiniana y convergencia ocular.', 'Monoculares: perspectiva lineal, tamaño relativo, gradiente de textura, superposición.', 'Constancias: tamaño, forma y color.']
+        q: '¿Qué ocurre en el punto ciego y en el quiasma óptico?',
+        model: 'El punto ciego es la zona sin fotorreceptores por donde sale el nervio óptico. En el quiasma óptico parte de las fibras se cruzan, de modo que la corteza visual derecha procesa el hemicampo izquierdo y viceversa.',
+        keys: ['Punto ciego: sin receptores (salida del nervio óptico).', 'Quiasma óptico: cruce parcial contralateral de hemicampos.']
       },
       {
-        id: 7, block: 'Atención',
-        q: 'Define ceguera por inatención y ceguera al cambio, y explica qué ocurre en la escucha dicótica (shadowing).',
-        model: 'La ceguera por inatención es no percibir un estímulo inesperado pero visible cuando la atención está ocupada en otra tarea (Monkey Business Illusion, Simons). La ceguera al cambio es la dificultad para detectar cambios en una escena visual tras una breve interrupción. En escucha dicótica se repite un mensaje atendido y del oído no atendido apenas se recuerda contenido semántico, pero sí cambios físicos (tono, voz) y excepciones como el propio nombre (efecto cóctel party).',
-        keys: ['Ceguera por inatención (Simons) y ceguera al cambio (interrupción visual).', 'Shadowing: se recuerda el canal atendido; del no atendido solo cambios físicos.', 'Excepciones: propio nombre (efecto cóctel party) y continuidad semántica.']
+        id: 7, block: 'Percepción',
+        q: '¿Qué áreas modulares procesan color, movimiento, rostros y objetos, y cómo se resuelve el binding problem?',
+        model: 'V1 (bordes), V4 (color), MT/V5 (movimiento), FFA (rostros) y LOC (objetos). El problema de la integración (binding problem) se resuelve mediante organización espacial, interacciones entre áreas visuales y atención.',
+        keys: ['V4 (color), MT/V5 (movimiento), FFA (rostros), LOC (objetos).', 'Binding problem: organización espacial, interacción entre áreas y atención.']
       },
       {
-        id: 8, block: 'Atención',
-        q: 'Compara los tres modelos de filtro atencional: Broadbent, Treisman y Deutsch y Deutsch.',
-        model: 'Broadbent (1958, filtro rígido): selección temprana por rasgos físicos que bloquea por completo el canal no atendido antes del análisis semántico. Treisman (1964, filtro atenuado): selección temprana que atenúa el canal no atendido sin bloquearlo, permitiendo reconocer estímulos con umbral bajo (como el propio nombre). Deutsch y Deutsch (1963, filtro tardío): todos los estímulos reciben análisis semántico y se selecciona después el más relevante.',
-        keys: ['Broadbent: temprano y bloqueo total por rasgos físicos.', 'Treisman: temprano con atenuación (explica propio nombre).', 'Deutsch y Deutsch: tardío (selección tras análisis semántico completo).']
+        id: 8, block: 'Percepción',
+        q: '¿Qué muestran el efecto Margaret Thatcher y el efecto contextual de Bruner y Minturn?',
+        model: 'El efecto Thatcher muestra que el reconocimiento facial depende de la configuración global (peor invertida). Bruner y Minturn mostraron que el contexto guía la interpretación (un símbolo ambiguo se lee como B entre letras y 13 entre números).',
+        keys: ['Thatcher: procesamiento global de rostros.', 'Bruner y Minturn: el contexto determina el significado.']
       },
       {
-        id: 9, block: 'Atención',
-        q: 'Explica la teoría de la carga perceptiva de Lavie y el modelo de capacidad de Kahneman sobre atención dividida.',
-        model: 'Según Lavie (1995; Forster y Lavie, 2008), la capacidad atencional es limitada: con baja carga perceptiva sobran recursos que procesan involuntariamente los distractores (más distracción), mientras que con alta carga se agotan los recursos y se reduce la distracción. Kahneman (1973) plantea que la atención dividida reparte una capacidad limitada que varía con el arousal y las prioridades; si la demanda supera la capacidad hay interferencia, que disminuye con la práctica.',
-        keys: ['Lavie: baja carga -> sobran recursos -> mayor distracción; alta carga -> menor distracción.', 'Kahneman: recursos limitados modulados por arousal/prioridades.', 'Interferencia cuando demanda > capacidad; la práctica reduce el consumo de recursos.']
+        id: 9, block: 'Percepción',
+        q: 'Diferencia señales binoculares y monoculares de profundidad, y nombra las constancias perceptivas.',
+        model: 'Binoculares (ambos ojos): disparidad retiniana (~6 cm) y convergencia ocular. Monoculares (un ojo): perspectiva lineal, tamaño relativo, gradiente de textura y superposición. Las constancias (tamaño, forma y color) mantienen estable la percepción pese a cambios en la retina.',
+        keys: ['Binoculares (disparidad, convergencia) vs. monoculares (perspectiva, tamaño, textura, superposición).', 'Constancias: tamaño, forma y color.']
       },
       {
         id: 10, block: 'Atención',
-        q: 'Explica la orientación espacial (endógena vs. exógena) y las conclusiones del paradigma de cueing espacial de Posner.',
-        model: 'La orientación endógena es voluntaria, guiada por metas/expectativas mediante señales centrales (ej. flecha). La exógena es involuntaria, capturada por estímulos salientes mediante señales periféricas (ej. destello). En el paradigma de Posner, TR válido < TR inválido, demostrando: (1) orientación encubierta sin mover los ojos, (2) que atender facilita y acelera el procesamiento y (3) la existencia de mecanismos voluntarios e involuntarios.',
-        keys: ['Endógena (voluntaria, señal central) vs. exógena (involuntaria, señal periférica).', 'Posner: TR válido < TR inválido.', 'Conclusiones: orientación encubierta, facilitación del procesamiento y doble mecanismo.']
+        q: 'Diferencia ceguera por inatención y ceguera al cambio.',
+        model: 'Ceguera por inatención (Simons): no percibir un estímulo inesperado pero visible cuando la atención está ocupada en otra tarea. Ceguera al cambio: dificultad para detectar modificaciones en una escena tras una breve interrupción visual.',
+        keys: ['Inatención (Simons): estímulo inesperado no percibido.', 'Al cambio: modificación no detectada tras interrupción visual.']
       },
       {
         id: 11, block: 'Atención',
-        q: 'Describe la teoría de integración de características de Anne Treisman, el efecto Stroop y las tres redes atencionales de Posner.',
-        model: 'Treisman distingue búsqueda de característica distintiva (pop-out: preatencional, en paralelo, TR independiente del nº de distractores) y búsqueda por conjunción (requiere atención focalizada serial para integrar rasgos, TR crece linealmente). El efecto Stroop muestra la interferencia entre un proceso automático (leer la palabra) y uno controlado (nombrar el color de la tinta). Las tres redes de Posner son: alerta, orientación y control ejecutivo.',
-        keys: ['Treisman: pop-out (paralelo, TR plano) vs. conjunción (serial, TR lineal).', 'Stroop: conflicto automático (leer) vs. controlado (color de tinta).', 'Tres redes de Posner: Alerta, Orientación y Control ejecutivo.']
+        q: '¿Qué se recuerda del oído no atendido en escucha dicótica (shadowing)?',
+        model: 'Apenas se recuerda contenido semántico, pero sí se detectan cambios físicos (tono, voz hombre/mujer) y excepciones de alta relevancia como el propio nombre (efecto cóctel party) o la continuidad semántica.',
+        keys: ['Poco significado, sí cambios físicos.', 'Excepciones: propio nombre y continuidad semántica.']
       },
       {
-        id: 12, block: 'Memoria',
-        q: 'Diferencia amnesia retrógrada y anterógrada, y explica qué demuestran los casos de Clive Wearing y H. M.',
-        model: 'La amnesia retrógrada impide recordar hechos previos a la lesión, mientras que la anterógrada impide consolidar nuevos recuerdos duraderos en la MLP tras la lesión. Clive Wearing y H. M. (extirpación bilateral temporal medial / hipocampo) sufrían amnesia declarativa grave pero conservaban intacta la memoria implícita/procedimental (tocar el piano o mejorar en el dibujo en espejo sin recordar haberlo hecho), demostrando disociación entre sistemas.',
-        keys: ['Retrógrada (previo) vs. anterógrada (nuevos recuerdos).', 'Clive Wearing (piano) y H. M. (hipocampo, dibujo en espejo).', 'Disociación: explícita/declarativa alterada frente a implícita/procedimental preservada.']
+        id: 12, block: 'Atención',
+        q: 'Compara los modelos de filtro de Broadbent, Treisman y Deutsch y Deutsch.',
+        model: 'Broadbent (rígido): selección temprana por rasgos físicos y bloqueo total. Treisman (atenuado): selección temprana que atenúa lo no atendido (permite captar el propio nombre). Deutsch y Deutsch (tardío): todo se analiza semánticamente y se selecciona después.',
+        keys: ['Broadbent (temprano, bloqueo) vs. Treisman (temprano, atenuado).', 'Deutsch y Deutsch (tardío, tras análisis semántico).']
       },
       {
-        id: 13, block: 'Memoria',
-        q: 'Explica el modelo multialmacén de Atkinson y Shiffrin (con la modificación de Baddeley) y el experimento de Sperling.',
-        model: 'Atkinson y Shiffrin (1968) proponen tres almacenes: Memoria Sensorial (MS) -> MCP <-> MLP; Baddeley (2001) sustituye la MCP pasiva por la Memoria de Trabajo activa. En la memoria icónica (< 1 s), Sperling comparó informe completo (~4,5 letras) frente a informe parcial mediante un tono que señalaba qué fila reportar (~100 % de la fila), demostrando que toda la matriz estuvo brevemente en MS antes de desvanecerse.',
-        keys: ['Atkinson y Shiffrin: MS -> MCP <-> MLP; Baddeley: Memoria de Trabajo activa.', 'Sperling: informe completo (~4,5) vs. informe parcial (~100 % con tono).', 'Conclusión: la memoria icónica (< 1 s) retiene toda la información brevemente.']
+        id: 13, block: 'Atención',
+        q: '¿Qué predice la teoría de la carga perceptiva de Lavie sobre la distracción?',
+        model: 'Con baja carga perceptiva la tarea consume pocos recursos y los sobrantes procesan involuntariamente los distractores (mayor distracción). Con alta carga se agotan los recursos y disminuye la distracción.',
+        keys: ['Baja carga -> sobran recursos -> más distracción.', 'Alta carga -> agota recursos -> menos distracción.']
       },
       {
-        id: 14, block: 'Memoria',
-        q: 'Caracteriza la MCP (capacidad, duración y tarea de Brown-Peterson) y explica el efecto de posición serial.',
-        model: 'La MCP tiene capacidad limitada de 7 ± 2 chunks (5–9 unidades, test de span) y duración < 30 segundos sin repaso activo, como demuestra la tarea distractora de Brown-Peterson (contar hacia atrás impide el repaso y el recuerdo decae en segundos). En recuerdo libre aparece el efecto de posición serial: efecto de primacía (los primeros ítems pasan a MLP por mayor repaso) y efecto de recencia (los últimos siguen activos en MCP).',
-        keys: ['Capacidad: 7 ± 2 chunks; Duración: < 30 s sin repaso (Brown-Peterson).', 'Primacía: primeros ítems pasan a MLP.', 'Recencia: últimos ítems permanecen en MCP.']
+        id: 14, block: 'Atención',
+        q: '¿Qué plantea el modelo de capacidad de Kahneman (1973) sobre atención dividida?',
+        model: 'La atención es un conjunto limitado de recursos modulado por la activación (arousal) y prioridades. Si la demanda supera la capacidad aparece interferencia; la práctica reduce los recursos necesarios.',
+        keys: ['Capacidad limitada modulada por arousal.', 'Interferencia si demanda > capacidad; mejora con la práctica.']
       },
       {
-        id: 15, block: 'Memoria',
-        q: 'Clasifica los tipos de Memoria a Largo Plazo (MLP) explícita e implícita con ejemplos.',
-        model: 'La MLP explícita o declarativa (recuperación consciente) se divide en episódica (vivencias autobiográficas en tiempo y lugar) y semántica (conocimientos generales del mundo y lenguaje). La MLP implícita o no declarativa (automática e inconsciente) incluye la memoria procedimental (habilidades motoras y rutinas), el condicionamiento clásico (respuestas asociativas) y el priming (facilitación por exposición previa).',
-        keys: ['Explícita (consciente): episódica y semántica.', 'Implícita (inconsciente): procedimental, condicionamiento clásico y priming.']
+        id: 15, block: 'Atención',
+        q: 'Diferencia orientación endógena y exógena, y qué demuestra el paradigma de Posner.',
+        model: 'Endógena: voluntaria por metas (señal central, flecha). Exógena: involuntaria por estímulos salientes (señal periférica, destello). Posner (TR válido < TR inválido) demuestra orientación encubierta sin mover los ojos y que atender acelera el procesamiento.',
+        keys: ['Endógena (central/voluntaria) vs. exógena (periférica/involuntaria).', 'Posner: TR válido < inválido, orientación encubierta.']
       },
       {
-        id: 16, block: 'Memoria',
-        q: 'Explica los niveles de procesamiento de Craik y Lockhart y compara la repetición de mantenimiento con la elaborativa.',
-        model: 'Craik y Lockhart (1972) proponen que el recuerdo depende de la profundidad de análisis: estructural (físico/visual, ~25 %) < fonológico (sonido, ~55 %) < semántico (significado y conexión previa, ~80 %, mejor recuerdo). La repetición de mantenimiento sostiene superficialmente la información en MCP, mientras que la repetición elaborativa la conecta con conocimientos previos en MLP creando más pistas de recuperación.',
-        keys: ['Niveles: estructural (~25 %) < fonológico (~55 %) < semántico (~80 %).', 'Repetición de mantenimiento (MCP) vs. elaborativa (conecta con MLP y genera pistas).']
+        id: 16, block: 'Atención',
+        q: 'Diferencia búsqueda por característica distintiva vs. conjunción (Treisman), y qué es el efecto Stroop.',
+        model: 'Característica distintiva (pop-out): preatencional en paralelo, TR plano. Conjunción: atención focalizada serial, TR crece linealmente con los elementos. El efecto Stroop es la interferencia entre leer (automático) y nombrar el color de la tinta (controlado).',
+        keys: ['Pop-out (paralelo, TR plano) vs. conjunción (serial, TR lineal).', 'Stroop: conflicto automático vs. controlado.']
       },
       {
-        id: 17, block: 'Memoria',
-        q: 'Explica el principio de especificidad de codificación (incluyendo Godden y Baddeley) y las tres formas de acceso a la memoria.',
-        model: 'El principio de especificidad de codificación señala que se recuerda mejor cuando las claves de recuperación coinciden con las de codificación, ya sea por contexto ambiental (Godden y Baddeley, 1975: buzos en playa vs. bajo el agua), estado fisiológico o estado de ánimo. Las formas de acceso son: recuerdo (sin pistas externas), reconocimiento (con pistas o alternativas) y reaprendizaje (ahorro de tiempo/ensayos).',
-        keys: ['Especificidad de codificación: contexto ambiental (Godden y Baddeley), estado y estado de ánimo.', 'Acceso: recuerdo (sin pistas), reconocimiento (con pistas) y reaprendizaje (ahorro).']
+        id: 17, block: 'Atención',
+        q: 'Nombra y define brevemente las tres redes atencionales de Posner.',
+        model: 'Alerta (mantiene vigilancia y disposición para responder), Orientación (selecciona localización espacial o fuente sensorial) y Control ejecutivo (resuelve conflictos entre respuestas e inhibe distractores).',
+        keys: ['Alerta, Orientación y Control ejecutivo.']
       },
       {
         id: 18, block: 'Memoria',
-        q: 'Describe la curva del olvido de Ebbinghaus, las causas del olvido y las distorsiones reconstructivas (Bartlett y Loftus).',
-        model: 'Ebbinghaus mostró una pérdida muy rápida al inicio (~50 % en 1 hora) que luego se estabiliza (~2 días). El olvido se debe a fallo de codificación («pseudo-olvido» por falta de atención, ej. penny de Nickerson y Adams) o fallo de recuperación: interferencia proactiva (lo antiguo dificulta lo nuevo) y retroactiva (lo nuevo dificulta lo antiguo), o falta de pistas (punta de la lengua). Además, la memoria es reconstructiva: Bartlett (1932, esquemas en «La guerra de los fantasmas»: reducción, normalización y adiciones) y Loftus (efecto de desinformación en testigos: «estrellaron» vs. «golpearon» y cristales rotos; atribución de fuente).',
-        keys: ['Curva de Ebbinghaus (~50 % en 1 h); fallo de codificación (Nickerson y Adams).', 'Interferencia proactiva vs. retroactiva; dependiente de pistas (punta de la lengua).', 'Reconstrucción: esquemas (Bartlett), error de fuente y desinformación (Loftus).']
+        q: 'Diferencia amnesia retrógrada y anterógrada, y qué muestran los casos Clive Wearing y H. M.',
+        model: 'Retrógrada: pérdida de recuerdos previos; Anterógrada: incapacidad para consolidar nuevos recuerdos en MLP. Clive Wearing y H. M. (hipocampo) tenían amnesia declarativa grave pero memoria procedimental intacta (piano / dibujo en espejo).',
+        keys: ['Retrógrada (previo) vs. anterógrada (nuevos).', 'Disociación: declarativa alterada vs. procedimental preservada.']
+      },
+      {
+        id: 19, block: 'Memoria',
+        q: 'Explica el modelo multialmacén (Atkinson y Shiffrin; Baddeley) y el experimento de Sperling.',
+        model: 'Flujo MS -> MCP <-> MLP; Baddeley sustituye la MCP pasiva por la Memoria de Trabajo activa. Sperling mostró en memoria icónica (< 1 s) que en informe parcial (~100 % de la fila indicada por tono) está disponible toda la matriz, aunque en completo solo se reportan ~4,5 letras.',
+        keys: ['MS -> MCP/Memoria de Trabajo <-> MLP.', 'Sperling: informe parcial (~100 %) vs. completo (~4,5 letras).']
+      },
+      {
+        id: 20, block: 'Memoria',
+        q: 'Capacidad y duración de la MCP (Brown-Peterson) y efecto de posición serial.',
+        model: 'La MCP retiene 7 ± 2 chunks durante < 30 s sin repaso activo (tarea distractora de Brown-Peterson). En recuerdo libre, el efecto de primacía refleja paso a la MLP y el de recencia permanencia en la MCP.',
+        keys: ['7 ± 2 chunks y < 30 s sin repaso (Brown-Peterson).', 'Primacía (MLP) y recencia (MCP).']
+      },
+      {
+        id: 21, block: 'Memoria',
+        q: 'Clasifica los subtipos de MLP explícita e implícita.',
+        model: 'Explícita/declarativa (consciente): episódica (vivencias personales) y semántica (conocimiento general). Implícita/no declarativa (inconsciente): procedimental (habilidades), condicionamiento clásico y priming (facilitación).',
+        keys: ['Explícita: episódica y semántica.', 'Implícita: procedimental, condicionamiento clásico y priming.']
+      },
+      {
+        id: 22, block: 'Memoria',
+        q: 'Niveles de procesamiento (Craik y Lockhart) y repetición de mantenimiento vs. elaborativa.',
+        model: 'El recuerdo mejora con la profundidad: estructural (~25 %) < fonológico (~55 %) < semántico (~80 %). La repetición de mantenimiento sostiene en MCP; la elaborativa conecta con conocimientos en MLP creando más pistas.',
+        keys: ['Estructural < fonológico < semántico.', 'Mantenimiento (MCP) vs. elaborativa (MLP).']
+      },
+      {
+        id: 23, block: 'Memoria',
+        q: '¿Qué dice el principio de especificidad de codificación (Godden y Baddeley) y cuáles son las 3 formas de acceso?',
+        model: 'Se recuerda mejor cuando coinciden las claves entre codificación y recuperación: contexto ambiental (buzos de Godden y Baddeley, 1975), estado fisiológico o estado de ánimo. Formas de acceso: recuerdo (sin pistas), reconocimiento (con pistas) y reaprendizaje (ahorro).',
+        keys: ['Especificidad: contexto (Godden y Baddeley), estado y ánimo.', 'Acceso: recuerdo, reconocimiento y reaprendizaje.']
+      },
+      {
+        id: 24, block: 'Memoria',
+        q: 'Resume curva de Ebbinghaus, causas del olvido y distorsiones de Bartlett y Loftus.',
+        model: 'Ebbinghaus: pérdida rápida inicial (~50 % en 1 h). Causas: fallo de codificación (penny de Nickerson y Adams) o de recuperación (interferencia proactiva/retroactiva y falta de pistas como punta de la lengua). Bartlett (esquemas en «La guerra de los fantasmas») y Loftus (desinformación en testigos: «estrellaron» vs. «golpearon») muestran que la memoria es reconstructiva.',
+        keys: ['Ebbinghaus (~50 % en 1 h); fallo de codificación vs. recuperación (interferencia, pistas).', 'Bartlett (esquemas) y Loftus (efecto de desinformación).']
       }
     ];
 

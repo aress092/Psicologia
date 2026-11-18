@@ -47,7 +47,7 @@
 
     <header class="quiz-header">
       <h1>Desarrollo — Parcial 1</h1>
-      <p class="subtitle">14 preguntas de desarrollo de Historia de la Psicología y La Psicología como Ciencia</p>
+      <p class="subtitle">18 preguntas cortas de Historia de la Psicología y La Psicología como Ciencia</p>
     </header>
 
     <div class="toolbar">
@@ -67,7 +67,7 @@
 
     <div class="nav-bar">
       <button id="btn-prev" type="button" class="pill">← Anterior</button>
-      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 14</span>
+      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 18</span>
       <div class="pill-group">
         <button id="btn-mistakes" type="button" class="btn-warn" style="display:none;">Repasar pendientes (0)</button>
         <button id="btn-next" type="button" class="btn-primary">Siguiente →</button>
@@ -79,87 +79,111 @@
     const QUESTIONS = [
       {
         id: 1, block: 'Historia',
-        q: 'Explica la aportación de Wilhelm Wundt (1879) y compara su enfoque con el estructuralismo de Titchener, señalando las críticas a la introspección.',
-        model: 'Wundt fundó el primer laboratorio experimental de psicología (1879), marcando el paso de la filosofía a la psicología experimental centrada en la experiencia consciente mediante introspección controlada. Titchener (estructuralismo) siguió su línea intentando descomponer la experiencia compleja en elementos básicos (sensaciones, imágenes y sentimientos) con introspección más cualitativa.',
-        keys: ['Wundt (1879): primer laboratorio experimental y experiencia consciente.', 'Titchener (estructuralismo): descomponer en elementos básicos (sensaciones, imágenes, sentimientos).', 'Críticas a la introspección: falta de objetividad, desacuerdos entre informes y no estudia animales ni niños.']
+        q: '¿Qué supuso Wilhelm Wundt (1879) y qué críticas recibió su método?',
+        model: 'Fundó el primer laboratorio experimental de psicología (1879), pasando de la filosofía a la psicología experimental centrada en la experiencia consciente mediante introspección. Se criticó por falta de objetividad, desacuerdos entre sujetos y por no poder estudiar animales ni niños.',
+        keys: ['Primer laboratorio (1879) y experiencia consciente.', 'Introspección: poco objetiva, desacuerdos, excluye animales/niños.']
       },
       {
         id: 2, block: 'Historia',
-        q: '¿En qué consiste el funcionalismo, quiénes lo representan y qué papel juega la teoría de la evolución?',
-        model: 'Impulsado por William James y Mary Whiton Calkins (primera mujer presidenta de la APA en 1905) bajo influencia de Darwin. Estudia la función y utilidad adaptativa de los procesos mentales y la conducta («¿para qué sirve?»), concibiendo la conciencia como un flujo continuo (corriente de la conciencia) y abriendo la puerta al método comparativo.',
-        keys: ['Autores: William James y Mary Whiton Calkins (1905).', 'Influencia de Darwin: adaptación al ambiente y utilidad de los procesos mentales.', 'Corriente de la conciencia (flujo continuo) y apertura al método comparativo (niños, animales, diferencias individuales).']
+        q: '¿Qué buscaba el estructuralismo de Titchener y cuáles eran sus elementos básicos?',
+        model: 'Pretendía descomponer la experiencia consciente compleja en sus elementos simples mediante una introspección más cualitativa. Esos elementos básicos eran las sensaciones, las imágenes y los sentimientos.',
+        keys: ['Descomponer experiencia compleja en elementos simples.', 'Sensaciones, imágenes y sentimientos.']
       },
       {
         id: 3, block: 'Historia',
-        q: 'Resume los principios del psicoanálisis de Freud y explica por qué no se considera una ciencia empírica.',
-        model: 'Freud propuso que la conducta está determinada por deseos, motivos y conflictos inconscientes, estudiados mediante síntomas, sueños, lapsus y asociación libre, desde una concepción energética y de homeostasis. No entra en las ciencias empíricas porque no es falsable: si el paciente niega un conflicto, la teoría alega negación o represión y se autoconfirma siempre.',
-        keys: ['Inconsciente, conflictos, sueños, lapsus, asociación libre y homeostasis.', 'Crítica científica: no es falsable.', 'Cualquier negación del paciente se interpreta como represión/negación (autoconfirmación).']
+        q: '¿Qué estudia el funcionalismo y cómo concibe la conciencia?',
+        model: 'Influido por Darwin (William James y Mary Whiton Calkins, 1905), estudia la función adaptativa de la mente y la conducta («¿para qué sirve?»). Concibe la conciencia como un flujo continuo (corriente de la conciencia) y abre paso al método comparativo.',
+        keys: ['Función adaptativa (Darwin); W. James y M. W. Calkins.', 'Corriente de la conciencia y método comparativo.']
       },
       {
         id: 4, block: 'Historia',
-        q: 'Explica el conductismo (Watson, Thorndike, Pavlov y Skinner) y su principal limitación.',
-        model: 'Watson propuso centrar la psicología en la conducta observable mediante el método experimental de laboratorio. Se apoyó en los reflejos condicionados de Pavlov (condicionamiento clásico), el conexionismo y la ley del efecto de Thorndike, el experimento del pequeño Albert (Watson y Rayner) y el condicionamiento operante de Skinner (caja experimental y efecto de las consecuencias). Su crítica es tratar la mente como «caja negra» dejando fuera memoria, atención o pensamientos.',
-        keys: ['Watson: conducta observable, objetividad y laboratorio; pequeño Albert.', 'Pavlov (CC), Thorndike (ley del efecto) y Skinner (CO, consecuencias).', 'Crítica: la mente como «caja negra» (ignora procesos mentales internos).']
+        q: '¿Por qué el psicoanálisis de Freud no se considera una ciencia empírica?',
+        model: 'Freud estudiaba el inconsciente (sueños, lapsus, asociación libre), pero su teoría no es falsable: si el paciente niega un conflicto, lo interpreta como negación o represión, autoconfirmándose siempre.',
+        keys: ['Inconsciente y asociación libre.', 'No es falsable: se autoconfirma siempre.']
       },
       {
         id: 5, block: 'Historia',
-        q: 'Compara la psicología de la Gestalt con el estructuralismo de Titchener y cita sus autores y críticas.',
-        model: 'Mientras Titchener descomponía la experiencia en elementos aislados, la Gestalt sostiene que «el todo es más grande que la suma de todas las partes» y que el sistema perceptivo organiza activamente la información. Sus autores son Max Wertheimer (movimiento aparente, fenómeno Phi), Wolfgang Köhler (insight en chimpancés) y Kurt Koffka. Se le critica falta de precisión conceptual, escaso valor predictivo y dificultad de formalización.',
-        keys: ['El todo > suma de partes; organización activa (opuesto a elementos de Titchener).', 'Autores: Wertheimer (fenómeno Phi), Köhler (insight) y Koffka.', 'Críticas: falta de precisión conceptual, bajo valor predictivo y difícil formalización.']
+        q: '¿Qué defiende el conductismo de Watson y cuál es su principal crítica?',
+        model: 'Defiende estudiar objetivamente solo la conducta observable mediante experimentos de laboratorio (ej. pequeño Albert). Su crítica es tratar la mente como una «caja negra», ignorando memoria, atención o pensamientos.',
+        keys: ['Conducta observable y método experimental.', 'Crítica: mente como «caja negra».']
       },
       {
         id: 6, block: 'Historia',
-        q: '¿Qué propone la psicología humanista (Maslow y Rogers) y qué críticas ha recibido?',
-        model: 'Busca comprender el desarrollo y el potencial humano. Abraham Maslow propuso la autorrealización y su pirámide de necesidades; Carl Rogers centró su enfoque en la experiencia personal y la terapia centrada en la persona/cliente. Se ha criticado por muestras pequeñas poco significativas, falta de concreción conceptual, exclusión del inconsciente y escasa investigación empírica.',
-        keys: ['Maslow (autorrealización, pirámide) y Rogers (terapia centrada en la persona).', 'Críticas: muestras pequeñas, términos vagos, exclusión del inconsciente y poca investigación.', 'La jerarquía de Maslow no está avalada científicamente hoy (aunque se usa en empresa).']
+        q: 'Diferencia brevemente las aportaciones de Pavlov, Thorndike y Skinner.',
+        model: 'Pavlov estudió los reflejos condicionados (condicionamiento clásico, antecedente clave). Thorndike propuso el conexionismo y la ley del efecto. Skinner desarrolló el condicionamiento operante (caja experimental), estudiando cómo las consecuencias modifican la conducta.',
+        keys: ['Pavlov: reflejos condicionados (CC).', 'Thorndike: ley del efecto; Skinner: condicionamiento operante (consecuencias).']
       },
       {
         id: 7, block: 'Historia',
-        q: 'Explica la revolución cognitiva: objeto de estudio, papel de la conducta y metáfora del ordenador.',
-        model: 'La psicología cognitiva (Bruner y Miller, 1960) devolvió los procesos mentales al centro de la investigación científica (adquisición, procesamiento, almacenamiento y uso de la información). No necesita observar directamente la mente: usa la conducta como evidencia experimental para contrastar hipótesis. Se apoya en la metáfora del ordenador y la máquina de Turing.',
-        keys: ['Estudio científico de procesos mentales usando la conducta como evidencia.', 'Autores: Jerome Bruner y George Miller (1960).', 'Metáfora del ordenador (procesamiento de información) y máquina de Turing.']
+        q: '¿Qué opone la Gestalt al estructuralismo y qué fenómenos estudió?',
+        model: 'Frente a los elementos aislados de Titchener, sostiene que «el todo es más grande que la suma de las partes» y que percibimos organizando activamente el conjunto. Estudió el fenómeno Phi (Wertheimer) y el insight en chimpancés (Köhler).',
+        keys: ['El todo > suma de partes; organización activa.', 'Wertheimer (fenómeno Phi), Köhler (insight) y Koffka.']
       },
       {
-        id: 8, block: 'Ciencia',
-        q: 'Diferencia entre intuición y ciencia, y explica la falacia de conjunción, el sesgo de confirmación y el efecto Forer.',
-        model: 'La intuición genera juicios rápidos basados en la experiencia, útiles pero sesgados; la ciencia exige evidencia empírica sistemática y definiciones operacionales. La falacia de conjunción consiste en creer que dos sucesos combinados son más probables que uno solo (ej. Linda). El sesgo de confirmación busca solo datos que apoyan creencias previas (regla 2-4-6). El efecto Forer hace aceptar descripciones vagas y generales como personales (horóscopos).',
-        keys: ['Intuición (rápida/sesgada) vs. ciencia (evidencia empírica, definición operacional).', 'Falacia de conjunción (Linda), sesgo de confirmación (regla 2-4-6).', 'Efecto Forer/Barnum: descripciones vagas aceptadas como específicas.']
+        id: 8, block: 'Historia',
+        q: '¿Qué plantea la psicología humanista y qué críticas recibió?',
+        model: 'Se centra en el desarrollo personal y el potencial humano: autorrealización y pirámide de Maslow, y terapia centrada en la persona de Carl Rogers. Se criticó por muestras pequeñas, términos vagos, excluir el inconsciente y poca investigación.',
+        keys: ['Maslow (autorrealización) y Rogers (terapia centrada en la persona).', 'Críticas: muestras pequeñas, vaguedad y poca investigación.']
       },
       {
-        id: 9, block: 'Ciencia',
-        q: 'Describe los tres métodos descriptivos (observación naturalista, estudio de caso y encuestas) con sus riesgos o límites.',
-        model: 'La observación naturalista registra la conducta en su entorno espontáneo sin intervenir, con riesgo de reactividad y sesgo del observador. El estudio de caso analiza en profundidad un individuo o situación (ej. Phineas Gage), aportando detalle e hipótesis pero sin ser generalizable. Las encuestas recogen datos de mucha gente rápido y barato, pero sufren riesgo de muestras no representativas, preguntas sesgadas y deseabilidad social.',
-        keys: ['Observación naturalista: entorno espontáneo; riesgos de reactividad y sesgo del observador.', 'Estudio de caso (Phineas Gage): gran detalle/hipótesis, pero no generalizable.', 'Encuestas: rápidas/económicas; riesgos de muestra, sesgo de redacción y deseabilidad social.']
+        id: 9, block: 'Historia',
+        q: '¿Cómo estudia la mente la psicología cognitiva?',
+        model: 'Estudia científicamente los procesos mentales (adquisición, procesamiento, almacenamiento y uso de la información) utilizando la conducta como evidencia experimental, bajo la metáfora del ordenador (Bruner, Miller y máquina de Turing).',
+        keys: ['Procesos mentales usando la conducta como evidencia.', 'Metáfora del ordenador (Bruner, Miller, Turing).']
       },
       {
         id: 10, block: 'Ciencia',
-        q: 'Explica cómo se interpreta el coeficiente de correlación de Pearson (r) y el valor p.',
-        model: 'El coeficiente r oscila entre -1 y +1: el signo indica la dirección (positiva si suben/bajan juntas, negativa si van en sentido opuesto, cero si no hay relación lineal) y el valor absoluto indica la fuerza (más fuerte cuanto más cerca de |1|). El valor p evalúa si el resultado es compatible con una correlación poblacional nula (significación estadística).',
-        keys: ['Rango de r: -1 a +1.', 'Signo = dirección (+, -, 0); valor absoluto = fuerza (cerca de |1|).', 'Valor p: significación estadística frente a correlación nula.']
+        q: 'Define falacia de conjunción, sesgo de confirmación y efecto Forer.',
+        model: 'Falacia de conjunción: creer más probable la combinación de dos sucesos que uno solo (ej. Linda). Sesgo de confirmación: buscar solo datos que apoyen nuestras creencias (regla 2-4-6). Efecto Forer: aceptar descripciones vagas como muy personales (horóscopos).',
+        keys: ['Falacia de conjunción (Linda) y sesgo de confirmación (2-4-6).', 'Efecto Forer/Barnum: descripciones vagas tomadas como personales.']
       },
       {
         id: 11, block: 'Ciencia',
-        q: '¿Por qué correlación no implica causalidad y para qué sigue siendo útil el método correlacional?',
-        model: 'No implica causalidad por dos problemas: la direccionalidad (no se sabe si X causa Y o Y causa X) y la tercera variable (una variable oculta Z puede causar cambios en X e Y a la vez). Aun así, es útil para predecir y para investigar variables que no se pueden manipular (ej. altura) o no es ético manipular (ej. consumo de drogas).',
-        keys: ['Problema de direccionalidad (X->Y vs Y->X).', 'Problema de la tercera variable (Z oculta).', 'Utilidad: predecir y estudiar variables no manipulables o no éticas.']
+        q: '¿Qué es una definición operacional y para qué sirve?',
+        model: 'Es la concreción exacta de cómo se manipula o mide una variable abstracta (por ejemplo, medir el rendimiento cognitivo como el número de aciertos en 10 minutos), permitiendo obtener evidencia empírica objetiva.',
+        keys: ['Concreción exacta de cómo medir/manipular una variable abstracta.', 'Permite replicabilidad y medición objetiva.']
       },
       {
         id: 12, block: 'Ciencia',
-        q: 'Define Variable Independiente (VI), Variable Dependiente (VD), variable de confusión, grupo experimental y grupo de control.',
-        model: 'En un experimento, la VI es la causa manipulada por el investigador y la VD es el efecto medido tras la manipulación. Una variable de confusión es una variable ajena que varía sistemáticamente entre condiciones y podría explicar los cambios en la VD. El grupo experimental recibe la manipulación activa de la VI y el grupo de control sirve de línea base sin recibirla.',
-        keys: ['VI (causa manipulada) y VD (efecto medido).', 'Variable de confusión: varía entre condiciones y amenaza la validez.', 'Grupo experimental (con VI) vs. grupo de control (comparación).']
+        q: '¿Qué es la observación naturalista y cuáles son sus dos riesgos?',
+        model: 'Consiste en observar la conducta en su entorno espontáneo sin intervenir. Sus riesgos son la reactividad (el sujeto cambia al sentirse observado) y el sesgo del observador (las expectativas distorsionan el registro).',
+        keys: ['Entorno espontáneo sin intervenir.', 'Riesgos: reactividad y sesgo del observador.']
       },
       {
         id: 13, block: 'Ciencia',
-        q: 'Explica las principales técnicas de control experimental: muestreo vs. asignación aleatoria, placebo y enmascaramiento (simple y doble ciego).',
-        model: 'El muestreo aleatorio afecta a la generalización a la población; la asignación aleatoria reparte al azar a los participantes entre condiciones, garantizando la validez interna al crear grupos equivalentes. El placebo controla las expectativas del participante con un tratamiento sin principio activo. En el ciego simple el participante no sabe su grupo; en el doble ciego tampoco lo sabe el investigador que evalúa.',
-        keys: ['Muestreo aleatorio (generalización) vs. asignación aleatoria (validez interna, grupos equivalentes).', 'Placebo: controla expectativas del participante.', 'Ciego simple (participante) vs. doble ciego (participante e investigador).']
+        q: 'Ventaja y límite del estudio de caso, y riesgos de las encuestas.',
+        model: 'El estudio de caso (ej. Phineas Gage) aporta gran detalle y genera hipótesis, pero no es representativo ni generalizable. Las encuestas recogen muchos datos rápido, pero sufren riesgo de muestras sesgadas, preguntas mal redactadas y deseabilidad social.',
+        keys: ['Estudio de caso: mucho detalle/hipótesis, pero no generalizable.', 'Encuestas: muestras no representativas, sesgo de preguntas y deseabilidad social.']
       },
       {
         id: 14, block: 'Ciencia',
-        q: 'Diferencia entre diseño experimental y cuasi-experimental, y entre replicación directa y conceptual.',
-        model: 'El diseño cuasi-experimental compara grupos preexistentes (ej. con o sin esquizofrenia) sin asignación aleatoria, por lo que no permite concluir causalidad de forma tajante. La replicación directa repite el experimento calcando las condiciones originales, mientras que la replicación conceptual evalúa la misma hipótesis con medidas, procedimientos o muestras distintas.',
-        keys: ['Cuasi-experimental: grupos preexistentes sin asignación aleatoria (no prueba causalidad tajante).', 'Replicación directa: calca las condiciones originales.', 'Replicación conceptual: misma hipótesis con medidas/procedimientos/muestras distintas.']
+        q: '¿Qué indican el signo, el valor absoluto de r (Pearson) y el valor p?',
+        model: 'El coeficiente r va de -1 a +1: el signo marca la dirección (positiva o negativa), el valor absoluto la fuerza (más fuerte cerca de |1|), y el valor p evalúa si el resultado es estadísticamente significativo frente a una correlación nula.',
+        keys: ['r entre -1 y +1: signo = dirección; |r| = fuerza.', 'Valor p: significación estadística.']
+      },
+      {
+        id: 15, block: 'Ciencia',
+        q: '¿Por qué correlación no implica causalidad?',
+        model: 'Por dos problemas: direccionalidad (no se sabe si X causa Y o Y causa X) y tercera variable (una variable oculta Z puede estar causando a X y a Y a la vez). Aun así sirve para predecir.',
+        keys: ['Direccionalidad y tercera variable (Z oculta).', 'Utilidad: predicción y variables no manipulables.']
+      },
+      {
+        id: 16, block: 'Ciencia',
+        q: 'Diferencia entre Variable Independiente (VI), Dependiente (VD) y variable de confusión.',
+        model: 'La VI es la causa manipulada por el investigador (en el grupo experimental frente al de control); la VD es el efecto medido tras la manipulación. La variable de confusión es una variable ajena que varía entre condiciones y podría explicar cambios en la VD.',
+        keys: ['VI = causa manipulada; VD = efecto medido.', 'Variable de confusión: varía entre grupos y amenaza la validez.']
+      },
+      {
+        id: 17, block: 'Ciencia',
+        q: 'Diferencia muestreo aleatorio vs. asignación aleatoria, y placebo vs. doble ciego.',
+        model: 'El muestreo aleatorio permite generalizar a la población; la asignación aleatoria reparte al azar a los grupos garantizando la validez interna. El placebo controla expectativas del participante; en el doble ciego ni participante ni investigador saben qué condición recibe cada uno.',
+        keys: ['Muestreo (generalización) vs. asignación aleatoria (validez interna).', 'Placebo (expectativas) y doble ciego (ni sujeto ni evaluador lo saben).']
+      },
+      {
+        id: 18, block: 'Ciencia',
+        q: 'Diferencia diseño cuasi-experimental y replicación directa vs. conceptual.',
+        model: 'El diseño cuasi-experimental compara grupos preexistentes sin asignación aleatoria, por lo que no prueba causalidad tajante. La replicación directa repite el estudio calcando condiciones; la conceptual prueba la misma hipótesis con medidas, procesos o muestras distintas.',
+        keys: ['Cuasi-experimental: grupos preexistentes sin azar.', 'Replicación directa (idéntica) vs. conceptual (distintas medidas/muestras).']
       }
     ];
 
@@ -168,7 +192,7 @@
     let idx = 0;
     let drafts = {};
     let revealed = {};
-    let statusMap = {}; // id -> 'ok' | 'ko'
+    let statusMap = {};
     let reviewMistakesMode = false;
 
     const elFilters = document.getElementById('filters');
