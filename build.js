@@ -3,7 +3,7 @@ const path = require('path');
 
 const IGNORE_LIST = ['.git', '.github', 'src', 'node_modules', 'build.js', 'README.md', '.DS_Store', 'practica.html', 'practica.js', 'introducción'];
 const ROOT_DIR = __dirname;
-const SITE_TITLE = "Estudios de Psicología";
+const SITE_TITLE = "PSICOLOGIA";
 
 function getIcon(filename, isDirectory) {
   if (isDirectory) return '<div class="card-icon folder-icon">📁</div>';
@@ -48,13 +48,13 @@ function generateHTML(title, isRoot, items, relativePathToRoot) {
   <title>${title} | ${SITE_TITLE}</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#fcfbfa">
-  <link rel="stylesheet" href="${relativePathToRoot}src/style.css">
+  <link rel="stylesheet" href="${relativePathToRoot}src/style.css?v=2">
 </head>
 <body>
   <div class="container">
     ${backLink}
     <header>
-      <h1>${title === SITE_TITLE ? 'Mis Estudios de Psicología' : title}</h1>
+      <h1>${isRoot ? 'PSICOLOGIA' : title}</h1>
       <p class="subtitle">${isRoot ? 'Selecciona una asignatura o tema' : 'Documentos y recursos'}</p>
     </header>
     <main class="grid">
