@@ -53,7 +53,8 @@
     <div class="toolbar">
       <div id="filters" class="pill-group"></div>
       <div class="pill-group" style="align-items:center;">
-        <span id="score-badge" class="score-pill">Aciertos: 0/0</span>
+        <span id="score-badge" class="score-pill">0/0 · 0.00/10</span>
+        <button id="btn-finish" type="button" class="pill">Ver nota</button>
         <button id="btn-shuffle" type="button" class="pill">Barajar</button>
         <button id="btn-reset" type="button" class="pill">Reiniciar</button>
       </div>
@@ -83,8 +84,8 @@
         q: 'Cuando bajas poco a poco el volumen de la televisión hasta el mínimo en el que todavía oyes algo para no despertar a tu compañero de piso, ¿qué método psicofísico estás aplicando en la vida diaria?',
         opts: [
           'El método de los estímulos constantes.',
-          'El método de los ajustes (o error promedio).',
-          'El método de estimación de magnitud de Stevens.',
+          'El método de los ajustes.',
+          'El método de estimación de magnitud.',
           'El método de igualación simultánea.'
         ],
         ans: 1,
@@ -94,10 +95,10 @@
         id: 2, block: 'Psicofísica',
         q: 'En un experimento con el método de los límites para hallar el Umbral Absoluto, el promedio de las series descendentes (UD) es 22 y el de las series ascendentes (UA) es 26 (UD - UA = -4). ¿Qué mecanismo explica este resultado?',
         opts: [
-          'Sesgo de anticipación: el sujeto adelanta el cambio antes de tiempo.',
-          'Sesgo de habituación: el sujeto repite la respuesta previa más allá del punto real de cambio.',
-          'Error constante positivo por sobreestimación del estímulo estándar.',
-          'Efecto de la Ley de Weber al trabajar con intensidades intermedias.'
+          'Sesgo de anticipación: se adelanta el cambio de respuesta antes de tiempo.',
+          'Sesgo de habituación: se repite la respuesta previa más allá del cambio real.',
+          'Error constante positivo: se sobreestima la intensidad del estímulo estándar.',
+          'Efecto de la Ley de Weber: el incremento depende de la intensidad inicial.'
         ],
         ans: 1,
         exp: 'En el sesgo de habituación el participante tiende a repetir la respuesta que venía dando: en series descendentes sigue diciendo «SÍ» más abajo (umbral más bajo) y en ascendentes sigue diciendo «NO» más arriba (umbral más alto), por lo que UD - UA < 0.'
@@ -106,10 +107,10 @@
         id: 3, block: 'Psicofísica',
         q: '¿Por qué el método de los estímulos constantes elimina los sesgos de habituación y anticipación presentes en el método de los límites?',
         opts: [
-          'Porque el propio sujeto controla continuamente la intensidad del estímulo.',
-          'Porque mezcla ensayos trampa (catch trials) en una única serie descendente.',
-          'Porque presenta las distintas intensidades en orden aleatorio repetidas veces, impidiendo prever la secuencia.',
-          'Porque mide directamente la sensación sin pasar por el estímulo físico.'
+          'Porque el participante regula continuamente la intensidad del estímulo.',
+          'Porque introduce ensayos trampa en medio de una serie descendente.',
+          'Porque presenta las distintas intensidades en orden aleatorio repetido.',
+          'Porque mide la sensación subjetiva sin recurrir al estímulo físico.'
         ],
         ans: 2,
         exp: 'Al presentar las intensidades en orden aleatorio, el observador no puede anticipar cuándo toca cambiar ni habituarse a una dirección ascendente o descendente. Su inconveniente es que requiere mucho más tiempo.'
@@ -118,9 +119,9 @@
         id: 4, block: 'Psicofísica',
         q: 'En una tarea de discriminación con el método de los límites (EE = 60), obtenemos US = 66 y UI = 50. ¿Cuánto valen el Intervalo de Incertidumbre (II), el Umbral Diferencial (UD) y el Error Constante (EC)?',
         opts: [
-          'II = 16; UD = 8; EC = -2 (subestima el EE).',
-          'II = 16; UD = 16; EC = +2 (sobreestima el EE).',
-          'II = 8; UD = 4; EC = -2 (subestima el EE).',
+          'II = 16; UD = 8; EC = -2.',
+          'II = 16; UD = 16; EC = +2.',
+          'II = 8; UD = 4; EC = -2.',
           'II = 16; UD = 8; EC = +58.'
         ],
         ans: 0,
@@ -130,10 +131,10 @@
         id: 5, block: 'Psicofísica',
         q: 'Si en una habitación con 1 vela encendida añades otra vela, notas mucha diferencia; pero si en un estadio con 1.000 focos añades 1 foco, no notas ningún cambio. ¿Qué ley explica este fenómeno?',
         opts: [
-          'La Ley Potencial de Stevens con k > 1.',
-          'La Ley de Weber (UD / EE = c), porque el cambio mínimo perceptible es proporcional a la intensidad de partida.',
-          'El sesgo de anticipación en tareas de detección.',
-          'La constancia absoluta del Umbral Diferencial en cualquier intensidad.'
+          'La Ley Potencial de Stevens con exponente mayor que uno.',
+          'La Ley de Weber, al ser el cambio proporcional al estímulo.',
+          'El sesgo de anticipación en tareas de detección visual.',
+          'La Ley de Fechner en continuos sensoriales de tipo metatético.'
         ],
         ans: 1,
         exp: 'Según la Ley de Weber (UD = c · EE), cuanto mayor es el estímulo estándar (EE), mayor debe ser el incremento físico para que nuestros sentidos noten una diferencia (funciona bien en intensidades intermedias).'
@@ -142,10 +143,10 @@
         id: 6, block: 'Psicofísica',
         q: '¿En qué tipo de continuos sensoriales falla la Ley de Fechner (r = k log(Ei/E0)) y se cumple mejor la Ley Potencial de Stevens (S = c·E^k)?',
         opts: [
-          'En continuos metatéticos (cualitativos), como el tono auditivo al variar la frecuencia.',
-          'En continuos protéticos (cuantitativos/aditivos), como el brillo de una luz o la sonoridad.',
-          'Exclusivamente cuando se utiliza el método de los límites.',
-          'En tareas de igualación simultánea con estímulos extremos.'
+          'En continuos metatéticos, donde varía la cualidad de la sensación.',
+          'En continuos protéticos, donde varía la cantidad o intensidad.',
+          'En continuos discretos medidos mediante el método de los límites.',
+          'En tareas de igualación simultánea con intensidades intermedias.'
         ],
         ans: 1,
         exp: 'En los continuos protéticos varía la cantidad/intensidad manteniendo la cualidad; Stevens demostró que cada DMP no añade una sensación constante sino creciente, ajustándose a una función potencial. Fechner funciona mejor en continuos metatéticos.'
@@ -154,10 +155,10 @@
         id: 7, block: 'Psicofísica',
         q: '¿Para qué sirven los «ensayos trampa» (catch trials) en una tarea psicofísica de detección?',
         opts: [
-          'Para calcular el Punto de Igualdad Subjetiva (PIS).',
-          'Para evitar que el observador acierte por repetición rutinaria de la respuesta «SÍ».',
-          'Para medir el tiempo de reacción en lugar de la precisión.',
-          'Para transformar continuos protéticos en metatéticos.'
+          'Para calcular el Punto de Igualdad Subjetiva del observador.',
+          'Para evitar que el observador acierte por repetición rutinaria.',
+          'Para registrar el tiempo de reacción en lugar de la precisión.',
+          'Para eliminar los sesgos de anticipación en series ascendentes.'
         ],
         ans: 1,
         exp: 'En detección se mezclan aleatoriamente ensayos sin estímulo (catch trials) para controlar y evitar que el participante responda «SÍ» automáticamente por rutina.'
@@ -168,10 +169,10 @@
         id: 8, block: 'TDS',
         q: '¿Cuál fue la gran ruptura teórica de la Teoría de Detección de Señales (TDS) frente a la psicofísica clásica?',
         opts: [
-          'Sustituir los métodos directos por el método de los límites.',
-          'Prescindir del concepto de umbral sensorial fijo y concebir la detección como una toma de decisiones bajo incertidumbre.',
-          'Demostrar que el observador es un agente pasivo cuya respuesta solo depende de la fisiología del ojo u oído.',
-          'Eliminar la matriz de confusión y medir únicamente la tasa de aciertos.'
+          'Sustituir los métodos directos por series ascendentes y descendentes.',
+          'Prescindir del umbral sensorial fijo y analizar decisiones bajo incertidumbre.',
+          'Considerar al observador un receptor pasivo dependiente solo de la fisiología.',
+          'Eliminar la matriz de confusión y evaluar solo la tasa de aciertos.'
         ],
         ans: 1,
         exp: 'La TDS (Tanner y Swets, 1954) asume que los sentidos están siempre activos (dos distribuciones: Ruido y Señal) y separa la sensibilidad sensorial (d\') del criterio de decisión del observador (β).'
@@ -180,10 +181,10 @@
         id: 9, block: 'TDS',
         q: 'Un radiólogo dice: «Ante la mínima mancha dudosa en la mamografía, siempre diagnostico positivo para que no se me escape ningún cáncer». En términos de la TDS, ¿cómo es su criterio y qué consecuencias tiene?',
         opts: [
-          'Criterio estricto (β > 1): tendrá menos aciertos y menos falsas alarmas.',
-          'Criterio laxo (β < 1): tendrá más aciertos, pero también muchas más falsas alarmas.',
-          'Criterio neutro (β = 1): su d\' aumenta automáticamente.',
-          'Criterio laxo (β > 1): tendrá más rechazos correctos y más fallos.'
+          'Criterio estricto: tendrá menos aciertos y menos falsas alarmas.',
+          'Criterio laxo: tendrá más aciertos y más falsas alarmas.',
+          'Criterio neutro: aumentará su discriminabilidad y sus aciertos.',
+          'Criterio estricto: tendrá más rechazos correctos y más fallos.'
         ],
         ans: 1,
         exp: 'Un criterio laxo (β < 1) desplaza el punto de corte hacia la izquierda: el observador arriesga y dice «SÍ» con poca evidencia, aumentando tanto la tasa de Aciertos como la de Falsas Alarmas.'
@@ -192,10 +193,10 @@
         id: 10, block: 'TDS',
         q: 'Si en un experimento de detección aumentamos mucho la intensidad física de la señal (manteniendo iguales los incentivos), ¿qué ocurrirá con d\' y β?',
         opts: [
-          'Aumentará d\' (mayor discriminabilidad) sin modificarse β.',
+          'Aumentará d\' sin modificarse β.',
           'Aumentará β sin modificarse d\'.',
-          'Disminuirán tanto d\' como β por solapamiento.',
-          'Se mantendrán constantes ambos parámetros.'
+          'Disminuirán tanto d\' como β.',
+          'Se mantendrán constantes d\' y β.'
         ],
         ans: 0,
         exp: 'Procesos sensoriales (d\') y decisorios (β) son independientes: variables sensoriales como intensidad, dificultad o pericia afectan a d\' pero no a β; incentivos o probabilidades a priori afectan a β pero no a d\'.'
@@ -204,10 +205,10 @@
         id: 11, block: 'TDS',
         q: 'Dos observadores realizan la misma tarea: Sujeto A obtiene TA = 0,80 y TFA = 0,50; Sujeto B obtiene TA = 0,60 y TFA = 0,20. ¿Quién discrimina mejor y quién tiene el criterio más estricto?',
         opts: [
-          'A discrimina mejor porque acierta el 80%, y B es más laxo.',
-          'B discrimina mejor (d\' = 1,095 > 0,842) y B tiene el criterio más estricto (β = 1,38 > 0,70).',
-          'Ambos discriminan igual porque la diferencia TA - TFA es 0,30 en los dos.',
-          'A tiene el criterio más estricto porque tiene más falsas alarmas.'
+          'A discrimina mejor y A tiene el criterio más estricto.',
+          'B discrimina mejor y B tiene el criterio más estricto.',
+          'Ambos discriminan igual y B tiene el criterio más laxo.',
+          'A discrimina mejor y B tiene el criterio más estricto.'
         ],
         ans: 1,
         exp: 'No se puede mirar solo TA ni restar tasas linealmente: en puntuaciones z, para B (TA=0,60, TFA=0,20) d\' = 1,095 y β = 1,38 (>1, estricto), mientras que para A (TA=0,80, TFA=0,50) d\' = 0,842 y β = 0,70 (<1, laxo).'
@@ -216,10 +217,10 @@
         id: 12, block: 'TDS',
         q: 'Un psicólogo clínico afirma: «Yo diagnostico a todos mis pacientes como depresivos, ¡así no se me escapa ninguno!». En términos de la TDS, ¿cuáles son sus tasas y su d\'?',
         opts: [
-          'TA = 1,0; TFA = 0,0; d\' = 6 (discriminación perfecta).',
-          'TA = 1,0; TFA = 1,0; d\' = 0 (discriminación nula, β → 0).',
-          'TA = 0,5; TFA = 0,5; β = 1.',
-          'TA = 0,0; TFA = 1,0; d\' < 0.'
+          'TA = 1,0; TFA = 0,0; d\' = 6.',
+          'TA = 1,0; TFA = 1,0; d\' = 0.',
+          'TA = 0,5; TFA = 0,5; d\' = 1.',
+          'TA = 0,0; TFA = 1,0; d\' = 2.'
         ],
         ans: 1,
         exp: 'Al decir siempre «SÍ», acierta el 100% de los casos con depresión (TA = 1) pero también da un 100% de falsas alarmas en los sanos (TFA = 1). Su capacidad real de discriminar es nula (d\' = 0).'
@@ -228,10 +229,10 @@
         id: 13, block: 'TDS',
         q: 'En el estudio sobre mamografías visto en clase, ¿qué ocurre cuando se presentan las radiografías invertidas (boca abajo) a radiólogos expertos frente a residentes?',
         opts: [
-          'Los expertos siguen discriminando mucho mejor que los residentes.',
-          'La discriminabilidad (d\') de los expertos empeora con la inversión, mientras que en los residentes no hay efecto de inversión.',
-          'Los expertos cambian su β a más laxo sin cambiar d\'.',
-          'Solo empeoran los residentes porque no conocen el ruido de fondo.'
+          'Los expertos mantienen su ventaja discriminativa frente a los residentes.',
+          'Los expertos empeoran su discriminación y los residentes no muestran efecto.',
+          'Los expertos adoptan un criterio más laxo sin cambiar su sensibilidad.',
+          'Los residentes empeoran su discriminación y los expertos no cambian.'
         ],
         ans: 1,
         exp: 'Los radiólogos expertos tienen mayor d\' que los residentes únicamente en la orientación habitual (upright); al invertir la mamografía, su ventaja experta se ve perjudicada.'
@@ -240,10 +241,10 @@
         id: 14, block: 'TDS',
         q: 'En el contraste de hipótesis estadísticas, ¿a qué casilla de la matriz de confusión de la TDS equivale cometer un Error Tipo I (α)?',
         opts: [
-          'Acierto (A).',
-          'Fallo (F).',
-          'Falsa Alarma (FA).',
-          'Rechazo Correcto (RC).'
+          'Acierto.',
+          'Fallo.',
+          'Falsa Alarma.',
+          'Rechazo Correcto.'
         ],
         ans: 2,
         exp: 'El Error Tipo I (rechazar H0 siendo verdadera = decir que hay efecto cuando solo hay azar) equivale exactamente a la Falsa Alarma (decir «SÍ» cuando solo hay Ruido).'
@@ -255,7 +256,7 @@
         q: 'Durante la pandemia, al saludar a un amigo tenías que frenar el impulso automático de darle dos besos para mantener la distancia social. ¿Qué situación de control ejecutivo ilustra este ejemplo?',
         opts: [
           'Situaciones nuevas sin esquemas aprendidos.',
-          'Situaciones en las que la acción adecuada entra en conflicto con respuestas habituales más potentes.',
+          'Situaciones de conflicto con respuestas habituales dominantes.',
           'Situaciones que requieren corrección de errores.',
           'Situaciones juzgadas difíciles o peligrosas.'
         ],
@@ -266,10 +267,10 @@
         id: 16, block: 'Control Ejecutivo',
         q: '¿Cuál es el mecanismo principal por el que en la tarea Stroop tardamos más en decir «ROJO» ante la palabra «VERDE» escrita en tinta roja?',
         opts: [
-          'Porque el ojo humano procesa antes los colores que las formas geométricas.',
-          'Por la teoría de la automaticidad: leer la palabra es un proceso automático dominante que compite con nombrar el color y debe ser inhibido.',
-          'Por el sesgo de habituación al cambiar de tecla.',
-          'Porque los ensayos congruentes siempre duran más que los incongruentes.'
+          'El procesamiento visual del color siempre es más lento que el de formas.',
+          'La lectura es un proceso automático dominante que compite con el color.',
+          'El cambio constante de tecla genera un sesgo de habituación motor.',
+          'Los ensayos congruentes requieren inhibir la lectura más que los incongruentes.'
         ],
         ans: 1,
         exp: 'Leer es una respuesta altamente automatizada y rápida que se activa involuntariamente; en ensayos incongruentes compite con la respuesta controlada (nombrar la tinta), generando interferencia que exige inhibición.'
@@ -278,10 +279,10 @@
         id: 17, block: 'Control Ejecutivo',
         q: 'En el efecto Stroop emocional (ESE), ¿por qué tardamos más en nombrar el color de la tinta de la palabra «MUERTE» o «DOLOR» que el de la palabra «MESA»?',
         opts: [
-          'Porque las palabras emocionales son más largas y difíciles de leer.',
-          'Porque la valencia emocional de la palabra captura automáticamente la atención e interfiere con la tarea de nombrar el color.',
-          'Porque el sistema de alerta acelera demasiado la respuesta verbal.',
-          'Porque «MESA» activa el efecto Simon espacial.'
+          'Porque las palabras emocionales tienen mayor longitud y complejidad visual.',
+          'Porque la carga emocional captura la atención e interfiere con la tarea.',
+          'Porque el sistema de alerta acelera en exceso la respuesta verbal.',
+          'Porque las palabras neutras activan un efecto Simon de facilitación.'
         ],
         ans: 1,
         exp: 'Las palabras con carga emocional capturan recursos atencionales de forma automática, produciendo tiempos de reacción más largos al denominar su color frente a palabras neutras.'
@@ -290,10 +291,10 @@
         id: 18, block: 'Control Ejecutivo',
         q: 'En la tarea Simon debes pulsar la tecla izquierda (A) si lees «LEFT» y la derecha (L) si lees «RIGHT». ¿Por qué eres más lento si «RIGHT» aparece en el lado izquierdo de la pantalla?',
         opts: [
-          'Porque los flancos alrededor de la palabra apuntan hacia la izquierda.',
-          'Porque la localización espacial (aunque irrelevante) activa automáticamente la respuesta de ese lado, compitiendo con la respuesta correcta.',
-          'Porque la lectura de palabras en inglés requiere mayor control ejecutivo.',
-          'Porque el SOA entre fijación y palabra es inferior a 100 ms.'
+          'Porque los flancos laterales apuntan hacia la dirección contraria.',
+          'Porque la posición espacial activa la mano de ese lado y compite.',
+          'Porque leer palabras en otro idioma exige mayor control ejecutivo.',
+          'Porque el intervalo entre la fijación y la palabra es muy breve.'
         ],
         ans: 1,
         exp: 'En los ensayos incongruentes de la tarea Simon, la posición espacial del estímulo (izquierda) activa automáticamente la mano izquierda, generando conflicto con la mano derecha requerida por el significado («RIGHT»). '
@@ -302,10 +303,10 @@
         id: 19, block: 'Control Ejecutivo',
         q: '¿Qué demuestra el Efecto Gratton (TR(i-I) < TR(c-I)) sobre el funcionamiento del control ejecutivo?',
         opts: [
-          'Que tras un ensayo congruente estamos más alerta y resolvemos mejor el conflicto.',
-          'Que detectar conflicto en un ensayo incongruente previo (i) pone en guardia al control ejecutivo, reduciendo la interferencia en el siguiente ensayo incongruente (I) por adaptación al conflicto.',
-          'Que los ensayos incongruentes siempre producen más errores si van seguidos.',
-          'Que la memoria de trabajo no interviene en la tarea de flancos.'
+          'Que un ensayo congruente previo prepara mejor al sistema para el conflicto.',
+          'Que un ensayo incongruente previo activa el control por adaptación al conflicto.',
+          'Que dos ensayos incongruentes seguidos aumentan la tasa de errores motores.',
+          'Que la memoria de trabajo no participa en las tareas de flancos.'
         ],
         ans: 1,
         exp: 'El Efecto Gratton refleja adaptación al conflicto: un ensayo incongruente previo activa el sistema de control ejecutivo, dejándolo mejor preparado para inhibir distractores en el siguiente ensayo incongruente.'
@@ -314,10 +315,10 @@
         id: 20, block: 'Control Ejecutivo',
         q: 'En el paradigma de cambio de tarea (Jersild, 1927), si damos mucho tiempo de preparación y una señal previa (cue), el coste por cambio disminuye pero NO desaparece del todo. ¿Cómo se explica ese coste residual?',
         opts: [
-          'Por el parpadeo atencional entre el cue y el target.',
-          'Por la inercia mental: la activación residual de la tarea anterior sigue interfiriendo con la nueva tarea.',
-          'Por un fallo completo en la red de alerta fásica.',
-          'Por el sesgo de anticipación de Fechner.'
+          'Por el parpadeo atencional entre la señal previa y el estímulo.',
+          'Por la inercia mental debida a la activación residual previa.',
+          'Por un bloqueo temporal de la red de alerta auditiva.',
+          'Por el sesgo de anticipación descrito en la psicofísica clásica.'
         ],
         ans: 1,
         exp: 'El coste por cambio tiene dos componentes: el tiempo de reconfiguración del esquema mental (que sí se reduce con preparación) y la inercia mental (activación residual de la tarea previa que persiste pese a la preparación).'
@@ -327,9 +328,9 @@
         q: 'En el Cuestionario de Control Atencional de Derryberry y Reed (2002), si un estudiante responde «SIEMPRE» al ítem 1 («Me cuesta mucho concentrarme cuando hay mucho ruido») y «SIEMPRE» al ítem 4 («Mi concentración es buena aunque haya música»), ¿qué puntuación recibe en cada uno?',
         opts: [
           '4 puntos en el ítem 1 y 4 puntos en el ítem 4.',
-          '1 punto en el ítem 1 (inverso) y 4 puntos en el ítem 4 (directo).',
-          '4 puntos en el ítem 1 (directo) y 1 punto en el ítem 4 (inverso).',
-          '1 punto en ambos.'
+          '1 punto en el ítem 1 y 4 puntos en el ítem 4.',
+          '4 puntos en el ítem 1 y 1 punto en el ítem 4.',
+          '1 punto en el ítem 1 y 1 punto en el ítem 4.'
         ],
         ans: 1,
         exp: 'El ítem 1 expresa dificultad (es inverso: 1=siempre, 4=casi nunca). El ítem 4 expresa buen control (es directo: 4=siempre, 1=casi nunca). Una puntuación total > 52,5 indica alto control atencional.'
@@ -342,8 +343,8 @@
         opts: [
           'Parpadeo atencional.',
           'Ceguera por inatención.',
-          'Efecto Simon.',
-          'Error constante negativo.'
+          'Efecto Simon espacial.',
+          'Ceguera al cambio.'
         ],
         ans: 1,
         exp: 'En la ceguera por inatención un objeto o evento claramente visible y saliente no se percibe porque la atención está dirigida a otra tarea (el móvil) y no se está buscando ese estímulo.'
@@ -352,10 +353,10 @@
         id: 23, block: 'Inatención',
         q: 'En el estudio de Drew, Võ y Wolfe (2013), el 83% de los radiólogos expertos que buscaban nódulos en un TAC NO vio la imagen de un gorila 48 veces mayor que un nódulo, pese a que el eye-tracking demostró que miraron directamente al gorila. ¿Qué demuestra esto?',
         opts: [
-          'Que los expertos sufren parpadeo atencional por falta de memoria.',
-          'Que mirar (fijación ocular) no garantiza percibir conscientemente, y que incluso los expertos en su propio dominio son vulnerables a la ceguera por inatención.',
-          'Que la ceguera al cambio solo ocurre en personas novatas.',
-          'Que los radiólogos tienen una d\' = 0.'
+          'Que los expertos sufren parpadeo atencional en tareas médicas.',
+          'Que mirar no garantiza percibir ni siquiera en observadores expertos.',
+          'Que la ceguera al cambio afecta solo a personas sin entrenamiento.',
+          'Que los radiólogos expertos tienen una discriminabilidad cercana a cero.'
         ],
         ans: 1,
         exp: 'Incluso observadores altamente entrenados en una tarea familiar sufren ceguera por inatención si su atención focalizada está buscando otro objetivo (nódulos) y el estímulo saliente (gorila) es inesperado.'
@@ -364,10 +365,10 @@
         id: 24, block: 'Inatención',
         q: 'En el paradigma de inatención de Mack y Rock (1998), ¿por qué la cruz se presenta durante solo 200 ms antes de la máscara?',
         opts: [
-          'Para provocar un parpadeo atencional entre los dos brazos de la cruz.',
-          'Porque 200 ms es menos tiempo del que tarda en producirse un movimiento ocular sacádico, asegurando que el sujeto no mueve los ojos de la fijación.',
-          'Para que el SOA sea equivalente al de la tarea ANTI.',
-          'Para activar la red de alerta auditiva.'
+          'Para generar un parpadeo atencional entre los brazos de la cruz.',
+          'Para impedir movimientos oculares sacádicos y mantener la fijación.',
+          'Para igualar el tiempo al de la señal de orientación en ANTI.',
+          'Para activar la red de alerta antes de que aparezca la máscara.'
         ],
         ans: 1,
         exp: 'Presentar la cruz 200 ms impide movimientos sacádicos durante la exposición, garantizando que el estímulo crítico aparece cerca del punto de fijación sin que el sujeto haya desviado la mirada.'
@@ -376,10 +377,10 @@
         id: 25, block: 'Inatención',
         q: 'Estás viendo una película y en un cambio de plano el protagonista lleva de repente una camisa distinta sin que te des cuenta; o en el experimento de Simons y Levin (1997) cambian a la persona que pide indicaciones tras pasar una puerta. ¿Por qué ocurre la ceguera al cambio?',
         opts: [
-          'Porque el primer estímulo dura menos de 200 ms.',
-          'Porque codificamos la «esencia» (gist) de la escena y detectar cambios requiere búsqueda activa, tiempo y comparar objetos en memoria de trabajo.',
-          'Porque el cambio ocurre dentro de la ventana de 100 a 450 ms del parpadeo atencional.',
-          'Porque la lectura de subtítulos bloquea el córtex visual.'
+          'Porque cada plano dura menos de 200 ms y no da tiempo a fijar.',
+          'Porque codificamos solo la esencia de la escena sin comparar cada detalle.',
+          'Porque el cambio coincide con la ventana temporal del parpadeo atencional.',
+          'Porque la atención dividida bloquea por completo el procesamiento visual.'
         ],
         ans: 1,
         exp: 'En la ceguera al cambio (que ocurre incluso cuando buscamos el cambio activamente) solo retenemos el significado global o esencia de la escena; si un cambio tras un corte o parpadeo no altera esa esencia, pasa desapercibido.'
@@ -388,10 +389,10 @@
         id: 26, block: 'Inatención',
         q: 'En una tarea RSVP (Presentación Visual Serial Rápida), identificas el primer target (T1) y 250 ms después aparece el segundo target (T2), pero no logras percibirlo conscientemente. ¿Cuál es el mecanismo del parpadeo atencional?',
         opts: [
-          'La atención está fija en otra tarea no relacionada (ceguera por inatención).',
-          'Atender y consolidar T1 consume recursos atencionales, dejando insuficientes recursos para que T2 (entre 100 y 450 ms) alcance la conciencia.',
-          'T2 no recibe absolutamente ningún procesamiento visual temprano.',
-          'El ojo humano parpadea físicamente cada 250 ms.'
+          'La atención está ocupada en otra tarea espacial distinta.',
+          'Consolidar T1 agota recursos e impide que T2 alcance la conciencia.',
+          'T2 no recibe ningún tipo de procesamiento visual temprano.',
+          'El ojo realiza un parpadeo físico reflejo cada 250 ms.'
         ],
         ans: 1,
         exp: 'Entre 100 y 450 ms tras T1, los recursos atencionales están ocupados consolidando T1. T2 llega a procesarse parcialmente, pero no lo suficiente para ser percibido de forma consciente (se recupera hacia los 500 ms).'
@@ -400,10 +401,10 @@
         id: 27, block: 'Inatención',
         q: '¿Qué ocurre con el parpadeo atencional si el segundo estímulo (T2) es una palabra o imagen amenazante (valencia afectiva negativa) en lugar de un estímulo neutro?',
         opts: [
-          'El parpadeo atencional se duplica hasta los 900 ms.',
-          'El parpadeo atencional se reduce o incluso se suprime, percibiéndose T2 con mayor facilidad.',
-          'Se bloquea T1 retroactivamente.',
-          'Solo se percibe T2 si el intervalo es mayor de 1000 ms.'
+          'El parpadeo atencional aumenta su duración hasta casi un segundo.',
+          'El parpadeo atencional se reduce o llega incluso a suprimirse.',
+          'Se bloquea retroactivamente la identificación consciente de T1.',
+          'Solo se percibe T2 si aparece después de los 500 ms.'
         ],
         ans: 1,
         exp: 'Los estímulos con valencia negativa o amenazante capturan prioritariamente la atención y acceden a la conciencia con menos recursos, reduciendo o suprimiendo el parpadeo atencional.'
@@ -414,10 +415,10 @@
         id: 28, block: 'Redes / ANTI',
         q: '¿Por qué la tarea ANT original (Fan et al., 2002) NO permitía estudiar las interacciones entre redes atencionales y tuvo que modificarse a la tarea ANTI (Callejas et al., 2005)?',
         opts: [
-          'Porque la ANT no incluía ensayos congruentes ni incongruentes.',
-          'Porque la ANT utilizaba el mismo tipo de señal visual (asteriscos) para medir tanto la alerta como la orientación, impidiendo manipularlas independientemente.',
-          'Porque la ANT duraba más de 1700 ms por ensayo.',
-          'Porque la ANT solo medía precisión y no tiempos de reacción.'
+          'Porque la ANT no incluía ensayos de flancos congruentes e incongruentes.',
+          'Porque la ANT usaba señales visuales de asterisco para alerta y orientación.',
+          'Porque la ANT presentaba estímulos de más de 1700 ms por ensayo.',
+          'Porque la ANT solo registraba la precisión y no los tiempos de reacción.'
         ],
         ans: 1,
         exp: 'La ANTI desacopla las redes usando un TONO auditivo para la alerta (Tono vs. No tono) y un ASTERISCO espacial para la orientación (Cued, No cue, Uncued), permitiendo cruzar sus efectos en un diseño 2 × 3 × 2.'
@@ -439,7 +440,7 @@
         q: 'Vas conduciendo hacia un pueblo desconocido; el GPS te avisa con un pitido de que la salida está cerca y justo después ves un cartel azul en la carretera, reaccionando muy rápido hacia él. ¿Qué interacción de la tarea ANTI ilustra este ejemplo?',
         opts: [
           'Alerta × Control Ejecutivo.',
-          'Alerta × Orientación: la señal de alerta (GPS) aumenta el efecto cueing, potenciando la orientación espacial hacia el cartel.',
+          'Alerta × Orientación.',
           'Orientación × Control Ejecutivo.',
           'Efecto Gratton secuencial.'
         ],
@@ -450,10 +451,10 @@
         id: 31, block: 'Redes / ANTI',
         q: 'Estás haciendo un examen y de repente escuchas unos disparos fuera; como consecuencia, contestas todavía más lentamente a las preguntas difíciles (con conflicto) que a las fáciles automatizadas. ¿Qué interacción de la ANTI refleja este ejemplo?',
         opts: [
-          'Alerta × Orientación: la alerta mejora cualquier tarea.',
-          'Alerta × Control Ejecutivo: el tono de alerta acentúa el efecto de congruencia (bloquea/dificulta el control ejecutivo para priorizar rapidez).',
+          'Alerta × Orientación: la alerta mejora cualquier tarea cognitiva.',
+          'Alerta × Control Ejecutivo: el tono acentúa el efecto de congruencia.',
           'Orientación × Control Ejecutivo: la alerta facilita el control ejecutivo.',
-          'Cambio de tarea por inercia mental.'
+          'Cambio de tarea: el ruido genera un coste por inercia mental.'
         ],
         ans: 1,
         exp: 'En la interacción Alerta × Control Ejecutivo (diapositivas 15 y 18), la señal de alerta acentúa el efecto de congruencia: bloquea el control ejecutivo para priorizar una respuesta rápida, alargando los TR en situaciones difíciles/incongruentes.'
@@ -462,10 +463,10 @@
         id: 32, block: 'Redes / ANTI',
         q: 'Vas en bici por un sendero lleno de piedras y obstáculos (alta demanda de control), pero el camino está señalizado con luces que te indican por dónde ir, reduciendo el tiempo que tardas en sortearlos. ¿Qué interacción de la ANTI representa?',
         opts: [
-          'Orientación × Control Ejecutivo: una señal válida (cued) disminuye el efecto de congruencia, favoreciendo un control ejecutivo más eficiente.',
-          'Alerta × Orientación: la señal de alerta acorta el efecto cueing.',
+          'Orientación × Control Ejecutivo: la señal válida reduce la congruencia.',
+          'Alerta × Orientación: la señal de alerta reduce el efecto cueing.',
           'Alerta × Control Ejecutivo: las luces bloquean el control ejecutivo.',
-          'Efecto Stroop emocional.'
+          'Efecto Stroop emocional: las luces capturan la atención automática.'
         ],
         ans: 0,
         exp: 'En la interacción Orientación × Control Ejecutivo, una señal espacial válida (cued / luces) orienta previamente la atención al lugar correcto y ayuda al control ejecutivo a ignorar los distractores/obstáculos, reduciendo el TR en ensayos incongruentes.'
@@ -486,10 +487,10 @@
         id: 34, block: 'Redes / ANTI',
         q: 'Según el modelo neurocognitivo de Posner (Posner y Petersen, 1990; 2012), ¿qué nombre recibe la red encargada de dirigir la atención hacia una localización espacial?',
         opts: [
-          'Red de alerta o vigilancia.',
-          'Red de orientación o red atencional posterior.',
-          'Red de control ejecutivo o red atencional anterior.',
-          'Red de inercia mental.'
+          'Red de alerta o de vigilancia.',
+          'Red de orientación o red posterior.',
+          'Red de control ejecutivo o anterior.',
+          'Red de inercia mental o secuencial.'
         ],
         ans: 1,
         exp: 'La red de orientación (red atencional posterior) es el mecanismo de selección espacial; la de alerta mantiene el estado de activación/vigilancia; la de control ejecutivo (red anterior) regula conducta y resuelve conflictos.'
@@ -499,12 +500,12 @@
         q: 'En la tarea ANTI, ¿cuál es el diseño experimental completo?',
         opts: [
           '2 (Tono vs. No tono) × 2 (Cued vs. Uncued).',
-          '2 (Tono vs. No tono) × 3 (Cued vs. No cue vs. Uncued) × 2 (Congruente vs. Incongruente).',
+          '2 (Alerta) × 3 (Orientación) × 2 (Control).',
           '3 (Alerta) × 3 (Orientación) × 3 (Control).',
-          'Diseño intergrupo con 6 condiciones.'
+          '2 (Tono vs. No tono) × 3 (Congruencia).'
         ],
         ans: 1,
-        exp: 'Es un diseño factorial intragrupo 2 × 3 × 2 = 12 condiciones, con la variable dependiente Tiempo de Reacción (en ms).'
+        exp: 'Es un diseño factorial intragrupo 2 (Tono vs. No tono) × 3 (Cued vs. No cue vs. Uncued) × 2 (Congruente vs. Incongruente) = 12 condiciones, con la variable dependiente Tiempo de Reacción (en ms).'
       }
     ];
 
@@ -523,8 +524,19 @@
     const elBtnPrev = document.getElementById('btn-prev');
     const elBtnNext = document.getElementById('btn-next');
     const elBtnMistakes = document.getElementById('btn-mistakes');
+    const elBtnFinish = document.getElementById('btn-finish');
     const elBtnShuffle = document.getElementById('btn-shuffle');
     const elBtnReset = document.getElementById('btn-reset');
+
+    function calcScore(targetDeck) {
+      const answered = targetDeck.filter(q => answers[q.id] !== undefined);
+      const correct = answered.filter(q => answers[q.id] === q.ans).length;
+      const wrong = answered.length - correct;
+      const unanswered = targetDeck.length - answered.length;
+      const net = Math.max(0, correct - wrong / 3);
+      const grade = targetDeck.length ? (net / targetDeck.length) * 10 : 0;
+      return { answered, correct, wrong, unanswered, net, grade };
+    }
 
     function getMistakes() {
       return QUESTIONS.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.ans);
@@ -549,9 +561,8 @@
     }
 
     function updateStats() {
-      const totalAnswered = Object.keys(answers).length;
-      const totalCorrect = QUESTIONS.filter(q => answers[q.id] === q.ans).length;
-      elScore.textContent = `Aciertos: ${totalCorrect}/${totalAnswered}`;
+      const { correct, wrong, grade } = calcScore(deck);
+      elScore.textContent = `${correct}A · ${wrong}F · ${grade.toFixed(2)}/10`;
 
       const m = getMistakes();
       if (m.length > 0) {
@@ -626,18 +637,23 @@
     }
 
     function renderSummary() {
-      const answeredInDeck = deck.filter(q => answers[q.id] !== undefined);
-      const correctInDeck = answeredInDeck.filter(q => answers[q.id] === q.ans).length;
-      const mistakesInDeck = answeredInDeck.filter(q => answers[q.id] !== q.ans);
-      const pct = answeredInDeck.length ? Math.round((correctInDeck / answeredInDeck.length) * 100) : 0;
+      const { answered, correct, wrong, unanswered, net, grade } = calcScore(deck);
+      const mistakesInDeck = answered.filter(q => answers[q.id] !== q.ans);
 
       elStage.innerHTML = `
         <div class="q-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-            <strong>Resultado (${reviewMistakesMode ? 'Repaso de fallos' : currentBlock})</strong>
-            <span class="score-pill">${correctInDeck} / ${answeredInDeck.length} (${pct}%)</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+            <strong style="font-size:1.08rem;">Resultado (${reviewMistakesMode ? 'Repaso de fallos' : currentBlock})</strong>
+            <span class="score-pill" style="font-size:1.05rem;font-weight:600;">Nota: ${grade.toFixed(2)} / 10</span>
           </div>
-          <p style="font-size:0.9rem;color:#555;margin-bottom:0.9rem;">Respondidas: ${answeredInDeck.length} de ${deck.length}. Fallos en este bloque: ${mistakesInDeck.length}.</p>
+          <p style="font-size:0.93rem;color:#444;margin-bottom:0.45rem;">
+            <strong>Aciertos:</strong> ${correct} (+1) &nbsp;|&nbsp;
+            <strong>Fallos:</strong> ${wrong} (-1/3) &nbsp;|&nbsp;
+            <strong>Sin responder:</strong> ${unanswered} (0)
+          </p>
+          <p style="font-size:0.88rem;color:#666;margin-bottom:1rem;">
+            Puntuación neta: ${net.toFixed(2)} de ${deck.length} preguntas (${correct} - ${wrong}/3).
+          </p>
           <div class="pill-group">
             ${mistakesInDeck.length > 0 ? `<button id="sum-mistakes" type="button" class="btn-warn">Repasar ${mistakesInDeck.length} fallo(s)</button>` : ''}
             <button id="sum-restart" type="button" class="btn-primary">Volver al inicio</button>
@@ -674,6 +690,7 @@
 
     elBtnPrev.onclick = () => { if (idx > 0) { idx--; render(); } };
     elBtnNext.onclick = () => { if (idx < deck.length - 1) { idx++; render(); } else { renderSummary(); } };
+    elBtnFinish.onclick = () => { renderSummary(); };
     elBtnMistakes.onclick = () => {
       const m = getMistakes();
       if (!m.length) return;
