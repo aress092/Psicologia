@@ -1,0 +1,421 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Codificación e idioma ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+
+% --- Márgenes y diseño cómodo de página ---
+\usepackage[margin=2.0cm,top=2.2cm,bottom=2.1cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\setlength{\parskip}{0.55em}
+
+% --- Colores y cajas ---
+\usepackage[table]{xcolor}
+\definecolor{Primary}{HTML}{1B4965}
+\definecolor{Accent}{HTML}{2A6F97}
+\definecolor{SoftBg}{HTML}{F0F6FA}
+\definecolor{WarmBg}{HTML}{FFF8E7}
+\definecolor{WarmBorder}{HTML}{D99B26}
+\definecolor{AlertBg}{HTML}{FDF2F2}
+\definecolor{AlertBorder}{HTML}{C0392B}
+\definecolor{Muted}{HTML}{5C6B73}
+\definecolor{RowAlt}{HTML}{F5F9FC}
+
+\usepackage[most]{tcolorbox}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[colorlinks=true,linkcolor=Accent,urlcolor=Accent]{hyperref}
+
+% --- Cabeceras y pies de página ---
+\setlength{\headheight}{22pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{Muted}\textsc{Percepción y Atención \textbullet\ Parcial de Prácticas}}
+\fancyhead[R]{\small\color{Muted}Apuntes de Examen}
+\fancyfoot[C]{\small\color{Muted}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{Primary!25}\leaders\hrule height \headrulewidth\hfill}}
+
+% --- Estilo de secciones ---
+\titleformat{\section}
+  {\Large\bfseries\color{Primary}}
+  {\thesection.}{0.5em}{}
+  [\vspace{0.15em}{\color{Accent!60}\titlerule[1pt]}]
+\titlespacing*{\section}{0pt}{1.1em}{0.5em}
+
+\titleformat{\subsection}
+  {\large\bfseries\color{Accent}}
+  {\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.35em}
+
+% --- Estilo de listas (espaciado cómodo) ---
+\setlist[itemize]{leftmargin=1.5em, itemsep=0.3em, topsep=0.25em}
+\setlist[enumerate]{leftmargin=1.7em, itemsep=0.3em, topsep=0.25em}
+
+% --- Cajas personalizadas ---
+\newtcolorbox{cajaClave}[1][]{
+  colback=SoftBg,
+  colframe=Accent,
+  coltitle=white,
+  boxrule=0.8pt,
+  arc=3pt,
+  left=9pt, right=9pt, top=7pt, bottom=7pt,
+  fonttitle=\bfseries,
+  breakable,
+  before skip=8pt, after skip=8pt,
+  #1
+}
+
+\newtcolorbox{cajaFormula}[1][]{
+  colback=WarmBg,
+  colframe=WarmBorder,
+  coltitle=white,
+  boxrule=0.8pt,
+  arc=3pt,
+  left=9pt, right=9pt, top=7pt, bottom=7pt,
+  fonttitle=\bfseries,
+  breakable,
+  before skip=8pt, after skip=8pt,
+  #1
+}
+
+\newtcolorbox{cajaAlerta}[1][]{
+  colback=AlertBg,
+  colframe=AlertBorder,
+  coltitle=white,
+  boxrule=0.8pt,
+  arc=3pt,
+  left=9pt, right=9pt, top=7pt, bottom=7pt,
+  fonttitle=\bfseries,
+  breakable,
+  before skip=8pt, after skip=8pt,
+  #1
+}
+
+\newcommand{\bloque}[1]{%
+  \vspace{0.6em}
+  \begin{tcolorbox}[colback=Primary,colframe=Primary,arc=3pt,left=12pt,right=12pt,top=8pt,bottom=8pt,boxrule=0pt,after skip=8pt]
+    {\Large\bfseries\color{white} #1}
+  \end{tcolorbox}
+}
+
+\begin{document}
+
+% --- Portada / Cabecera ---
+\begin{tcolorbox}[
+  colback=Primary,
+  colframe=Primary,
+  arc=4pt,
+  left=14pt, right=14pt, top=12pt, bottom=12pt,
+  boxrule=0pt,
+  after skip=10pt
+]
+  {\color{white}\Huge\bfseries Percepción y Atención: Parcial de Prácticas}\\[0.35em]
+  {\color{SoftBg}\large Apuntes de Examen \textbullet\ Psicofísica, TDS, Control Ejecutivo, Inatención y Tarea ANTI}
+\end{tcolorbox}
+
+% =========================================================
+\bloque{Bloque I: Psicofísica Clásica y Nueva Psicofísica}
+\setcounter{section}{0}
+
+\section{Sensación, Percepción, Conceptos y Tareas}
+
+\begin{itemize}
+  \item \textbf{Sensación}: experiencia básica inmediata provocada por estímulos aislados (tiene \textbf{modalidad}, pero \textbf{no significado}). Operacionalmente es la respuesta (verbal o manual) ante la manipulación de una dimensión estimular.
+  \item \textbf{Percepción}: proceso por el cual las sensaciones se \textbf{integran, transforman y organizan}, permitiendo reconocer objetos y actuar. \textbf{No hay correspondencia directa} entre las propiedades físicas del estímulo y nuestra sensación.
+  \item \textbf{Fechner (1860, \textit{Elementos de Psicofísica})}: funda la psicofísica para relacionar cuantitativamente la \textbf{dimensión física (estímulo, $E$)} y la \textbf{dimensión psíquica (sensación, $S$)} sin recurrir a la fisiología (distingue \textbf{nivel de tarea} vs. \textbf{nivel de proceso}: detección y discriminación).
+  \item \textbf{Escala de razón subjetiva}: Fechner necesitaba un \textbf{punto cero ($S_0$)} y una \textbf{unidad de medida ($DMP$)}:
+\end{itemize}
+
+\vspace{0.3em}
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\rowcolors{2}{RowAlt}{white}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{4.0cm}>{\centering\arraybackslash}p{2.1cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{Primary!15}
+\textbf{Concepto} & \textbf{Dimensión} & \textbf{Definición y función en la escala} \\
+\midrule
+\textbf{Umbral Absoluto ($UA$ / $E_0$)} & Física & Mínima estimulación detectada (por debajo no se detecta, por encima sí). Define un \textbf{punto} que mide indirectamente el \textbf{punto cero ($S_0$)} de la sensación. \\
+\textbf{Umbral Diferencial ($UD$ / $\Delta E$)} & Física & Mínimo cambio físico capaz de producir un cambio en la sensación. Define un \textbf{intervalo} físico (crece al aumentar el estímulo). \\
+\textbf{Diferencia Mínima Perceptible ($DMP$)} & Psíquica & Cambio mínimo discriminable en la sensación, medido indirectamente a través del $UD$. Intervalo subjetivo asumido constante. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\vspace{0.3em}
+
+\begin{itemize}
+  \item \textbf{Tareas de Detección} (para medir el \textbf{$UA$}): se presenta un único estímulo y se emite una respuesta dicotómica (\textbf{SÍ / NO}). Incluye \textbf{ensayos trampa (\textit{catch trials})} sin estímulo para evitar aciertos por rutina.
+  \item \textbf{Tareas de Discriminación} (para medir el \textbf{$UD$}): se presentan dos o más estímulos. Se compara un \textbf{Estímulo Estándar ($EE$, fijo)} con un \textbf{Estímulo de Prueba ($EP$, variable)} respondiendo \textbf{MAYOR ($+$), IGUAL ($=$) o MENOR ($-$)}.
+  \begin{itemize}
+    \item Si aparecen simultáneamente y se responde \textit{IGUAL / DIFERENTE}, se llama \textbf{tarea de igualación (\textit{matching task})}.
+    \item En psicofísica clásica solo se analiza la \textbf{precisión} (no la velocidad o Tiempo de Reacción).
+  \end{itemize}
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Métodos Psicofísicos Clásicos (Indirectos de Fechner)}
+
+Se diferencian por el procedimiento de presentación de los estímulos:
+
+\begin{enumerate}
+  \item \textbf{Método de Ajustes}: el observador o el experimentador ajusta la intensidad de forma \textbf{lenta y continua} hasta detectar el estímulo ($UA$) o igualarlo/notar diferencia respecto al estándar ($UD$). \textbf{Es el más rápido}, pero el menos preciso.
+  \item \textbf{Método de los Límites}: se presentan series ordenadas \textbf{ascendentes ($A$)} y \textbf{descendentes ($D$)} alternadas (empezando en valores distintos para evitar rutinas). La serie \textbf{termina en cuanto cambia la respuesta} (en $UD$, al aparecer la respuesta opuesta a la de partida).
+  \begin{itemize}
+    \item \textbf{Cálculo del $UA$}: se halla el punto medio del intervalo donde cambia la respuesta en cada serie $\to$ media de series $A$ ($UA$), media de series $D$ ($UD$) $\to$ media global.
+  \end{itemize}
+  \item \textbf{Método de los Estímulos Constantes}: los estímulos se presentan en \textbf{ORDEN ALEATORIO}, repitiendo cada valor muchas veces. \textbf{Es el más preciso y robusto} y \textbf{elimina los sesgos de habituación y anticipación}, pero requiere \textbf{mucho más tiempo}.
+  \begin{itemize}
+    \item En discriminación ($+$ / $-$): \textbf{$US = 75\%$} de respuestas «Mayor», \textbf{$PIS = 50\%$}, \textbf{$UI = 25\%$} \quad ($II = US - UI$; \ $UD = II/2$).
+  \end{itemize}
+\end{enumerate}
+
+\begin{cajaAlerta}[title={Fórmulas de $UD$ y Detección de Sesgos en el Método de los Límites}]
+\begin{itemize}
+  \item \textbf{Sesgos (comparando media de series Descendentes $UD$ vs. Ascendentes $UA$)}:
+  \begin{itemize}
+    \item \textbf{Sesgo de Habituación} (\textit{repetir la respuesta previa más allá del cambio}): umbral más bajo en $D$ y más alto en $A \implies \mathbf{UD - UA < 0}$ (\textbf{diferencia negativa}).
+    \item \textbf{Sesgo de Anticipación} (\textit{adelantar el cambio antes de tiempo}): umbral más alto en $D$ y más bajo en $A \implies \mathbf{UD - UA > 0}$ (\textbf{diferencia positiva}).
+    \item \textbf{Sin sesgo}: $\mathbf{UD - UA = 0}$.
+  \end{itemize}
+  \item \textbf{Cálculo del Umbral Diferencial ($UD$)} (2 transiciones por serie: $US$ = Mayor/Igual; $UI$ = Igual/Menor):
+  \begin{align*}
+    \mathbf{II} &= US - UI & \mathbf{UD} &= \frac{II}{2} = \frac{US - UI}{2} \\
+    \mathbf{PIS} &= \frac{US + UI}{2} = UI + UD & \mathbf{EC} &= PIS - EE
+  \end{align*}
+  \begin{itemize}
+    \item \textbf{Error Constante ($EC$)}: si $EC > 0$, \textbf{sobreestima} el $EE$; si $EC < 0$, \textbf{subestima} el $EE$.
+    \item \textit{Ejemplo (Tabla 2 de Tudela)}: $EE=60$, $US=66$, $UI=50 \implies II=16$, $UD=8$, $PIS=58$, $EC=-2$.
+  \end{itemize}
+\end{itemize}
+\end{cajaAlerta}
+
+% ---------------------------------------------------------
+\section{Leyes Psicofísicas (Weber, Fechner) y Nueva Psicofísica (Stevens)}
+
+\begin{cajaFormula}[title={Leyes Cuantitativas y Validez según el Tipo de Continuo}]
+\begin{itemize}
+  \item \textbf{Ley de Weber}: el $UD$ es una fracción constante del $EE$:
+  \[
+    \mathbf{\frac{UD}{EE} = c \quad\Longleftrightarrow\quad \frac{\Delta EE}{EE} = c \quad\Longleftrightarrow\quad UD = c \cdot EE}
+  \]
+  \textit{(Ej. $8/60 = 0,133$).} Se cumple en intensidades \textbf{intermedias}, pero falla en valores \textbf{extremos}.
+  \item \textbf{Ley de Fechner}: parte de $E_i = E_0 (1+c)^r$ (el estímulo físico crece exponencialmente cuando la sensación $r$ crece de $1$ en $1\text{ DMP}$). Despejando $r$:
+  \[
+    \mathbf{r = k \cdot \log\left(\frac{E_i}{E_0}\right)}, \quad \text{con } k = \frac{1}{\log(1+c)} \quad (\text{función logarítmica})
+  \]
+  \item \textbf{Nueva Psicofísica (S. S. Stevens)}: utiliza \textbf{métodos directos} (\textbf{Estimación de Magnitud}: asignar números respecto a un \textbf{módulo} preservando razones; \textbf{Producción de Magnitud}: ajustar un estímulo continuo al valor numérico pedido). \textbf{Ley Potencial de Stevens}:
+  \[
+    \mathbf{S = c \cdot E^k \quad\Longleftrightarrow\quad \log S = \log c + k \cdot \log E}
+  \]
+  En coordenadas logarítmicas es una recta de pendiente $k$: \textbf{$k=1$} lineal; \textbf{$k>1$} positivamente acelerada; \textbf{$k<1$} negativamente acelerada.
+  \item \textbf{¿Fechner o Stevens? Tipo de continuo sensorial}:
+  \begin{itemize}
+    \item \textbf{Continuos Protéticos} (varía la \textbf{cantidad/intensidad}, ej. sonoridad o brillo): cada $DMP$ añade más sensación $\implies$ cumple \textbf{Stevens} (y falla Fechner).
+    \item \textbf{Continuos Metatéticos} (varía la \textbf{cualidad}, ej. tono auditivo/frecuencia): tiende a cumplirse \textbf{Fechner}.
+  \end{itemize}
+\end{itemize}
+\end{cajaFormula}
+
+% =========================================================
+\newpage
+\bloque{Bloque II: Teoría de Detección de Señales (TDS)}
+\setcounter{section}{0}
+
+\section{Modelo Activo, Procesos Independientes y Matriz de Confusión}
+
+\begin{itemize}
+  \item \textbf{Origen (1953--1954, Tanner y Swets)}: surge de la investigación sobre radares en la II Guerra Mundial. Rompe con el modelo pasivo clásico de umbral fijo y concibe la detección como una \textbf{toma de decisiones bajo incertidumbre}:
+  \[
+    \text{Estímulo} \longrightarrow \text{Sensación} \longrightarrow \textbf{Observador (Decisión)} \longrightarrow \text{Respuesta}
+  \]
+  \item \textbf{Dos procesos independientes} (manipular uno no altera el otro):
+  \begin{enumerate}
+    \item \textbf{Procesos Sensoriales ($d'$)}: sensibilidad o capacidad de discriminación. Depende de la \textbf{intensidad de la señal}, relación señal/ruido, dificultad y \textbf{pericia} (ej. radiólogos expertos, músicos). \textit{No modifica $\beta$.}
+    \item \textbf{Proceso de Decisión ($\beta$)}: criterio de respuesta. Depende de las \textbf{probabilidades \textit{a priori}}, \textbf{incentivos/consecuencias}, motivación, personalidad y \textbf{aquiescencia} (decir SÍ sin razonar). \textit{No modifica $d'$.}
+  \end{enumerate}
+\end{itemize}
+
+\vspace{0.3em}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.45}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.1cm}|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}p{1.2cm}@{}}
+\toprule
+\rowcolor{Primary!15}
+\textbf{Estado real (2 gl)} & \textbf{Responde «SÍ»} & \textbf{Responde «NO»} & \textbf{Suma} \\
+\midrule
+\textbf{SEÑAL ($SR$)} & \cellcolor{SoftBg}\textbf{ACIERTO ($A$):}\newline $TA = p = \dfrac{\text{Aciertos}}{\text{Ensayos } SR}$ & \textbf{FALLO ($F$):}\newline $TF = 1 - TA$ & $1$ \\[0.7em]
+\textbf{RUIDO ($R$)} & \cellcolor{WarmBg}\textbf{FALSA ALARMA ($FA$):}\newline $TFA = q = \dfrac{\text{Falsas Alarmas}}{\text{Ensayos } R}$ & \textbf{RECHAZO CORRECTO ($RC$):}\newline $TRC = 1 - TFA$ & $1$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\vspace{0.2em}
+
+\textit{Paralelismo estadístico: $FA =$ Error Tipo I ($\alpha$); \ $F =$ Error Tipo II ($\beta$); \ $A =$ Potencia ($1-\beta$). Basta conocer $TA$ y $TFA$ (2 grados de libertad) para obtener toda la matriz.}
+
+% ---------------------------------------------------------
+\section{Supuestos, Cálculo de $d'$ y $\beta$ y Casos Prácticos}
+
+\begin{itemize}
+  \item \textbf{Supuestos sensoriales}: los sentidos están \textbf{siempre activos}, generando dos distribuciones normales: \textbf{Ruido ($R$)} y \textbf{Señal ($SR$, desplazada a la derecha)}.
+  \item \textbf{Razón de verosimilitud ($p/q = Y(S)/Y(R)$)}: cociente entre la ordenada de $SR$ y la de $R$ en un nivel de sensación ($=1$ en el punto de cruce; $<1$ a la izquierda; $>1$ a la derecha).
+  \item \textbf{Criterio de respuesta ($\beta$)}:
+  \begin{itemize}
+    \item $\mathbf{\beta = 1}$ (\textbf{Neutral}): punto de cruce entre $R$ y $SR$, sin sesgo.
+    \item $\mathbf{\beta > 1}$ (\textbf{Estricto}): desplazado a la derecha; ante la duda dice \textbf{«NO»} $\implies$ \textbf{menos Aciertos y menos Falsas Alarmas}.
+    \item $\mathbf{\beta < 1}$ (\textbf{Laxo}): desplazado a la izquierda; arriesga y dice \textbf{«SÍ»} $\implies$ \textbf{más Aciertos y más Falsas Alarmas}.
+  \end{itemize}
+\end{itemize}
+
+\begin{cajaFormula}[title={Fórmulas de $d'$ y $\beta$ y Casos Resueltos de Examen}]
+\[
+  \mathbf{d' = z_{\text{cola dcha.}}(FA) - z_{\text{cola dcha.}}(A) = z_{\text{acum.}}(A) - z_{\text{acum.}}(FA)} \qquad\big|\qquad \mathbf{\beta = \frac{p[z(A)]}{q[z(FA)]} = \frac{Y(S)}{Y(R)}}
+\]
+\textit{($d'=0$: solapamiento total / nula discriminación; \ $d'>1\text{--}2$: buena discriminación; máx. $\approx 6$. Si $TA > TFA \implies d' > 0$.)}
+
+\vspace{0.3em}
+\begin{itemize}
+  \item \textbf{Ejemplo Cuadro 3 (Tudela)}: $150\ SR$ ($90\ A \to TA=0,60$), $150\ R$ ($30\ FA \to TFA=0,20$).
+  \begin{itemize}
+    \item $z(FA)=0,842, \ q=0,280$; \ $z(A)=-0,253, \ p=0,386 \implies \mathbf{d'=1,095}$ y $\mathbf{\beta = 0,386 / 0,280 = 1,38}$ (estricto).
+  \end{itemize}
+  \item \textbf{Problema de los Dos Radiólogos (Diapos 70--71)} ($126$ con cáncer, $123$ sin cáncer):
+  \begin{itemize}
+    \item \textbf{Radiólogo 1}: $TA = 76/126 = \mathbf{0,603}$; \ $TFA = 48/123 = \mathbf{0,390} \implies \mathbf{d' = 0,54}$ (mala discriminación, mucho solapamiento), \ $\mathbf{\beta = 1,00}$ (neutro).
+    \item \textbf{Radiólogo 2}: $TA = 101/126 = \mathbf{0,802}$; \ $TFA = 12/123 = \mathbf{0,098} \implies \mathbf{d' = 2,14}$ (excelente discriminación, poco solapamiento), \ $\mathbf{\beta = 1,62}$ (estricto).
+    \item \textit{Mamografías (Slide 69)}: los expertos discriminan mejor que los residentes en orientación \textbf{habitual (\textit{upright})}, pero empeoran en \textbf{invertida} (sin efecto en residentes).
+  \end{itemize}
+  \item \textbf{Casos extremos}: $TA=0,50, \ TFA=0,50 \implies d'=0$ (azar). \ $TA=1,0, \ TFA=1,0 \implies d'=0, \ \beta \to 0$ (siempre dice SÍ). \ $TA=0, \ TFA=0,90 \implies$ discrimina, pero invierte las etiquetas de respuesta.
+  \item \textbf{Hoja Excel}: introducir $TA$ y $TFA$ en las celdas amarillas usando \textbf{punto decimal}.
+\end{itemize}
+\end{cajaFormula}
+
+% =========================================================
+\newpage
+\bloque{Bloque III: Control Ejecutivo (Práctica 6 + Cuestionario)}
+\setcounter{section}{0}
+
+\section{Situaciones de Control, Paradigmas, Efecto Gratton y Cambio de Tarea}
+
+\begin{itemize}
+  \item \textbf{Las 5 Situaciones que requieren Control Ejecutivo}:
+  \begin{enumerate}
+    \item \textbf{Situaciones nuevas} sin esquemas bien aprendidos (\textit{Ej. B: hablar un idioma que estás aprendiendo}).
+    \item \textbf{Conflicto con respuestas habituales dominantes} (\textit{Ej. C: inhibir dar dos besos en pandemia}).
+    \item \textbf{Corrección de errores} (\textit{Ej. A: tejer y corregir un punto mal hecho}).
+    \item \textbf{Planificación o toma de decisiones} (\textit{Ej. E: organizar el horario semanal académico}).
+    \item \textbf{Situaciones difíciles o peligrosas} (\textit{Ej. D: conducir con lluvia intensa}).
+  \end{enumerate}
+\end{itemize}
+
+\vspace{0.3em}
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\rowcolors{2}{RowAlt}{white}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{4.6cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{Primary!15}
+\textbf{Paradigma} & \textbf{Tarea ($\text{TR}_{\text{incongr.}} > \text{TR}_{\text{congr.}}$)} & \textbf{Explicación y Variantes} \\
+\midrule
+\textbf{Stroop (1935)} & Responder al \textbf{color de la tinta} ignorando la palabra escrita. & \textit{Velocidad de procesamiento} y \textit{automaticidad} (leer es automático y compite con nombrar el color, exigiendo inhibición). Variantes: direccional, animal, numérico y \textbf{emocional} ($\text{TR}_{\text{emoc.}} > \text{TR}_{\text{neutro}}$). \\
+\textbf{Simon (1969)} & Responder a «LEFT» (\texttt{A}) / «RIGHT» (\texttt{L}) ignorando el lado de la pantalla. & En incongruentes, la posición espacial activa automáticamente la mano contraria y compite con la respuesta correcta. \\
+\textbf{Flancos (Eriksen, 1974)} & Responder al estímulo central ignorando los flancos (\texttt{CCCCC} vs. \texttt{VVCVV}). & En incongruentes hay que focalizar la atención en el centro e inhibir la respuesta inapropiada activada por los flancos. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\vspace{0.3em}
+
+\begin{itemize}
+  \item \textbf{Efecto Gratton (1992, efecto secuencial)}: la interferencia en un ensayo incongruente es \textbf{menor tras otro ensayo incongruente (\texttt{i-I}) que tras uno congruente (\texttt{c-I})}:
+  \[
+    \text{TR}(\texttt{i-I}) < \text{TR}(\texttt{c-I})
+  \]
+  Refleja \textbf{adaptación al conflicto}: el conflicto previo pone en guardia al control ejecutivo.
+  \item \textbf{Paradigma de Cambio de Tarea (Jersild, 1927)}: cambiar de tarea genera un coste (mayor TR y más errores) explicado por dos factores:
+  \begin{enumerate}
+    \item \textbf{Cambio de esquema mental}: tiempo extra para reconfigurar la nueva tarea (disminuye con preparación: secuencias predecibles, más tiempo o señal previa \textit{cue}).
+    \item \textbf{Inercia mental}: parte del coste \textbf{persiste pese a la preparación} debido a la activación residual de la tarea anterior.
+  \end{enumerate}
+\end{itemize}
+
+\begin{cajaClave}[unbreakable,title={Cuestionario de Control Atencional (Derryberry y Reed, 2002)}]
+Prueba subjetiva que mide diferencias individuales para \textbf{focalizar la atención}, \textbf{cambiar de tarea} y \textbf{controlar el pensamiento de forma flexible}. Consta de \textbf{20 ítems} (rango \textbf{20--80 puntos}; \textbf{$> 52,5$} indica alto control atencional).
+\begin{itemize}
+  \item \textbf{Ítems Directos ($1$ casi nunca a $4$ siempre)}: \textbf{\texttt{4, 5, 9, 10, 13, 14, 17, 18, 19}}.
+  \item \textbf{Ítems Inversos ($4$ casi nunca a $1$ siempre)}: \textbf{\texttt{1, 2, 3, 6, 7, 8, 11, 12, 15, 16, 20}}.
+\end{itemize}
+\end{cajaClave}
+
+% =========================================================
+\bloque{Bloque IV: Alteraciones Perceptivas por Inatención (Práctica 7)}
+\setcounter{section}{0}
+
+\vspace{0.2em}
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\rowcolors{2}{RowAlt}{white}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{5.8cm}@{}}
+\toprule
+\rowcolor{Primary!15}
+\textbf{Fenómeno} & \textbf{Paradigma y Resultados Clave} & \textbf{Causa / Mecanismo} \\
+\midrule
+\textbf{Ceguera por Inatención} & \textbf{Mack y Rock (1998)}: cruz $200\text{ ms}$ (sin sacádicos) + máscara $1500\text{ ms}$; no se ve el cuadrado inesperado. \textbf{Gorila en TAC (Drew et al., 2013)}: el \textbf{83\%} de radiólogos expertos no lo ve aunque lo miran (\textit{eye-tracking}). También al usar el móvil. & Un objeto saliente e inesperado no se percibe porque la \textbf{atención está ocupada en otra tarea} (el sujeto no lo busca). \\
+\textbf{Ceguera al Cambio} & \textbf{Simons y Levin (1997)}: cambio de interlocutor tras pasar una puerta. Ocurre \textbf{incluso buscando activamente el cambio} (tras un parpadeo o corte). & Detectar cambios exige \textbf{búsqueda activa, tiempo y memoria de trabajo}. Codificamos la \textbf{esencia (\textit{gist})} de la escena; si no cambia, pasa desapercibido. \\
+\textbf{Parpadeo Atencional} & \textbf{Paradigma RSVP} (flujo rápido de letras: $T_1$ y $T_2$). Si $T_2$ aparece entre \textbf{$100\text{--}450\text{ ms}$} tras $T_1$, no se percibe conscientemente. Se recupera a los \textbf{$\approx 500\text{ ms}$}. & Procesar $T_1$ agota recursos atencionales; $T_2$ se procesa parcialmente sin llegar a la conciencia. \textbf{Se reduce o suprime si $T_2$ es amenazante} (valencia negativa) o con meditación. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% =========================================================
+\newpage
+\bloque{Bloque V: Redes Atencionales y Tarea ANTI (Práctica 8)}
+\setcounter{section}{0}
+
+\section{Modelo de Posner, ANT vs. ANTI, Cronometría y Resultados}
+
+\begin{itemize}
+  \item \textbf{3 Redes de Posner (1990, 2012)}: \textbf{Alerta} (activación general/vigilancia, estado), \textbf{Orientación} (red posterior, selección espacial) y \textbf{Control Ejecutivo} (red anterior, inhibición y resolución de conflicto).
+  \item \textbf{ANT (Fan et al., 2002) $\to$ ANTI (Callejas et al., 2005)}: la ANT usaba asteriscos tanto para alerta como para orientación y \textbf{no medía interacciones}. La ANTI desacopla las 3 redes en un \textbf{diseño factorial $2 \times 3 \times 2 = 12$ condiciones} (VD = TR en ms):
+  \begin{enumerate}
+    \item \textbf{Alerta (2 niveles)}: \textbf{Tono auditivo} ($50\%$) vs. \textbf{No tono} ($50\%$).
+    \item \textbf{Orientación (3 niveles)}: asterisco espacial \textbf{Cued} (válido), \textbf{No cue} (neutro) o \textbf{Uncued} (inválido).
+    \item \textbf{Control Ejecutivo (2 niveles)}: 5 flechas (responder a la central: \texttt{C} izq., \texttt{M} dcha.) \textbf{Congruente} vs. \textbf{Incongruente}.
+  \end{enumerate}
+  \item \textbf{Cronometría (SOA vs. ISI)}: \textbf{SOA} = inicio $S_1 \to$ inicio $S_2$ ($\text{Duración } S_1 + \text{ISI}$); \textbf{ISI} = fin $S_1 \to$ inicio $S_2$.
+  \begin{itemize}
+    \item Fijación ($400\text{--}1600\text{ ms}$) $\to$ Tono ($50\text{ ms}$) $\to$ ISI ($400\text{ ms}$) [$\mathbf{\text{SOA}_{\text{Alerta}} = 450\text{ ms}}$] $\to$ Asterisco ($50\text{ ms}$) $\to$ ISI ($50\text{ ms}$) [$\mathbf{\text{SOA}_{\text{Orientación}} = 100\text{ ms}}$] $\to$ Target ($\text{TR}$ o máx. $1700\text{ ms}$).
+  \end{itemize}
+  \item \textbf{Los 3 Efectos Principales}:
+  \begin{itemize}
+    \item \textbf{Alerta} ($\text{TR}_{\text{No tono}} - \text{TR}_{\text{Tono}}$): el tono reduce el TR (aumenta la activación).
+    \item \textbf{Orientación / \textit{Cueing}} ($\text{TR}_{\text{Uncued}} - \text{TR}_{\text{Cued}}$): la señal válida (\textit{cued}) reduce el TR.
+    \item \textbf{Control Ejecutivo / Congruencia} ($\text{TR}_{\text{Incongr.}} - \text{TR}_{\text{Congr.}}$): los ensayos incongruentes tienen mayor TR por la inhibición de flancos.
+  \end{itemize}
+\end{itemize}
+
+\vspace{0.3em}
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\rowcolors{2}{RowAlt}{white}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{5.1cm}@{}}
+\toprule
+\rowcolor{Primary!15}
+\textbf{Interacción ($2 \times 2$)} & \textbf{Patrón de Resultados e Interpretación} & \textbf{Ejemplo de clase} \\
+\midrule
+\textbf{Alerta $\times$ Orientación} & El tono \textbf{AUMENTA el efecto \textit{cueing}} (la alerta potencia la orientación espacial hacia el asterisco). & \textbf{GPS (alerta) + cartel azul (orientación)}: coges la salida más rápido. \\
+\textbf{Alerta $\times$ Control Ejecutivo} & El tono \textbf{ACENTÚA el efecto de congruencia} (bloquea el control ejecutivo —TR más largo en incongruentes— para priorizar rapidez). & \textbf{Disparos (alerta) en examen (control)}: contestas aún más lento las preguntas difíciles. \\
+\textbf{Orientación $\times$ Control} & La señal válida (\textit{cued}) \textbf{DISMINUYE el efecto de congruencia} (orientar al target facilita ignorar flancos y acorta TR en incongruentes). & \textbf{Ruta difícil en bici (control) señalizada con luces (orientación)}: sorteas obstáculos más rápido. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\end{document}
