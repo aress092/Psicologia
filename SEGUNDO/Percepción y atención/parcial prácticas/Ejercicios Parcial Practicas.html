@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicios Prácticos y Mecanismos — Percepción y Atención | PSICOLOGIA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../src/style.css?v=2" />
+  <style>
+    .quiz-shell { max-width: 840px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+    .quiz-header { margin-bottom: 1.25rem; }
+    .quiz-header h1 { font-size: 1.75rem; margin: 0.4rem 0 0.25rem; }
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.08); margin-bottom: 0.85rem; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pill { padding: 0.35rem 0.75rem; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); background: #fff; color: #444; font-size: 0.85rem; cursor: pointer; font-family: inherit; transition: all 0.15s ease; }
+    .pill:hover { border-color: #1b4965; color: #1b4965; }
+    .pill.active { background: #1b4965; border-color: #1b4965; color: #fff; font-weight: 500; }
+    .score-pill { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; padding: 0.3rem 0.65rem; border-radius: 6px; background: #f0f6fa; color: #1b4965; border: 1px solid #cfe0ec; }
+    .progress-track { width: 100%; height: 6px; background: #e9eef2; border-radius: 999px; overflow: hidden; margin-bottom: 1rem; }
+    .progress-fill { height: 100%; background: #1b4965; transition: width 0.2s ease; }
+    .q-card { background: #fff; border: 1px solid rgba(0,0,0,0.09); border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+    .q-meta { display: flex; justify-content: space-between; font-size: 0.82rem; color: #666; margin-bottom: 0.6rem; }
+    .q-text { font-size: 1.06rem; font-weight: 600; line-height: 1.5; margin-bottom: 0.85rem; color: #1a1a1a; white-space: pre-line; }
+    .dev-input { width: 100%; min-height: 110px; padding: 0.75rem; border-radius: 8px; border: 1px solid #cbd5e1; background: #fcfbfa; font-family: inherit; font-size: 0.95rem; line-height: 1.45; resize: vertical; }
+    .dev-input:focus { outline: none; border-color: #1b4965; box-shadow: 0 0 0 3px rgba(27,73,101,0.12); }
+    .actions-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .model-box { margin-top: 0.9rem; padding: 0.95rem 1.05rem; border-radius: 8px; background: #f0f6fa; border: 1px solid #cfe0ec; font-size: 0.92rem; line-height: 1.52; color: #162636; }
+    .model-box ul { margin: 0.45rem 0 0 1.2rem; }
+    .model-box li { margin-bottom: 0.28rem; }
+    .eval-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .btn-ok { background: #edf7ef; color: #155724; border: 1px solid #1e7e34; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 500; }
+    .btn-ko { background: #fdf0f1; color: #721c24; border: 1px solid #c82333; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 500; }
+    .btn-ok.selected { background: #1e7e34; color: #fff; }
+    .btn-ko.selected { background: #c82333; color: #fff; }
+    .nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; }
+    .btn-primary { background: #1b4965; color: #fff; border: 1px solid #1b4965; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.9rem; }
+    .btn-primary:disabled { opacity: 0.45; cursor: default; }
+    .btn-warn { background: #fff8e7; color: #8a5a00; border: 1px solid #d99b26; padding: 0.5rem 0.85rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.88rem; }
+  </style>
+</head>
+<body>
+  <div class="quiz-shell">
+    <a href="index.html" class="back-link">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver a Percepción y atención
+    </a>
+
+    <header class="quiz-header">
+      <h1>Ejercicios Prácticos, Vida Diaria y Mecanismos</h1>
+      <p class="subtitle">12 ejercicios resueltos de cálculo (Umbrales, TDS, Cuestionario), ejemplos cotidianos y mecanismos explicativos</p>
+    </header>
+
+    <div class="toolbar">
+      <div id="filters" class="pill-group"></div>
+      <div class="pill-group" style="align-items:center;">
+        <span id="score-badge" class="score-pill">Dominados: 0/0</span>
+        <button id="btn-shuffle" type="button" class="pill">Barajar</button>
+        <button id="btn-reset" type="button" class="pill">Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="progress-track">
+      <div id="progress-bar" class="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div id="stage"></div>
+
+    <div class="nav-bar">
+      <button id="btn-prev" type="button" class="pill">← Anterior</button>
+      <span id="counter" style="font-size:0.88rem;color:#666;font-family:monospace;">1 / 12</span>
+      <div class="pill-group">
+        <button id="btn-mistakes" type="button" class="btn-warn" style="display:none;">Repasar pendientes (0)</button>
+        <button id="btn-next" type="button" class="btn-primary">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const EXERCISES = [
+      {
+        id: 1, block: 'Psicofísica',
+        q: 'Ejercicio de Cálculo (Método de los Límites — Umbral Diferencial y Weber):\nEn un experimento de discriminación con EE = 80 unidades, se obtienen como promedios globales US = 88 y UI = 70.\nCalcula: (a) Intervalo de Incertidumbre (II), (b) Umbral Diferencial (UD), (c) Punto de Igualdad Subjetiva (PIS), (d) Error Constante (EC) e interprétalo, y (e) la constante de Weber (c).',
+        model: '(a) II = US - UI = 88 - 70 = 18 unidades. (b) UD = II / 2 = 18 / 2 = 9 unidades. (c) PIS = (88 + 70)/2 = 79 unidades (o UI + UD = 70 + 9). (d) EC = PIS - EE = 79 - 80 = -1 (negativo: el observador subestima en 1 unidad el estímulo estándar). (e) Constante de Weber: c = UD / EE = 9 / 80 = 0,1125.',
+        keys: ['II = 18; UD = 9; PIS = 79.', 'EC = -1 (subestima el EE en 1 unidad).', 'c = 9 / 80 = 0,1125.']
+      },
+      {
+        id: 2, block: 'Psicofísica',
+        q: 'Ejercicio de Sesgos (Método de los Límites):\nUn participante realiza 10 series (5 ascendentes y 5 descendentes) para hallar su Umbral Absoluto. Obtiene una media en series descendentes UD = 28,4 y en series ascendentes UA = 23,2.\n¿Qué sesgo predomina y cuál es el mecanismo psicológico que lo explica?',
+        model: 'Calculamos UD - UA = 28,4 - 23,2 = +5,2 (diferencia positiva). Predomina el SESGO DE ANTICIPACIÓN. Mecanismo: el participante sabe que la secuencia va a cambiar de estado en algún momento y adelanta su cambio de respuesta antes de llegar a su verdadero nivel de detección (en descendentes dice «NO» demasiado pronto, dando un umbral más alto; en ascendentes dice «SÍ» demasiado pronto, dando un umbral más bajo).',
+        keys: ['UD - UA = +5,2 > 0 → Sesgo de anticipación.', 'Adelanta el cambio de respuesta antes de su verdadero nivel de detección.']
+      },
+      {
+        id: 3, block: 'Psicofísica',
+        q: 'Vida diaria y Leyes Psicofísicas:\nPon un ejemplo cotidiano donde se cumpla la Ley de Weber y explica la diferencia entre un continuo protético y uno metatético (y qué ley —Fechner o Stevens— rige cada uno).',
+        model: 'Ejemplo cotidiano de Weber: si llevas una mochila vacía (1 kg) y metes un libro de 500 g notas enseguida el peso extra; si llevas una maleta de 20 kg y metes el mismo libro de 500 g apenas notas diferencia, porque el UD es proporcional al estímulo inicial (EE). Continuos protéticos: varía la cantidad/intensidad (brillo, sonoridad) → se cumple la Ley Potencial de Stevens. Continuos metatéticos: varía la cualidad (tono auditivo/frecuencia) → se cumple la Ley de Fechner.',
+        keys: ['Ejemplo Weber: mismo incremento se nota mucho con EE pequeño y poco con EE grande.', 'Protético (cantidad/intensidad) → Stevens; Metatético (cualidad) → Fechner.']
+      },
+      {
+        id: 4, block: 'TDS',
+        q: 'Ejercicio de TDS (Tasas, d\', β e interpretación):\nUn controlador de tráfico aéreo evalúa 200 señales de radar: 100 son aviones enemigos reales (SR) y 100 son interferencias/aves (R). Detecta correctamente 85 aviones enemigos y da 10 falsas alarmas.\n(a) Construye las 4 tasas de la matriz de confusión. (b) Si d\' = 2,32 y β = 1,30, interpreta qué significa cada valor y qué pasaría si le prometen una gran multa por cada avión enemigo que deje escapar.',
+        model: '(a) Tasa de Aciertos (TA) = 85/100 = 0,85; Tasa de Fallos (TF) = 1 - 0,85 = 0,15 (15 fallos). Tasa de Falsas Alarmas (TFA) = 10/100 = 0,10; Tasa de Rechazos Correctos (TRC) = 1 - 0,10 = 0,90 (90 RC). (b) d\' = 2,32 indica una excelente capacidad de discriminación (poco solapamiento entre ruido y señal); β = 1,30 (> 1) indica un criterio ligeramente estricto. Si le ponen una gran multa por fallar, su criterio se volverá LAXO (β < 1) para no arriesgarse a fallar: aumentarán tanto sus aciertos como sus falsas alarmas, pero su d\' NO cambiará (independencia entre proceso sensorial y decisorio).',
+        keys: ['TA = 0,85; TF = 0,15; TFA = 0,10; TRC = 0,90.', 'd\' = 2,32 (alta discriminación); β = 1,30 (estricto).', 'Multa por fallar → criterio más laxo (β baja), sin cambiar d\'.']
+      },
+      {
+        id: 5, block: 'TDS',
+        q: 'Mecanismo de la TDS:\n¿Por qué la psicofísica clásica no podía distinguir entre dos observadores que obtienen distinto número de aciertos, y cómo resuelve esto la TDS?',
+        model: 'Porque la psicofísica clásica solo miraba la tasa de aciertos asumiendo un umbral fijo. Un observador puede tener más aciertos simplemente por tener un criterio laxo (decir «SÍ» a todo, acumulando también muchas falsas alarmas) y no por ver u oír mejor. La TDS resuelve esto analizando conjuntamente Aciertos y Falsas Alarmas sobre dos distribuciones normales (Ruido y Señal) para separar de forma independiente la sensibilidad sensorial (d\') del sesgo/criterio de decisión (β).',
+        keys: ['Mirar solo aciertos confunde sensibilidad con sesgo de respuesta.', 'La TDS usa TA y TFA conjuntamente para separar d\' (sensorial) de β (decisión).']
+      },
+      {
+        id: 6, block: 'Control Ejecutivo',
+        q: 'Mecanismos y Ejemplos cotidianos de Control Ejecutivo:\nExplica el mecanismo detrás del Efecto Stroop y del Efecto Simon, y pon un ejemplo de la vida diaria para al menos 3 de las 5 situaciones donde actúa el control ejecutivo.',
+        model: 'Mecanismo Stroop: la lectura de palabras es un proceso automático (teoría de la automaticidad) que compite con la tarea controlada de nombrar el color de la tinta, exigiendo inhibición en ensayos incongruentes. Mecanismo Simon: la localización espacial del estímulo (aunque irrelevante) activa automáticamente la respuesta motora de ese mismo lado, compitiendo con la respuesta correcta en ensayos incompatibles. Ejemplos cotidianos (Práctica 6): 1) Situación nueva: hablar un idioma que estás aprendiendo; 2) Conflicto con hábito dominante: no dar dos besos en pandemia; 3) Corrección de errores: tejer y corregir un punto; 4) Planificación: organizar el horario semanal; 5) Peligrosa/difícil: conducir bajo lluvia intensa.',
+        keys: ['Stroop: automaticidad de la lectura compite con nombrar el color (inhibición).', 'Simon: posición espacial activa automáticamente la mano ipsilateral.', 'Ejemplos de clase: idioma nuevo, dos besos en pandemia, tejer, horario, conducir con lluvia.']
+      },
+      {
+        id: 7, block: 'Control Ejecutivo',
+        q: 'Mecanismos secuenciales (Gratton y Cambio de tarea):\nExplica por qué en la tarea de flancos somos más rápidos en un ensayo incongruente cuando el anterior también fue incongruente (i-I < c-I), y por qué al cambiar de tarea siempre queda un coste residual aunque tengamos tiempo para prepararnos.',
+        model: 'Efecto Gratton (i-I < c-I): el mecanismo es la adaptación al conflicto; detectar conflicto en el ensayo incongruente previo pone en guardia al sistema de control ejecutivo, que focaliza mejor la atención e inhibe los flancos en el ensayo siguiente. Cambio de tarea (Jersild): la parte del coste que desaparece con preparación se debe al cambio de esquema mental; el coste residual que persiste pese a prepararse se explica por la inercia mental (la activación residual de la tarea anterior sigue interfiriendo con la nueva).',
+        keys: ['Gratton: adaptación al conflicto (ensayo incongruente previo activa el control).', 'Cambio de tarea: cambio de esquema mental + inercia mental (activación residual).']
+      },
+      {
+        id: 8, block: 'Control Ejecutivo',
+        q: 'Ejercicio práctico (Cuestionario de Control Atencional de Derryberry y Reed, 2002):\nEn un examen práctico te piden corregir los 5 primeros ítems de un alumno que ha respondido:\nÍtem 1: SIEMPRE | Ítem 2: CASI NUNCA | Ítem 3: A MENUDO | Ítem 4: SIEMPRE | Ítem 5: ALGUNAS VECES.\nCalcula su puntuación parcial e indica qué ítems son directos y cuáles inversos.',
+        model: 'Regla: Directos (4, 5, 9, 10, 13, 14, 17, 18, 19) puntúan 1=casi nunca, 2=algunas veces, 3=a menudo, 4=siempre. Inversos (1, 2, 3, 6, 7, 8, 11, 12, 15, 16, 20) puntúan 4=casi nunca, 3=algunas veces, 2=a menudo, 1=siempre.\n• Ítem 1 (Inverso, Siempre) = 1 pt\n• Ítem 2 (Inverso, Casi nunca) = 4 pts\n• Ítem 3 (Inverso, A menudo) = 2 pts\n• Ítem 4 (Directo, Siempre) = 4 pts\n• Ítem 5 (Directo, Algunas veces) = 2 pts\nTotal parcial = 1 + 4 + 2 + 4 + 2 = 13 puntos (en el cuestionario completo de 20 ítems, > 52,5 indica alto control atencional).',
+        keys: ['Ítems 1, 2, 3 son inversos (1 + 4 + 2 = 7).', 'Ítems 4, 5 son directos (4 + 2 = 6).', 'Total parcial = 13 puntos (corte global > 52,5).']
+      },
+      {
+        id: 9, block: 'Inatención',
+        q: 'Vida diaria y Mecanismos (Ceguera por inatención vs. Ceguera al cambio):\nDiferencia ambos fenómenos poniendo un ejemplo cotidiano de cada uno y explicando el mecanismo cognitivo por el que ocurren.',
+        model: 'Ceguera por inatención: no percibir un estímulo saliente e inesperado porque la atención está ocupada en otra tarea (ej. mirar el móvil caminando y no ver un bolardo o señal; o el 83% de radiólogos que no ven el gorila en el TAC aunque miran hacia él). Ceguera al cambio: no percibir un cambio en una escena incluso cuando se busca activamente (ej. errores de continuidad/raccord en películas o el experimento de cambiar al interlocutor tras pasar una puerta). Mecanismo de la ceguera al cambio: solo codificamos la esencia (gist) de la escena; detectar cambios exige búsqueda activa, tiempo y comparar en memoria de trabajo.',
+        keys: ['Inatención: estímulo inesperado no se ve por atender a otra tarea (ej. móvil, gorila en TAC).', 'Al cambio: ocurre incluso buscando el cambio (ej. raccord cine, puerta); codificamos solo la esencia (gist).']
+      },
+      {
+        id: 10, block: 'Inatención',
+        q: 'Mecanismo del Parpadeo Atencional (RSVP):\n¿Por qué en una secuencia rápida de letras no vemos T2 cuando aparece a los 200 ms de T1, pero sí lo vemos si aparece a los 500 ms o si T2 es una palabra amenazante?',
+        model: 'Mecanismo: atender, identificar y consolidar T1 en la memoria de trabajo consume recursos atencionales durante ~100-450 ms. Durante esa ventana, T2 recibe cierto procesamiento temprano pero insuficiente para alcanzar la conciencia. A los ~500 ms T1 ya se ha consolidado y hay recursos libres para T2. Si T2 es amenazante (valencia negativa), su relevancia biológica captura prioritariamente la atención y accede a la conciencia con menos recursos, reduciendo o suprimiendo el parpadeo.',
+        keys: ['Ventana 100-450 ms: consolidar T1 agota recursos; T2 se procesa parcialmente sin llegar a conciencia.', 'A ~500 ms se libera la atención; T2 amenazante captura atención prioritaria y suprime el parpadeo.']
+      },
+      {
+        id: 11, block: 'Redes / ANTI',
+        q: 'Cronometría y Cálculo en la Tarea ANTI:\nEn un ensayo ANTI, tras la fijación aparece el tono durante 50 ms, seguido de un intervalo en blanco de 400 ms, luego el asterisco durante 50 ms, otro intervalo de 50 ms y finalmente las flechas. Calcula el SOA de alerta y el SOA de orientación, y explica cómo se calculan los 3 efectos principales.',
+        model: '• SOA de Alerta (Tono → Asterisco) = Duración(Tono) + ISI = 50 + 400 = 450 ms.\n• SOA de Orientación (Asterisco → Target) = Duración(Asterisco) + ISI = 50 + 50 = 100 ms.\n(Recuerda: SOA es inicio a inicio; ISI es fin a inicio).\n• Efecto Alerta = TR(No tono) - TR(Tono) (positivo: el tono acelera).\n• Efecto Orientación (Cueing) = TR(Uncued) - TR(Cued) (positivo: la señal válida acelera).\n• Efecto Control Ejecutivo (Congruencia) = TR(Incongruente) - TR(Congruente) (positivo: los flancos incongruentes enlentecen).',
+        keys: ['SOA Alerta = 450 ms; SOA Orientación = 100 ms.', 'Alerta = No tono - Tono; Cueing = Uncued - Cued; Congruencia = Incongr. - Congr.']
+      },
+      {
+        id: 12, block: 'Redes / ANTI',
+        q: 'Interacciones en la Tarea ANTI (Mecanismos y Vida Diaria):\nExplica qué ocurre en cada una de las 3 interacciones (Alerta×Orientación, Alerta×Control y Orientación×Control) y asócialas con sus ejemplos cotidianos de clase (GPS, disparos en examen y ruta en bici).',
+        model: '1) Alerta × Orientación: el tono AUMENTA el efecto cueing (la activación general de la alerta potencia nuestra orientación espacial hacia la señal). Ejemplo: aviso del GPS (alerta) antes de ver el cartel azul de salida (orientación).\n2) Alerta × Control Ejecutivo: el tono ACENTÚA el efecto de congruencia (una alerta intensa bloquea el control ejecutivo para priorizar respuestas rápidas/automáticas, alargando el TR ante conflicto). Ejemplo: escuchar disparos (alerta) mientras haces un examen (contestas aún más lento las preguntas difíciles).\n3) Orientación × Control Ejecutivo: la señal válida (cued) DISMINUYE el efecto de congruencia (orientar previamente la atención al lugar del target facilita filtrar los flancos y mejora el control ejecutivo). Ejemplo: ruta difícil en bici con piedras (control) señalizada con luces de colores (orientación).',
+        keys: ['Alerta × Orientación: tono aumenta cueing (GPS + cartel).', 'Alerta × Control: tono acentúa congruencia/bloquea control (disparos en examen).', 'Orientación × Control: señal válida reduce congruencia/facilita control (ruta en bici con luces).']
+      }
+    ];
+
+    const BLOCKS = ['Todos', 'Psicofísica', 'TDS', 'Control Ejecutivo', 'Inatención', 'Redes / ANTI'];
+    let currentBlock = 'Todos';
+    let deck = [...EXERCISES];
+    let idx = 0;
+    let drafts = {};
+    let revealed = {};
+    let statusMap = {}; // 'ok' | 'ko'
+    let reviewMode = false;
+
+    const elFilters = document.getElementById('filters');
+    const elScore = document.getElementById('score-badge');
+    const elProgress = document.getElementById('progress-bar');
+    const elStage = document.getElementById('stage');
+    const elCounter = document.getElementById('counter');
+    const elBtnPrev = document.getElementById('btn-prev');
+    const elBtnNext = document.getElementById('btn-next');
+    const elBtnMistakes = document.getElementById('btn-mistakes');
+    const elBtnShuffle = document.getElementById('btn-shuffle');
+    const elBtnReset = document.getElementById('btn-reset');
+
+    function getPending() {
+      return EXERCISES.filter(q => statusMap[q.id] === 'ko');
+    }
+
+    function renderFilters() {
+      elFilters.innerHTML = '';
+      BLOCKS.forEach(b => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pill' + (!reviewMode && currentBlock === b ? ' active' : '');
+        btn.textContent = b;
+        btn.onclick = () => {
+          reviewMode = false;
+          currentBlock = b;
+          deck = b === 'Todos' ? [...EXERCISES] : EXERCISES.filter(q => q.block === b);
+          idx = 0;
+          render();
+        };
+        elFilters.appendChild(btn);
+      });
+    }
+
+    function updateStats() {
+      const done = Object.keys(statusMap).length;
+      const okCount = EXERCISES.filter(q => statusMap[q.id] === 'ok').length;
+      elScore.textContent = `Dominados: ${okCount}/${done}`;
+
+      const pending = getPending();
+      if (pending.length > 0) {
+        elBtnMistakes.style.display = 'inline-block';
+        elBtnMistakes.textContent = `Repasar pendientes (${pending.length})`;
+      } else {
+        elBtnMistakes.style.display = 'none';
+      }
+
+      const pct = deck.length ? ((idx + 1) / deck.length) * 100 : 0;
+      elProgress.style.width = `${pct}%`;
+      elCounter.textContent = `${deck.length ? idx + 1 : 0} / ${deck.length}`;
+      elBtnPrev.disabled = idx === 0;
+    }
+
+    function renderExercise() {
+      if (!deck.length) {
+        elStage.innerHTML = '<div class="q-card">No hay ejercicios en esta selección.</div>';
+        return;
+      }
+      const item = deck[idx];
+      const isShown = !!revealed[item.id];
+      const st = statusMap[item.id];
+
+      const card = document.createElement('div');
+      card.className = 'q-card';
+
+      const meta = document.createElement('div');
+      meta.className = 'q-meta';
+      meta.innerHTML = `<span>Bloque: <strong>${item.block}</strong></span><span>Ejercicio #${item.id}</span>`;
+      card.appendChild(meta);
+
+      const qText = document.createElement('div');
+      qText.className = 'q-text';
+      qText.textContent = item.q;
+      card.appendChild(qText);
+
+      const ta = document.createElement('textarea');
+      ta.className = 'dev-input';
+      ta.placeholder = 'Escribe o plantea aquí tu resolución antes de comprobar...';
+      ta.value = drafts[item.id] || '';
+      ta.oninput = (e) => { drafts[item.id] = e.target.value; };
+      card.appendChild(ta);
+
+      const actions = document.createElement('div');
+      actions.className = 'actions-row';
+      const btnToggle = document.createElement('button');
+      btnToggle.type = 'button';
+      btnToggle.className = 'btn-primary';
+      btnToggle.textContent = isShown ? 'Ocultar solución' : 'Ver solución y mecanismo';
+      btnToggle.onclick = () => {
+        revealed[item.id] = !revealed[item.id];
+        render();
+      };
+      actions.appendChild(btnToggle);
+      card.appendChild(actions);
+
+      if (isShown) {
+        const box = document.createElement('div');
+        box.className = 'model-box';
+        const keysHtml = item.keys.map(k => `<li>${k}</li>`).join('');
+        box.innerHTML = `<strong>Resolución y mecanismo:</strong><p style="margin:0.35rem 0 0.5rem;white-space:pre-line;">${item.model}</p><strong>Puntos clave para el examen:</strong><ul>${keysHtml}</ul>`;
+        card.appendChild(box);
+
+        const evalRow = document.createElement('div');
+        evalRow.className = 'eval-row';
+        const btnOk = document.createElement('button');
+        btnOk.type = 'button';
+        btnOk.className = 'btn-ok' + (st === 'ok' ? ' selected' : '');
+        btnOk.textContent = 'Lo tengo claro';
+        btnOk.onclick = () => { statusMap[item.id] = 'ok'; render(); };
+
+        const btnKo = document.createElement('button');
+        btnKo.type = 'button';
+        btnKo.className = 'btn-ko' + (st === 'ko' ? ' selected' : '');
+        btnKo.textContent = 'Necesito repasarlo';
+        btnKo.onclick = () => { statusMap[item.id] = 'ko'; render(); };
+
+        evalRow.appendChild(btnOk);
+        evalRow.appendChild(btnKo);
+        card.appendChild(evalRow);
+      }
+
+      elStage.innerHTML = '';
+      elStage.appendChild(card);
+    }
+
+    function renderSummary() {
+      const evaluated = deck.filter(q => statusMap[q.id] !== undefined);
+      const okCount = evaluated.filter(q => statusMap[q.id] === 'ok').length;
+      const koList = evaluated.filter(q => statusMap[q.id] === 'ko');
+      const pct = evaluated.length ? Math.round((okCount / evaluated.length) * 100) : 0;
+
+      elStage.innerHTML = `
+        <div class="q-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+            <strong>Resumen (${reviewMode ? 'Repaso de pendientes' : currentBlock})</strong>
+            <span class="score-pill">${okCount} / ${evaluated.length} (${pct}%)</span>
+          </div>
+          <p style="font-size:0.9rem;color:#555;margin-bottom:0.9rem;">Evaluados: ${evaluated.length} de ${deck.length}. Para repasar: ${koList.length}.</p>
+          <div class="pill-group">
+            ${koList.length > 0 ? `<button id="sum-ko" type="button" class="btn-warn">Repasar ${koList.length} pendiente(s)</button>` : ''}
+            <button id="sum-restart" type="button" class="btn-primary">Volver al inicio</button>
+          </div>
+        </div>
+      `;
+      elCounter.textContent = `Fin (${deck.length})`;
+      elBtnNext.disabled = true;
+
+      const btnSumKo = document.getElementById('sum-ko');
+      if (btnSumKo) {
+        btnSumKo.onclick = () => {
+          reviewMode = true;
+          deck = koList;
+          idx = 0;
+          elBtnNext.disabled = false;
+          render();
+        };
+      }
+      document.getElementById('sum-restart').onclick = () => {
+        idx = 0;
+        elBtnNext.disabled = false;
+        render();
+      };
+    }
+
+    function render() {
+      elBtnNext.disabled = false;
+      renderFilters();
+      updateStats();
+      renderExercise();
+    }
+
+    elBtnPrev.onclick = () => { if (idx > 0) { idx--; render(); } };
+    elBtnNext.onclick = () => { if (idx < deck.length - 1) { idx++; render(); } else { renderSummary(); } };
+    elBtnMistakes.onclick = () => {
+      const p = getPending();
+      if (!p.length) return;
+      reviewMode = true;
+      deck = [...p];
+      idx = 0;
+      render();
+    };
+    elBtnShuffle.onclick = () => {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      idx = 0;
+      render();
+    };
+    elBtnReset.onclick = () => {
+      drafts = {};
+      revealed = {};
+      statusMap = {};
+      reviewMode = false;
+      deck = currentBlock === 'Todos' ? [...EXERCISES] : EXERCISES.filter(q => q.block === currentBlock);
+      idx = 0;
+      render();
+    };
+
+    render();
+  </script>
+</body>
+</html>
